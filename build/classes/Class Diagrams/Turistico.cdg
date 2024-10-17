@@ -89,11 +89,12 @@
         <Method name="buscarPaquete" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Transporte" package="" visibility="public" xPosition="635.0" yPosition="444.0">
+    <Class name="Transporte" package="" visibility="public" xPosition="630.0" yPosition="415.0">
       <Fields>
         <Field name="ciudadOrigen" type="Ciudad" visibility="private"/>
         <Field name="ciudadDestino" type="Ciudad" visibility="private"/>
         <Field name="precioPersona" type="double" visibility="private"/>
+        <Field name="nombreEmpresaTransporte" type="String" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -104,23 +105,27 @@
           <Argument type="Ciudad" name="ciudadOrigen"/>
           <Argument type="Ciudad" name="ciudadDestino"/>
         </Method>
+        <Method name="verDisponibles" returnType="List" visibility="public">
+          <Argument type="Ciudad" name="ciudadOrigen"/>
+          <Argument type="Ciudad" name="ciudadDestino"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="Avion" package="" visibility="public" xPosition="505.0" yPosition="575.0">
+    <Class name="Avion" package="" visibility="public" xPosition="506.0" yPosition="661.0">
       <Fields/>
       <Constructors/>
       <Methods>
         <Method name="calcularPrecio" returnType="double" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Colectivo" package="" visibility="public" xPosition="722.0" yPosition="585.0">
+    <Class name="Colectivo" package="" visibility="public" xPosition="731.0" yPosition="674.0">
       <Fields/>
       <Constructors/>
       <Methods>
         <Method name="calcularPrecio" returnType="double" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Auto" package="" visibility="public" xPosition="913.0" yPosition="585.0">
+    <Class name="Auto" package="" visibility="public" xPosition="939.0" yPosition="674.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -143,14 +148,14 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <HasRelation name="." source="Paquete" target="Transporte" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
     <IsRelation name="is" source="Avion" target="Transporte"/>
+    <HasRelation name="." source="Paquete" target="Alojamiento" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
+    <IsRelation name="is" source="Colectivo" target="Transporte"/>
+    <UseRelation name="" source="Paquete" target="Regimen" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="." source="Paquete" target="Transporte" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
     <UseRelation name="" source="Paquete" target="Cliente" sourceCardinality="1..*" targetCardinality="1..*"/>
     <IsRelation name="is" source="Auto" target="Transporte"/>
-    <IsRelation name="is" source="Colectivo" target="Transporte"/>
     <HasRelation name="." source="Ciudad" target="Alojamiento" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <HasRelation name="." source="Paquete" target="Alojamiento" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <UseRelation name="" source="Paquete" target="Regimen" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
   </ClassDiagramRelations>
 </ClassDiagram>
