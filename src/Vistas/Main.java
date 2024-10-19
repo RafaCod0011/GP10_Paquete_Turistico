@@ -1,22 +1,18 @@
 
 package Vistas;
 
-import accesoADatos.ClienteData;
-import entidades.Cliente;
-/**
- *
- * @author Rafa
- */
+import accesoADatos.TuristaData;
+
 public class Main {
 
     
     public static void main(String[] args) {
         
-        ClienteData cd= new ClienteData();
+        TuristaData cd= new TuristaData();
         
-        Cliente nuevoCliente= new Cliente(1, "Rafael", "Cuello", "abcd@gmail.com");
+       // Cliente nuevoCliente= new Cliente(1, "Rafael", "Cuello", "abcd@gmail.com");
         
-        cd.guardarCliente(nuevoCliente);
+       // cd.guardarCliente(nuevoCliente);
         
         
         
