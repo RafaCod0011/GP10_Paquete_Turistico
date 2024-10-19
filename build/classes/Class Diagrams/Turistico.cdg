@@ -2,12 +2,11 @@
 
 <ClassDiagram name="Turistico">
   <ClassDiagramComponents>
-    <Class name="Turista" package="" visibility="public" xPosition="596.0" yPosition="17.0">
+    <Class name="Turista" package="" visibility="public" xPosition="593.0" yPosition="5.0">
       <Fields>
         <Field name="Documento" type="int" visibility="private"/>
-        <Field name="apellido" type="String" visibility="private"/>
-        <Field name="nombres" type="String" visibility="private"/>
-        <Field name="email" type="String" visibility="private"/>
+        <Field name="fullName" type="String" visibility="private"/>
+        <Field name="edad" type="int" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -39,7 +38,7 @@
         <Method name="activarCiudad" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Alojamiento" package="" visibility="public" xPosition="58.0" yPosition="405.0">
+    <Class name="Alojamiento" package="" visibility="public" xPosition="41.0" yPosition="386.0">
       <Fields>
         <Field name="idAlojamiento" type="int" visibility="private"/>
         <Field name="tipAlojamiento" type="ArrayList" visibility="private"/>
@@ -49,8 +48,9 @@
         <Field name="precioNoche" type="double" visibility="private"/>
         <Field name="activo" type="boolean" visibility="private"/>
         <Field name="capacidad" type="int" visibility="private"/>
-        <Field name="camas" type="String" visibility="private"/>
+        <Field name="camas" type="int" visibility="private"/>
         <Field name="banios" type="int" visibility="private"/>
+        <Field name="habitaciones" type="Habitacion" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -63,23 +63,21 @@
         <Method name="listarPorTipo" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Paquete" package="" visibility="public" xPosition="309.0" yPosition="17.0">
+    <Class name="Paquete" package="" visibility="public" xPosition="309.0" yPosition="49.0">
       <Fields>
         <Field name="idPaquete" type="int" visibility="private"/>
-        <Field name="cliente" type="Turista" visibility="private"/>
         <Field name="ciudadOrigen" type="Ciudad" visibility="private"/>
         <Field name="ciudadDestino" type="Ciudad" visibility="private"/>
         <Field name="fechaDesde" type="LocalDate" visibility="private"/>
         <Field name="fechaHasta" type="LocalDate" visibility="private"/>
-        <Field name="cantidadPersonas" type="int" visibility="private"/>
         <Field name="transporte" type="Transporte" visibility="private"/>
         <Field name="alojamiento" type="Alojamiento" visibility="private"/>
-        <Field name="precioPersona" type="double" visibility="private"/>
-        <Field name="idRegimen" type="int" visibility="private"/>
-        <Field name="paqueteActivo" type="boolean" visibility="private"/>
+        <Field name="regimen" type="Regimen" visibility="private"/>
         <Field name="traslado" type="float" visibility="private"/>
-        <Field name="montoFinal" type="double" visibility="private"/>
         <Field name="grupoBase" type="List&lt;Turista&gt;" visibility="private"/>
+        <Field name="precioPersona" type="double" visibility="private"/>
+        <Field name="montoTotal" type="double" visibility="private"/>
+        <Field name="paqueteActivo" type="boolean" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -94,17 +92,16 @@
         <Method name="buscarPaquete" returnType="void" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Transporte" package="" visibility="public" xPosition="643.0" yPosition="341.0">
+    <Class name="Transporte" package="" visibility="public" xPosition="613.0" yPosition="351.0">
       <Fields>
+        <Field name="idTransporte" type="int" visibility="private"/>
         <Field name="ciudadOrigen" type="Ciudad" visibility="private"/>
         <Field name="ciudadDestino" type="Ciudad" visibility="private"/>
-        <Field name="precioPersona" type="double" visibility="private"/>
         <Field name="nombreEmpresaTransporte" type="String" visibility="private"/>
-        <Field name="codTransporte" type="int" visibility="private"/>
+        <Field name="tipoTransporte" type="int" visibility="private"/>
         <Field name="fechaHora" type="LocalDateTime" visibility="private"/>
         <Field name="asiento" type="int" visibility="private"/>
-        <Field name="origen" type="String" visibility="private"/>
-        <Field name="destino" type="String" visibility="private"/>
+        <Field name="precioPersona" type="double" visibility="private"/>
       </Fields>
       <Constructors>
         <Constructor visibility="public"/>
@@ -142,7 +139,7 @@
         <Method name="calcularPrecio" returnType="double" visibility="public"/>
       </Methods>
     </Class>
-    <Class name="Regimen" package="" visibility="public" xPosition="815.0" yPosition="135.0">
+    <Class name="Regimen" package="" visibility="public" xPosition="854.0" yPosition="161.0">
       <Fields>
         <Field name="idRegimen" type="int" visibility="private"/>
         <Field name="denominacion" type="String" visibility="private"/>
@@ -169,15 +166,15 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <IsRelation name="is" source="Avion" target="Transporte"/>
-    <HasRelation name="Conforma" source="Paquete" target="Alojamiento" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Paquete" target="Turista" sourceCardinality="1..*" targetCardinality="1..*"/>
+    <IsRelation name="is" source="Auto" target="Transporte"/>
+    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <HasRelation name="." source="Ciudad" target="Alojamiento" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
     <IsRelation name="is" source="Colectivo" target="Transporte"/>
     <HasRelation name="contiene" source="Alojamiento" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="Conforma" source="Paquete" target="Transporte" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <IsRelation name="is" source="Auto" target="Transporte"/>
-    <HasRelation name="." source="Ciudad" target="Alojamiento" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..*" collectionType="List"/>
-    <UseRelation name="" source="Paquete" target="Turista" sourceCardinality="1..*" targetCardinality="1..*"/>
+    <IsRelation name="is" source="Avion" target="Transporte"/>
+    <HasRelation name="Conforma" source="Paquete" target="Alojamiento" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="Conforma" source="Paquete" target="Regimen" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <HasRelation name="Conforma" source="Paquete" target="Transporte" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>
