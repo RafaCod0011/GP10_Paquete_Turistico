@@ -48,7 +48,61 @@ public class TuristaData {
             
         }
     
+    public void modificarTurista(Turista turista){
+          
+        String sql= "UPDATE turista SET documento=?, fullName=?, edad=?" + "WHERE documento=?";
+        
+        try{
+            
+             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+             ps.setInt(1, turista.getDocumento());
+             ps.setString(2, turista.getFullName());
+             ps.setInt(3, turista.getEdad());
+             
+            int exito = ps.executeUpdate();
+            
+            if (exito == 1){
+                JOptionPane.showMessageDialog(null,"Turista modificado correctamente");
+            }
+            
+            
+        }catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "El DNI ya existe.");
+        }catch (SQLException ex) {
+            ex.printStackTrace(); 
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Alumno");}}
     
-  
+    public Turista buscarTurista(int documento){
+        
+        Turista turista = null;
+        
+        String sql= "SELECT documento,fullName,edad FROM turista WHERE documento=?";
+        
+        
+        PreparedStatement ps = null;
+        
+        try{
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, documento);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                
+                turista=new Turista();
+                
+                turista.setDocumento(rs.getInt("documento"));
+                turista.setFullName(rs.getString("fullName"));
+                turista.setEdad(rs.getInt("edad"));
+                
+            }
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
+        
     }
-
+        return turista;
+    }
+    
+    
+}
+  
