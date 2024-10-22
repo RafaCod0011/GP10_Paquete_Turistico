@@ -8,23 +8,31 @@ public class Transporte {
     private Ciudad ciudadOrigen;
     private Ciudad ciudadDestino;
     private String nombreEmpresaTransporte;
-    private int tipoTransporte;
+    String tipoTransporte;
     private LocalDateTime fechaHora;
-    private int asiento;
+    private int asientos;
     private double precioPersona;
 
-    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, int tipoTransporte, LocalDateTime fechaHora, int asiento, double precioPersona) {
+    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, String tipoTransporte, LocalDateTime fechaHora, int asientos, double precioPersona) {
         this.idTransporte = idTransporte;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.nombreEmpresaTransporte = nombreEmpresaTransporte;
         this.tipoTransporte = tipoTransporte;
         this.fechaHora = fechaHora;
-        this.asiento = asiento;
+        this.asientos = asientos;
         this.precioPersona = precioPersona;
     }
 
-        
+    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, LocalDateTime fechaHora, int asientos, double precioPersona) {
+        this.idTransporte = idTransporte;
+        this.ciudadOrigen = ciudadOrigen;
+        this.ciudadDestino = ciudadDestino;
+        this.nombreEmpresaTransporte = nombreEmpresaTransporte;
+        this.fechaHora = fechaHora;
+        this.asientos = asientos;
+        this.precioPersona = precioPersona;
+    }    
     public Transporte() {
     }
     
@@ -60,11 +68,11 @@ public class Transporte {
         this.nombreEmpresaTransporte = nombreEmpresaTransporte;
     }
 
-    public int getTipoTransporte() {
+    public String getTipoTransporte() {
         return tipoTransporte;
     }
 
-    public void setTipoTransporte(int tipoTransporte) {
+    public void setTipoTransporte(String tipoTransporte) {
         this.tipoTransporte = tipoTransporte;
     }
 
@@ -76,12 +84,12 @@ public class Transporte {
         this.fechaHora = fechaHora;
     }
 
-    public int getAsiento() {
-        return asiento;
+    public int getAsientos() {
+        return asientos;
     }
 
-    public void setAsiento(int asiento) {
-        this.asiento = asiento;
+    public void setAsientos(int asiento) {
+        this.asientos = asiento;
     }
 
     public double getPrecioPersona() {
