@@ -22,7 +22,7 @@ public class TuristaData {
     
     public void guardarTurista(Turista turista){
         
-        String sql = "INSERT INTO turista (documento, fullName, edad)" 
+        String sql = "INSERT INTO turistas (Documento, fullName, edad)" 
                 + "VALUES (?, ?, ?)";
         
         try {
@@ -50,7 +50,7 @@ public class TuristaData {
     
     public void modificarTurista(Turista turista){
           
-        String sql= "UPDATE turista SET documento=?, fullName=?, edad=?" + "WHERE documento=?";
+        String sql= "UPDATE turistas SET documento=?, fullName=?, edad=?" + "WHERE documento=?";
         
         try{
             
@@ -64,8 +64,7 @@ public class TuristaData {
             if (exito == 1){
                 JOptionPane.showMessageDialog(null,"Turista modificado correctamente");
             }
-            
-            
+
         }catch (SQLIntegrityConstraintViolationException ex) {
             JOptionPane.showMessageDialog(null, "El DNI ya existe.");
         }catch (SQLException ex) {
@@ -75,10 +74,7 @@ public class TuristaData {
     public Turista buscarTurista(int documento){
         
         Turista turista = null;
-        
-        String sql= "SELECT documento,fullName,edad FROM turista WHERE documento=?";
-        
-        
+        String sql= "SELECT documento,fullName,edad FROM turistas WHERE documento=?";
         PreparedStatement ps = null;
         
         try{
@@ -90,12 +86,12 @@ public class TuristaData {
             if(rs.next()){
                 
                 turista=new Turista();
-                
                 turista.setDocumento(rs.getInt("documento"));
                 turista.setFullName(rs.getString("fullName"));
                 turista.setEdad(rs.getInt("edad"));
                 
             }
+            
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
         
@@ -103,6 +99,24 @@ public class TuristaData {
         return turista;
     }
     
-    
+    public void eliminarTurista(int id){
+
+        String sql = "DELETE FROM turistas WHERE documento = ? ";
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Se ha eliminado el turista con documento N°" + id);
+            ps.close();
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
+        }
+        
+        
+        
+    }
 }
   
