@@ -37,7 +37,8 @@ public class TuristaData {
             ResultSet rs = ps.getGeneratedKeys();
             
                if (rs.next()){
-                JOptionPane.showMessageDialog(null, "Turista guardado correctamente");
+                    turista.setIdTurista(rs.getInt(1));
+                    JOptionPane.showMessageDialog(null, "Turista guardado correctamente");
             }
             ps.close();
         } catch (SQLIntegrityConstraintViolationException ex) {
@@ -50,7 +51,8 @@ public class TuristaData {
     
     public void modificarTurista(Turista turista){
           
-        String sql= "UPDATE turistas SET documento=?, fullName=?, edad=?" + "WHERE documento=?";
+        String sql= "UPDATE turistas SET documento=?, fullName=?, edad=? " + 
+                "WHERE idTurista=?";
         
         try{
             
@@ -58,6 +60,8 @@ public class TuristaData {
              ps.setInt(1, turista.getDocumento());
              ps.setString(2, turista.getFullName());
              ps.setInt(3, turista.getEdad());
+             ps.setInt(4, turista.getIdTurista());
+             
              
             int exito = ps.executeUpdate();
             
@@ -69,7 +73,7 @@ public class TuristaData {
             JOptionPane.showMessageDialog(null, "El DNI ya existe.");
         }catch (SQLException ex) {
             ex.printStackTrace(); 
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Alumno");}}
+            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Turista");}}
     
     public Turista buscarTurista(int documento){
         
@@ -101,14 +105,14 @@ public class TuristaData {
     
     public void eliminarTurista(int id){
 
-        String sql = "DELETE FROM turistas WHERE documento = ? ";
+        String sql = "DELETE FROM turistas WHERE idTurista= ? ";
         try {
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.executeUpdate();
 
-            JOptionPane.showMessageDialog(null, "Se ha eliminado el turista con documento N°" + id);
+            JOptionPane.showMessageDialog(null, "Se ha eliminado el turista ID: " + id);
             ps.close();
             
         } catch (SQLException e) {
