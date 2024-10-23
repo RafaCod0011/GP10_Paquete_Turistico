@@ -18,6 +18,14 @@ public class Ciudad {
         this.destinoActivo = destinoActivo;
     }
 
+    public Ciudad(String nombre, LocalDate fechaInicioTemporada, LocalDate fechaFinTemporada, Boolean destinoActivo) {
+        this.nombre = nombre;
+        this.fechaInicioTemporada = fechaInicioTemporada;
+        this.fechaFinTemporada = fechaFinTemporada;
+        this.destinoActivo = destinoActivo;
+    }
+    
+
     public Ciudad() {
     }
 

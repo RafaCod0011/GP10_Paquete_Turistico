@@ -107,10 +107,6 @@
       </Constructors>
       <Methods>
         <Method name="calcularPrecio" returnType="double" visibility="public"/>
-        <Method name="puedeViajar" returnType="Ciudad" visibility="public">
-          <Argument type="Ciudad" name="ciudadOrigen"/>
-          <Argument type="Ciudad" name="ciudadDestino"/>
-        </Method>
         <Method name="verDisponibles" returnType="Ciudad" visibility="public">
           <Argument type="Ciudad" name="ciudadOrigen"/>
           <Argument type="Ciudad" name="ciudadDestino"/>
@@ -165,16 +161,16 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation name="." source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <UseRelation name="." source="Ciudad" target="Alojamiento" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <UseRelation name="." source="Paquete" target="Turista" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <IsRelation name="is" source="Avion" target="Transporte"/>
+    <HasRelation name="Conforma" source="Paquete" target="Transporte" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
     <HasRelation name="contiene" source="Alojamiento" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="Conforma" source="Paquete" target="Alojamiento" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <IsRelation name="is" source="Auto" target="Transporte"/>
-    <HasRelation name="Conforma" source="Paquete" target="Transporte" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
     <IsRelation name="is" source="Colectivo" target="Transporte"/>
     <HasRelation name="Conforma" source="Paquete" target="Regimen" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="." source="Ciudad" target="Alojamiento" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <IsRelation name="is" source="Auto" target="Transporte"/>
+    <UseRelation name="." source="Paquete" target="Turista" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <UseRelation name="." source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <IsRelation name="is" source="Avion" target="Transporte"/>
   </ClassDiagramRelations>
 </ClassDiagram>

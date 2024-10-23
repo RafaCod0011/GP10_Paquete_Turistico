@@ -9,30 +9,34 @@ public class Transporte {
     private Ciudad ciudadDestino;
     private String nombreEmpresaTransporte;
     String tipoTransporte;
-    private LocalDateTime fechaHora;
-    private int asientos;
     private double precioPersona;
 
-    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, String tipoTransporte, LocalDateTime fechaHora, int asientos, double precioPersona) {
+    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, String tipoTransporte, double precioPersona) {
         this.idTransporte = idTransporte;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.nombreEmpresaTransporte = nombreEmpresaTransporte;
         this.tipoTransporte = tipoTransporte;
-        this.fechaHora = fechaHora;
-        this.asientos = asientos;
         this.precioPersona = precioPersona;
     }
 
-    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, LocalDateTime fechaHora, int asientos, double precioPersona) {
+    public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, double precioPersona) {
         this.idTransporte = idTransporte;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
         this.nombreEmpresaTransporte = nombreEmpresaTransporte;
-        this.fechaHora = fechaHora;
-        this.asientos = asientos;
         this.precioPersona = precioPersona;
     }    
+
+    public Transporte(Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, double precioPersona) {
+        this.ciudadOrigen = ciudadOrigen;
+        this.ciudadDestino = ciudadDestino;
+        this.nombreEmpresaTransporte = nombreEmpresaTransporte;
+        this.precioPersona = precioPersona;
+    }
+    
+    
+    
     public Transporte() {
     }
     
@@ -76,28 +80,17 @@ public class Transporte {
         this.tipoTransporte = tipoTransporte;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
-    }
-
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
-    }
-
-    public int getAsientos() {
-        return asientos;
-    }
-
-    public void setAsientos(int asiento) {
-        this.asientos = asiento;
-    }
-
     public double getPrecioPersona() {
         return precioPersona;
     }
 
     public void setPrecioPersona(double precioPersona) {
         this.precioPersona = precioPersona;
+    }
+
+    @Override
+    public String toString() {
+        return idTransporte + " - " + ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + " | "+ tipoTransporte +"-"+ nombreEmpresaTransporte +  " $" + precioPersona;
     }
 
 
