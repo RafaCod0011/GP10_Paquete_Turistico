@@ -26,13 +26,19 @@ public class Main {
         LocalDate fechaFin  =  LocalDate.parse(cadena2, formatter);
         
         
-        Ciudad origen = new Ciudad(5,"Mendoza", fechaInicio, fechaFin, true);
-        Ciudad destino = new Ciudad(6,"Cordoba", fechaInicio, fechaFin, true);
+        Ciudad origen = new Ciudad(1,"Mendoza", fechaInicio, fechaFin, true);
+        Ciudad destino = new Ciudad(2,"Cordoba", fechaInicio, fechaFin, true);
 //        
-//         Transporte t1 = new Avion(8,origen, destino,"Latam", 2100);
-//        Transporte t2 = new Colectivo(origen, destino,"Andesmar", 1000);
-//        Transporte t3 = new Colectivo(origen, destino,"Cata", 1100);
+        //Transporte t1 = new Avion(8,origen, destino,"Latam", 2100);
+        Transporte t1 = new Avion(origen, destino,"Aerolineas", 2850);
+        Transporte t2 = new Avion(origen, destino,"Jet Smart", 1800);
+        Transporte t3 = new Colectivo(origen, destino,"Chevallier", 1400);
 
+        td.guardarTransporte(t1);
+        td.guardarTransporte(t2);
+        
+        td.guardarTransporte(t3);
+        
 //        td.modificarTransporte(t1);
         System.out.println("*** Listado de Transportes Disponibles ***");
         for (Transporte transporte : td.buscarTransporte(origen, destino)) {

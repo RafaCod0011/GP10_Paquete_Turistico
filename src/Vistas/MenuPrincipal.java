@@ -1,6 +1,8 @@
 
 package Vistas;
 
+import javax.swing.JFrame;
+
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -9,6 +11,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gestión de Paquetes Turísticos");
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
