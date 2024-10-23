@@ -13,13 +13,11 @@ import java.util.List;
 public class TransporteData {
     
     private Connection con = null;
-    public TransporteData tdata = new TransporteData();
-    
-    
-    public TransporteData(){
-    con = (Connection) Conexion.getConexion();
-           
-}
+
+    public TransporteData() {
+        con = (Connection) Conexion.getConexion();
+    }
+
     
 public void guardarTransporte(Transporte transporte){
      
@@ -141,8 +139,11 @@ public void eliminarTransporte(int idTransporte) {
 public List<Transporte> listarTransportes() {
    
     List<Transporte> transportes = new ArrayList<>();
-    String sql = "SELECT * FROM transportes";
     
+    String sql = "SELECT t.idTransporte, c1.nombre AS origen, c2.nombre AS destino, t.nombreEmpresaTransporte, t.tipoTransporte, t.precioPersona\n" 
+               + "FROM transportes t JOIN ciudades c1 ON t.idCiudadOrigen = c1.idCiudad JOIN ciudades c2 ON t.idCiudadDestino = c2.idCiudad \n" 
+               + "ORDER BY c1.nombre ASC, c2.nombre ASC, t.tipoTransporte ASC, t.nombreEmpresaTransporte ASC, t.precioPersona DESC;";
+            
     try {
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
