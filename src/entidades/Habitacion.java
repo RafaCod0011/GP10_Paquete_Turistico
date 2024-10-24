@@ -2,26 +2,36 @@ package entidades;
 
 public class Habitacion {
 
-    private int nroHabitacion;
+    private int idHabitacion;
     private int planta;
-    private int numerac;
+    private int numHab;
     private int cupo;
     private boolean estado;
 
-    public Habitacion(int nroHabitacion, int planta, int numerac, int cupo, boolean estado) {
-        this.nroHabitacion = nroHabitacion;
+    public Habitacion(int idHabitacion, int planta, int numHab, int cupo, boolean estado) {
+        this.idHabitacion = idHabitacion;
         this.planta = planta;
-        this.numerac = numerac;
+        this.numHab = numHab;
         this.cupo = cupo;
         this.estado = estado;
     }
 
-    public int getNroHabitacion() {
-        return nroHabitacion;
+    public Habitacion(int planta, int numHab, int cupo, boolean estado) {
+        this.planta = planta;
+        this.numHab = numHab;
+        this.cupo = cupo;
+        this.estado = estado;
     }
 
-    public void setNroHabitacion(int nroHabitacion) {
-        this.nroHabitacion = nroHabitacion;
+    
+    
+    
+    public int getNroHabitacion() {
+        return idHabitacion;
+    }
+
+    public void setNroHabitacion(int idHabitacion) {
+        this.idHabitacion = idHabitacion;
     }
 
     public int getPlanta() {
@@ -33,11 +43,11 @@ public class Habitacion {
     }
 
     public int getNumerac() {
-        return numerac;
+        return numHab;
     }
 
-    public void setNumerac(int numerac) {
-        this.numerac = numerac;
+    public void setNumerac(int numHab) {
+        this.numHab = numHab;
     }
 
     public int getCupo() {
@@ -58,7 +68,7 @@ public class Habitacion {
 
     @Override
     public String toString() {
-        return "Habitacion{" + "nroHabitacion=" + nroHabitacion + ", planta=" + planta + ", numerac=" + numerac + ", cupo=" + cupo + ", estado=" + estado + '}';
+        return "Habitacion{" + "idHabitacion=" + idHabitacion + ", planta=" + planta + ", numHab=" + numHab + ", cupo=" + cupo + ", estado=" + estado + '}';
     }
     
     

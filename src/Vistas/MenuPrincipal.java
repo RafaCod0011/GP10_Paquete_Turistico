@@ -93,6 +93,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmPrincipal.add(jmTransportes);
 
         jmAlojamientos.setText("Alojamientos");
+        jmAlojamientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAlojamientosActionPerformed(evt);
+            }
+        });
         jmPrincipal.add(jmAlojamientos);
 
         jMenuBar1.add(jmPrincipal);
@@ -136,6 +141,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(transportes);
     }//GEN-LAST:event_jmTransportesActionPerformed
 
+
     private void jmTuristasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTuristasActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
@@ -144,6 +150,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.add(turista);
         escritorio.moveToFront(turista);
     }//GEN-LAST:event_jmTuristasActionPerformed
+
+
+    private void jmAlojamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlojamientosActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormAlojamientos alojamientos = new FormAlojamientos();
+        alojamientos.setVisible(true);
+        escritorio.add(alojamientos);
+        escritorio.moveToFront(alojamientos);
+        
+        
+    }//GEN-LAST:event_jmAlojamientosActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

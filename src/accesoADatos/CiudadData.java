@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JOptionPane;
 import entidades.Ciudad;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,6 +150,7 @@ public class CiudadData {
     
     public List<Ciudad> listarCiudades() {
 
+
         List<Ciudad> ciudades = new ArrayList<>();
 
         String sql = "SELECT * FROM ciudades ORDER BY nombre";
@@ -211,4 +213,6 @@ public class CiudadData {
         return ciudades;
     }
 
+
 }
+
