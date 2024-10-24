@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JOptionPane;
 import entidades.Ciudad;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CiudadData {
     
@@ -75,7 +77,7 @@ public class CiudadData {
     public Ciudad buscarCiudad(int idCiudad){
         
         Ciudad ciudad = null;
-        String sql="SELECT * FROM ciudades WHERE idCiudad=?";
+        String sql="SELECT * FROM ciudades WHERE idCiudad=? AND destinoActivo=1";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -144,4 +146,69 @@ public class CiudadData {
             JOptionPane.showMessageDialog(null, "Error al activar la ciudad: " + ex.getMessage());
         }
     }
+    
+    public List<Ciudad> listarCiudades() {
+
+        List<Ciudad> ciudades = new ArrayList<>();
+
+        String sql = "SELECT * FROM ciudades ORDER BY nombre";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ciudad ciudad = new Ciudad();
+                ciudad.setIdCiudad(rs.getInt("idCiudad"));
+                ciudad.setNombre(rs.getString("nombre"));
+                ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
+                ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
+                ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
+
+                ciudades.add(ciudad);
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar las ciudades: " + ex.getMessage());
+        }
+
+        return ciudades;
+    }
+    
+    public List<Ciudad> listarCiudadesExcluyendo(Ciudad ciudadExcluida) {
+        
+        List<Ciudad> ciudades = new ArrayList<>();
+
+        String sql = "SELECT * FROM ciudades WHERE idCiudad != ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, ciudadExcluida.getIdCiudad());  
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Ciudad ciudad = new Ciudad();
+                ciudad.setIdCiudad(rs.getInt("idCiudad"));
+                ciudad.setNombre(rs.getString("nombre"));
+                ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
+                ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
+                ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
+
+                ciudades.add(ciudad);
+            }
+
+            rs.close();
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar las ciudades: " + ex.getMessage());
+        }
+
+        return ciudades;
+    }
+
 }

@@ -13,7 +13,8 @@ import java.util.List;
 public class TransporteData {
     
     private Connection con = null;
-
+    private CiudadData cData = new CiudadData();
+    
     public TransporteData() {
         con = (Connection) Conexion.getConexion();
     }
@@ -46,7 +47,6 @@ public void guardarTransporte(Transporte transporte){
         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Transportes");
         ex.printStackTrace();
     }
-    
     
     
 }
@@ -109,6 +109,39 @@ public List<Transporte> buscarTransporte(Ciudad ciudadOrigen, Ciudad ciudadDesti
     }
     return transportes;
 }
+
+public Transporte buscarPorId(int idTransporte) {
+    Transporte transporte = null;
+    
+    String sql = "SELECT * FROM transportes WHERE idTransporte = ?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idTransporte);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            transporte = new Transporte();
+            transporte.setIdTransporte(rs.getInt("idTransporte"));
+
+            Ciudad ciudadOrigen = cData.buscarCiudad(rs.getInt("idCiudadOrigen"));
+            Ciudad ciudadDestino = cData.buscarCiudad(rs.getInt("idCiudadDestino"));
+            
+            transporte.setCiudadOrigen(ciudadOrigen);
+            transporte.setCiudadDestino(ciudadDestino);
+            transporte.setNombreEmpresaTransporte(rs.getString("nombreEmpresaTransporte"));
+            transporte.setTipoTransporte(rs.getString("tipoTransporte"));
+            transporte.setPrecioPersona(rs.getDouble("precioPersona"));
+        }
+        ps.close();
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar transporte por ID");
+    }
+    
+    return transporte;
+}
  
 public void eliminarTransporte(int idTransporte) {
 
@@ -135,12 +168,12 @@ public void eliminarTransporte(int idTransporte) {
     }
 }
     
-
 public List<Transporte> listarTransportes() {
    
     List<Transporte> transportes = new ArrayList<>();
     
-    String sql = "SELECT t.idTransporte, c1.nombre AS origen, c2.nombre AS destino, t.nombreEmpresaTransporte, t.tipoTransporte, t.precioPersona\n" 
+    
+    String sql = "SELECT t.idTransporte, c1.nombre AS origen, c2.nombre AS destino, t.nombreEmpresaTransporte, t.tipoTransporte, t.precioPersona, t.idCiudadOrigen, t.idCiudadDestino \n" 
                + "FROM transportes t JOIN ciudades c1 ON t.idCiudadOrigen = c1.idCiudad JOIN ciudades c2 ON t.idCiudadDestino = c2.idCiudad \n" 
                + "ORDER BY c1.nombre ASC, c2.nombre ASC, t.tipoTransporte ASC, t.nombreEmpresaTransporte ASC, t.precioPersona DESC;";
             
@@ -151,13 +184,10 @@ public List<Transporte> listarTransportes() {
         while (rs.next()) {
             Transporte transporte = new Transporte();
             transporte.setIdTransporte(rs.getInt("idTransporte"));
-            
-
-            //Ciudad ciudadOrigen = buscarCiudadPorId(rs.getInt("idCiudadOrigen")); 
-            //Ciudad ciudadDestino = buscarCiudadPorId(rs.getInt("idCiudadDestino"));
-            
-            //transporte.setCiudadOrigen(ciudadOrigen);
-            //transporte.setCiudadDestino(ciudadDestino);
+            Ciudad ciudadOrigen = cData.buscarCiudad(rs.getInt("t.idCiudadOrigen")); 
+            Ciudad ciudadDestino = cData.buscarCiudad(rs.getInt("t.idCiudadDestino"));
+            transporte.setCiudadOrigen(ciudadOrigen);
+            transporte.setCiudadDestino(ciudadDestino);
             transporte.setNombreEmpresaTransporte(rs.getString("nombreEmpresaTransporte"));
             transporte.setTipoTransporte(rs.getString("TipoTransporte"));
             transporte.setPrecioPersona(rs.getDouble("precioPersona"));

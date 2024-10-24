@@ -1,6 +1,7 @@
 package entidades;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Ciudad {
 
@@ -71,10 +72,27 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return "Ciudad{" + "idCiudad=" + idCiudad + ", nombre=" + nombre + ", fechaInicioTemporada=" + fechaInicioTemporada + ", fechaFinTemporada=" + fechaFinTemporada + ", destinoActivo=" + destinoActivo + '}';
+        return nombre;
     }
     
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Ciudad ciudad = (Ciudad) obj;
+        return this.getNombre().equals(ciudad.getNombre()); 
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre);  
+    }
+
 
 
 }

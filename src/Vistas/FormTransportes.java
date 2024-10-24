@@ -1,6 +1,7 @@
 
 package Vistas;
 
+import accesoADatos.CiudadData;
 import accesoADatos.TransporteData;
 import entidades.Ciudad;
 import entidades.Transporte;
@@ -17,7 +18,9 @@ import javax.swing.table.TableColumnModel;
 
 public class FormTransportes extends javax.swing.JInternalFrame {
 public TransporteData tData = new TransporteData();
+public CiudadData cData = new CiudadData();
 public ArrayList<Transporte> listado = new ArrayList();
+public ArrayList<Ciudad> listadoC = new ArrayList();
 
 
 
@@ -36,52 +39,25 @@ public FormTransportes() {
         initComponents();
         armarCabecera();
         cargarTabla();
+        cargarCombos();
+
         cbTipoTransporte.setSelectedItem(null);
+        cbCiudadDesde.setSelectedItem(null);
+        cbCiudadHasta.setSelectedItem(null);
+
+        
 //        JOptionPane.showMessageDialog(null, "Tipo " + tipo);
 
 
-
-        //
-        ListSelectionModel selectionModel = tTransportes.getSelectionModel();
-        selectionModel.addListSelectionListener(new ListSelectionListener() {
+        ListSelectionModel modeloS = tTransportes.getSelectionModel();
+        modeloS.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                // Solo responder cuando la selección se complete (e.getValueIsAdjusting() es false)
+
                 if (!e.getValueIsAdjusting()) {
                     int filaSeleccionada = tTransportes.getSelectedRow();
                     if (filaSeleccionada != -1) {
-
-                        //Cargamos los valores de la tabla en los campos    
-
-                        //ID
-                        int id = (int) tTransportes.getValueAt(filaSeleccionada, 0);
-                        String code = String.valueOf(id);
-                        tbId.setText(code);
-                        //CIUDAD ORIGEN
-
-                        //CIUDAD DESTINO
-
-                        //TIPO
-                        String tipo = (String) tTransportes.getValueAt(filaSeleccionada, 3);
-                        cbTipoTransporte.setSelectedItem(tipo);
-
-                        cbTipoTransporte.repaint();
-
-                        //NOMBRE EMPRESA
-                        String nombre = (String) tTransportes.getValueAt(filaSeleccionada, 4);
-                        tbEmpresa.setText(nombre);
-
-
-        //                String descripcion = (String) tTransportes.getValueAt(filaSeleccionada, 1);
-        //                tbDescripcion.setText(descripcion);
-        //                String rubro = (String) tTransportes.getValueAt(filaSeleccionada, 2);
-        //                cbRubro.setSelectedItem(rubro);
-
-                        //PRECIO POR PERSONA
-                        double precio = (double) tTransportes.getValueAt(filaSeleccionada, 5);
-                        String prec = String.valueOf(precio);
-                        tbPrecio.setText(prec);
-                        
+                        leerTabla();
                     }
                 }
             }
@@ -236,7 +212,7 @@ public FormTransportes() {
                                 .addGap(24, 24, 24)
                                 .addComponent(jldesde)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbTipoTransporte, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbTipoTransporte, 0, 119, Short.MAX_VALUE)
                                 .addGap(6, 6, 6))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(tbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -349,10 +325,13 @@ public FormTransportes() {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 652, Short.MAX_VALUE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,11 +351,11 @@ public FormTransportes() {
                     .addComponent(lbTransportes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -384,13 +363,39 @@ public FormTransportes() {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    
+    private void leerTabla(){
+                        
+            //Cargamos los valores de la tabla en los campos  
+            int filaSeleccionada = tTransportes.getSelectedRow();
+
+            //ID
+            int id = (int) tTransportes.getValueAt(filaSeleccionada, 0);
+            String code = String.valueOf(id);
+            tbId.setText(code);
+            //CIUDAD DESDE / HASTA
+             cbCiudadDesde.setSelectedItem(tTransportes.getValueAt(filaSeleccionada, 1));
+             cbCiudadHasta.setSelectedItem(tTransportes.getValueAt(filaSeleccionada, 2));
+            //TIPO
+            String tipo = (String) tTransportes.getValueAt(filaSeleccionada, 3);
+            cbTipoTransporte.setSelectedItem(tipo);
+            cbTipoTransporte.repaint();
+            //NOMBRE EMPRESA
+            String nombre = (String) tTransportes.getValueAt(filaSeleccionada, 4);
+            tbEmpresa.setText(nombre);
+            //PRECIO POR PERSONA
+            double precio = (double) tTransportes.getValueAt(filaSeleccionada, 5);
+            String prec = String.valueOf(precio);
+            tbPrecio.setText(prec);
+
+    }
     
     private void Nuevo(){
         
         tbId.setText("");
         tTransportes.clearSelection(); // Sacamos cualquier seleccion de la tabla
         cbTipoTransporte.setSelectedItem(null);
+        cbCiudadDesde.setSelectedItem(null);
+        cbCiudadHasta.setSelectedItem(null);
         tbEmpresa.setText("");
         tbPrecio.setText("");
 
@@ -433,13 +438,11 @@ public FormTransportes() {
                     //DEBEMOS DETECTAR SI ES NUEVO O MODIFICACION
                     
                     
-                    
-//                    int documento = Integer.parseInt(tbDNI.getText());
-
-                    // Buscamos el alumno por DNI
-//                    encontrada = movimientos.buscarAlumnoPorDni(documento);
-//                    if (encontrada == null) {
-//                        //Nuevo Alumno
+//                    
+//                     int id = Integer.parseInt(tbId.getText());
+//                     encontrada = tData.buscarPorId(id);
+///                    if (encontrada == null) {
+////                        //Nuevo Alumno
 //                        encontrada = new Alumno(documento, tbNombre.getText(), tbApellido.getText(), fechanac, jrEstado.isSelected());
 //                        movimientos.guardarAlumno(encontrada);
 //                        tbID.setText(String.valueOf(encontrada.getIdAlumno()));
@@ -480,39 +483,9 @@ public FormTransportes() {
         if (tTransportes.isEnabled()){
             int filaSeleccionada = tTransportes.getSelectedRow();
 
-            if (filaSeleccionada != -1) { // Controlamos que haya una fila seleccionada
+            if (filaSeleccionada != -1) { 
+                leerTabla();
                 
-                //Cargamos los valores de la tabla en los campos    
-                
-                //ID
-                int id = (int) tTransportes.getValueAt(filaSeleccionada, 0);
-                String code = String.valueOf(id);
-                tbId.setText(code);
-                //CIUDAD ORIGEN
-                
-                //CIUDAD DESTINO
-                
-                //TIPO
-                String tipo = (String) tTransportes.getValueAt(filaSeleccionada, 3);
-                cbTipoTransporte.setSelectedItem(tipo);
-
-                cbTipoTransporte.repaint();
-                
-                //NOMBRE EMPRESA
-                String nombre = (String) tTransportes.getValueAt(filaSeleccionada, 4);
-                tbEmpresa.setText(nombre);
-
-                
-//                String descripcion = (String) tTransportes.getValueAt(filaSeleccionada, 1);
-//                tbDescripcion.setText(descripcion);
-//                String rubro = (String) tTransportes.getValueAt(filaSeleccionada, 2);
-//                cbRubro.setSelectedItem(rubro);
-
-                //PRECIO POR PERSONA
-                double precio = (double) tTransportes.getValueAt(filaSeleccionada, 5);
-                String prec = String.valueOf(precio);
-                tbPrecio.setText(prec);
-
             }
         }
     
@@ -534,6 +507,15 @@ public FormTransportes() {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoTransporteActionPerformed
 
+    
+    private void cargarCombos(){
+        listadoC = (ArrayList) cData.listarCiudades();
+        for (Ciudad ciudad : listadoC) {
+            cbCiudadDesde.addItem(ciudad);
+            cbCiudadHasta.addItem(ciudad);
+        }
+    }
+    
     private void cargarTabla(){
     
         limpiarTabla();    
@@ -543,7 +525,7 @@ public FormTransportes() {
         }
         
     } 
-    
+       
     
     private void armarCabecera(){
 

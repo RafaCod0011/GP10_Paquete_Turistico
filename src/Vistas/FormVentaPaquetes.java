@@ -1,18 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Vistas;
 
-/**
- *
- * @author Usuario
- */
+import javax.swing.table.DefaultTableModel;
+
 public class FormVentaPaquetes extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form FormVentaPaquetes
-     */
+private DefaultTableModel modelo= new DefaultTableModel(){
+
+    
+    @Override
+    public boolean isCellEditable(int f, int c){
+        
+        return false;
+    }
+};  
     public FormVentaPaquetes() {
         initComponents();
     }
