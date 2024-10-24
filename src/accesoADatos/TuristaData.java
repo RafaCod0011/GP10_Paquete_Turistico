@@ -1,4 +1,3 @@
-
 package accesoADatos;
 
 import java.sql.Connection;
