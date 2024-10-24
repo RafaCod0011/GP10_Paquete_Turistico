@@ -22,7 +22,7 @@ public class Main {
 //      ArrayList<Transporte>listado = new ArrayList();
         
         
-<<<<<<< Updated upstream
+
         String cadena1 = "11/01/2024";
         String cadena2 = "15/03/2024";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -37,7 +37,7 @@ public class Main {
         Transporte t1 = new Avion(origen, destino,"Aerolineas", 2850);
         Transporte t2 = new Avion(origen, destino,"Jet Smart", 1800);
         Transporte t3 = new Colectivo(origen, destino,"Chevallier", 1400);
-=======
+
 //        String cadena1 = "11/01/2024";
 //        String cadena2 = "15/03/2024";
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -53,13 +53,13 @@ public class Main {
 //        cda.agregarCiudad(origen);
 //        cda.agregarCiudad(destino);
 
-        HabitacionData hab= new HabitacionData();
-        
-        Habitacion basica= new Habitacion(1, 1, 3, 5, true);
-        
-          AlojamientoData alo = new AlojamientoData();
-          Ciudad Mendoza = cda.buscarCiudad(3);
-          Alojamiento hotel = new Alojamiento(1,"2","Valle del sol","Mart3 456",Mendoza,300,true,2,2,2,basica);
+//        HabitacionData hab= new HabitacionData();
+//        
+//        Habitacion basica= new Habitacion(1, 1, 3, 5, true);
+//        
+//          AlojamientoData alo = new AlojamientoData();
+//          Ciudad Mendoza = cda.buscarCiudad(3);
+//          Alojamiento hotel = new Alojamiento(1,"2","Valle del sol","Mart3 456",Mendoza,300,true,2,2,2,basica);
 
 
         
@@ -82,12 +82,12 @@ public class Main {
 //         Transporte t1 = new Avion(8,origen, destino,"Latam", 2100);
 //        Transporte t2 = new Colectivo(origen, destino,"Andesmar", 1000);
 //        Transporte t3 = new Colectivo(origen, destino,"Cata", 1100);
->>>>>>> Stashed changes
 
-        td.guardarTransporte(t1);
-        td.guardarTransporte(t2);
-        
-        td.guardarTransporte(t3);
+//
+//        td.guardarTransporte(t1);
+//        td.guardarTransporte(t2);
+//        
+//        td.guardarTransporte(t3);
         
 //        td.modificarTransporte(t1);
 //        System.out.println("*** Listado de Transportes Disponibles ***");
