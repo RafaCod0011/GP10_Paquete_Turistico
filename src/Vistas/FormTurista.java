@@ -125,41 +125,46 @@ public class FormTurista extends javax.swing.JInternalFrame {
         jpGeneral.setLayout(jpGeneralLayout);
         jpGeneralLayout.setHorizontalGroup(
             jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LineaSeparadora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpGeneralLayout.createSequentialGroup()
+                .addComponent(LineaSeparadora, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jpGeneralLayout.createSequentialGroup()
                 .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpGeneralLayout.createSequentialGroup()
-                        .addGap(284, 284, 284)
-                        .addComponent(jlTuristaTitle))
-                    .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jbBuscar)
-                        .addGroup(jpGeneralLayout.createSequentialGroup()
-                            .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(87, 87, 87)
+                        .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createSequentialGroup()
+                                .addComponent(jlEdad)
+                                .addGap(169, 169, 169)
+                                .addComponent(jlFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jpGeneralLayout.createSequentialGroup()
-                                    .addGap(141, 141, 141)
-                                    .addComponent(jlFullName))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jlID)
-                                            .addComponent(jlDNI))
-                                        .addComponent(jlEdad, javax.swing.GroupLayout.Alignment.TRAILING))))
-                            .addGap(29, 29, 29)
-                            .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                                .addComponent(jtDNI)
-                                .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(48, 48, 48)
+                                    .addComponent(jlID)
+                                    .addGap(220, 220, 220)
+                                    .addComponent(jlDNI))
+                                .addGroup(jpGeneralLayout.createSequentialGroup()
+                                    .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtID)
+                                        .addComponent(jtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(76, 76, 76)
+                                    .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbBuscar))))))
                     .addGroup(jpGeneralLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addContainerGap()
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpGeneralLayout.createSequentialGroup()
+                        .addGap(241, 241, 241)
+                        .addComponent(jlTuristaTitle)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpGeneralLayout.setVerticalGroup(
@@ -171,23 +176,23 @@ public class FormTurista extends javax.swing.JInternalFrame {
                 .addComponent(LineaSeparadora)
                 .addGap(28, 28, 28)
                 .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlID)
-                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlDNI)
-                    .addComponent(jtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jlID))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlFullName)
+                    .addComponent(jlEdad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlEdad)
-                    .addComponent(jtEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
                 .addComponent(jbBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                 .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,7 +205,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,33 +229,31 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
 
-    if (jtDNI.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Ingrese el Documento a buscar en el campo correspondiente", "Atención", JOptionPane.ERROR_MESSAGE);
-    jtDNI.requestFocus();
-} else {
-    try {
-        int documentoBuscar = Integer.parseInt(jtDNI.getText());
+        TuristaData movimiento = new TuristaData();
         
-        String edadText = jtEdad.getText();
-        int edadBuscar = edadText.isEmpty() ? -1 : Integer.parseInt(edadText); // -1 indica que no se busca por edad
-
-        Turista encontrada = (edadBuscar == -1) ? 
-            turistaData.buscarTurista(documentoBuscar) : 
-            turistaData.buscarTuristaPorEdad(documentoBuscar, edadBuscar);
+        String respuesta = JOptionPane.showInputDialog(null, "Ingrese el DNI del Turista a buscar:", "Buscar Turista", JOptionPane.PLAIN_MESSAGE);
         
-        if (encontrada == null) {
-            JOptionPane.showMessageDialog(null, "No se ha encontrado un turista con el documento" +
-                    (edadBuscar != -1 ? " y edad ingresados" : "") + ".", "Corrobore la información", JOptionPane.ERROR_MESSAGE);
-        } else {
-            jtID.setText(String.valueOf(encontrada.getIdTurista()));
-            jtDNI.setText(String.valueOf(encontrada.getDocumento()));
-            jtFullName.setText(encontrada.getFullName());
-            jtEdad.setText(String.valueOf(encontrada.getEdad()));
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Corrobore la información ingresada", "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
-    }
-    }
+        try {
+            if (respuesta == null) {
+                return;
+            }
+            int codigoBuscar = Integer.parseInt(respuesta);
+            Turista encontrado = movimiento.buscarTurista(codigoBuscar);
+            if (encontrado == null) {
+                JOptionPane.showMessageDialog(null, "No se ha encontrado un Turista con el DNI ingersado",
+                "Corrobore el DNI ingresado", JOptionPane.ERROR_MESSAGE);
+                
+            } else {
+                jtID.setText(String.valueOf(encontrado.getIdTurista()));
+                jtDNI.setText(String.valueOf(encontrado.getDocumento()));
+                jtFullName.setText(encontrado.getFullName());
+                jtEdad.setText(String.valueOf(encontrado.getEdad()));
+            }
+            
+        } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Corrobore la informacion ingresada",
+                        "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+            }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -262,36 +265,36 @@ public class FormTurista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        
+        TuristaData movimiento = new TuristaData();
+        
         int respuesta = JOptionPane.showConfirmDialog(null
-        , "Va a grabar los datos ingresados del turista. ¿Está Seguro/a?"
-        , "Grabar Turista"
-        , JOptionPane.YES_NO_OPTION);
+            ,"Va a grabar un nuevo Turista ¿Esta seguro/a?"
+            ,"Nuevo Turista"
+            ,JOptionPane.YES_NO_OPTION);
 
-    if (respuesta == JOptionPane.YES_OPTION) {
-        try {
-            if (jtFullName.getText().isEmpty() || jtDNI.getText().isEmpty() || jtEdad.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Complete los datos del Turista", "Atención", JOptionPane.ERROR_MESSAGE);
-            } else {
-                int documento = Integer.parseInt(jtDNI.getText());
-                int edad = Integer.parseInt(jtEdad.getText());
+        if (respuesta == JOptionPane.YES_OPTION) {
+    
+            try {
 
-                Turista encontrada = turistaData.buscarTurista(documento);
-                if (encontrada == null) {
-                    encontrada = new Turista(0, documento, jtFullName.getText(), edad); // ID temporal, se asigna al guardar
-                    turistaData.guardarTurista(encontrada);
-                    jtID.setText(String.valueOf(encontrada.getIdTurista())); // Muestra el ID después de guardar
-                } else {
-                    encontrada.setFullName(jtFullName.getText());
-                    encontrada.setEdad(edad);
-                    turistaData.modificarTurista(encontrada);
+                    if (jtFullName.getText().isEmpty() || jtEdad.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Complete los datos del Turista a ingresar","Atención", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        int documento = Integer.parseInt(jtDNI.getText());
+                        int edad= Integer.parseInt(jtEdad.getText());
+                        Turista turistaNuevo = new Turista(documento ,jtFullName.getText(), edad);
+                        movimiento.guardarTurista(turistaNuevo);
+
+                        //Asignamos el ID al CODIGO
+                        jtID.setText(String.valueOf(turistaNuevo.getIdTurista()));
+                    }
+
+                } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
+                        "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
                 }
-                Nuevo();
-                encontrada = null;
+
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Corrobore la información ingresada", "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
-        }
-    }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jtEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtEdadActionPerformed
@@ -299,20 +302,23 @@ public class FormTurista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtEdadActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        if (jtDNI.getText().isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Busque el turista que quiera eliminar",
+        
+        if (jtID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Busque el turista que quiera eliminar",
             "No se ha encontrado el turista seleccionado", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int respuesta = JOptionPane.showConfirmDialog(null
-            , "¿Estas seguro/a de eliminar el turista seleccionado?"
-            , "Eliminar Turista"
-            , JOptionPane.YES_NO_OPTION);
+        }else {
+                
+                TuristaData movimiento = new TuristaData();
+                
+                int respuesta = JOptionPane.showConfirmDialog(null
+                    ,"¿Está seguro/a de Eliminar El Turista seleccionado?"
+                    ,"Eliminar Turista"
+                    ,JOptionPane.YES_NO_OPTION);
 
-        if (respuesta == JOptionPane.YES_OPTION) {
-            int documentoEliminar = Integer.parseInt(jtDNI.getText());
-            turistaData.eliminarTurista(documentoEliminar);
-            Nuevo();
-        }
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    int turistaEliminar = Integer.parseInt(jtID.getText());
+                    movimiento.eliminarTurista(turistaEliminar);
+                }
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
