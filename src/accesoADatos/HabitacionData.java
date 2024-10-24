@@ -22,24 +22,28 @@ public class HabitacionData {
 }
     
     
-    public void agregarHabitacion(Habitacion habitacion, int idAlojamiento){
-        String sql = "INSERT INTO habitaciones (nroHabitacion, planta, numerac, cupo, estado, idAlojamiento) VALUES (?, ?, ?, ?, ?, ?)";
+    public void agregarHabitacion(Habitacion habitacion, int idAlojamiento) {
+    String sql = "INSERT INTO habitaciones (planta, numHab, cupo, estado, idAlojamiento) VALUES (?, ?, ?, ?, ?)";
+    try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        ps.setInt(1, habitacion.getPlanta());
+        ps.setInt(2, habitacion.getNumerac());
+        ps.setInt(3, habitacion.getCupo());
+        ps.setBoolean(4, habitacion.isEstado());
+        ps.setInt(5, idAlojamiento);  
 
-        try{
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, habitacion.getNroHabitacion());
-            ps.setInt(2, habitacion.getPlanta());
-            ps.setInt(3, habitacion.getNumerac());
-            ps.setInt(4, habitacion.getCupo());
-            ps.setBoolean(5, habitacion.isEstado());
-            ps.setInt(6, idAlojamiento);  // Relaciona la habitación con un alojamiento
+        ps.executeUpdate();
+        ResultSet rs = ps.getGeneratedKeys();
 
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "¡Habitacion creada correctamente!");
-        }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion");
+        if (rs.next()) {
+            habitacion.setNroHabitacion(rs.getInt(1));
+            JOptionPane.showMessageDialog(null, "¡Habitación creada correctamente!");
         }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + ex.getMessage());
     }
+}
     
     
     public List<Habitacion> listarHabitacionesPorAlojamiento(int idAlojamiento){
@@ -54,9 +58,9 @@ public class HabitacionData {
 
             while (resultSet.next()) {
                 Habitacion habitacion = new Habitacion(
-                    resultSet.getInt("nroHabitacion"),
+                    resultSet.getInt("idHabitacion"),
                     resultSet.getInt("planta"),
-                    resultSet.getInt("numerac"),
+                    resultSet.getInt("numHab"),
                     resultSet.getInt("cupo"),
                     resultSet.getBoolean("estado")
                 );

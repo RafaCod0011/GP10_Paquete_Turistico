@@ -141,10 +141,6 @@ public class TuristaData {
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
-        }
-        
-        
-        
+        }     
     }
 }
-  
