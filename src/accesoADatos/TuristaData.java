@@ -103,6 +103,30 @@ public class TuristaData {
         return turista;
     }
     
+    public Turista buscarTuristaPorEdad(int documento, int edad) {
+    Turista turista = null;
+    String sql = "SELECT documento, fullName, edad FROM turistas WHERE documento=? AND edad=?";
+    PreparedStatement ps = null;
+
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setInt(1, documento);
+        ps.setInt(2, edad);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            turista = new Turista();
+            turista.setDocumento(rs.getInt("documento"));
+            turista.setFullName(rs.getString("fullName"));
+            turista.setEdad(rs.getInt("edad"));
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
+    }
+
+    return turista;
+}
+    
     public void eliminarTurista(int id){
 
         String sql = "DELETE FROM turistas WHERE idTurista= ? ";

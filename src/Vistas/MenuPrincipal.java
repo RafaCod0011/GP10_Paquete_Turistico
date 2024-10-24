@@ -69,6 +69,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmPrincipal.setText("Menu Principal");
 
         jmTuristas.setText("Turistas");
+        jmTuristas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTuristasActionPerformed(evt);
+            }
+        });
         jmPrincipal.add(jmTuristas);
 
         jmCiudades.setText("Ciudades - Temporadas ");
@@ -131,9 +136,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.moveToFront(transportes);
     }//GEN-LAST:event_jmTransportesActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jmTuristasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTuristasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormTurista turista= new FormTurista();
+        turista.setVisible(true);
+        escritorio.add(turista);
+        escritorio.moveToFront(turista);
+    }//GEN-LAST:event_jmTuristasActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

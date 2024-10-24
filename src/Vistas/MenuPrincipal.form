@@ -23,6 +23,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Turistas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmTuristasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmCiudades">
               <Properties>
