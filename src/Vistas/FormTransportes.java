@@ -3,7 +3,10 @@ package Vistas;
 
 import accesoADatos.CiudadData;
 import accesoADatos.TransporteData;
+import entidades.Auto;
+import entidades.Avion;
 import entidades.Ciudad;
+import entidades.Colectivo;
 import entidades.Transporte;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,6 +22,7 @@ import javax.swing.table.TableColumnModel;
 public class FormTransportes extends javax.swing.JInternalFrame {
 public TransporteData tData = new TransporteData();
 public CiudadData cData = new CiudadData();
+public Transporte trans = new Transporte();
 public ArrayList<Transporte> listado = new ArrayList();
 public ArrayList<Ciudad> listadoC = new ArrayList();
 
@@ -392,7 +396,7 @@ public FormTransportes() {
     private void Nuevo(){
         
         tbId.setText("");
-        tTransportes.clearSelection(); // Sacamos cualquier seleccion de la tabla
+        tTransportes.clearSelection();
         cbTipoTransporte.setSelectedItem(null);
         cbCiudadDesde.setSelectedItem(null);
         cbCiudadHasta.setSelectedItem(null);
@@ -406,7 +410,7 @@ public FormTransportes() {
         if (tTransportes.isEnabled()){
             int filaSeleccionada = tTransportes.getSelectedRow();
 
-            if (filaSeleccionada != -1) { // Controlamos que haya una fila seleccionada
+            if (filaSeleccionada != -1) { 
                     int respuesta = JOptionPane.showConfirmDialog(null
                     ,"¿Está seguro/a de Eliminar el transporte seleccionado?"
                     ,"Eliminar Transporte"
@@ -430,33 +434,44 @@ public FormTransportes() {
             ,JOptionPane.YES_NO_OPTION);
         
         if(respuesta == JOptionPane.YES_OPTION){  
+
             try{
-                if(tbEmpresa.getText().isEmpty()||tbPrecio.getText().isEmpty()){
+                if(tbEmpresa.getText().isEmpty()||tbPrecio.getText().isEmpty() || cbTipoTransporte.getSelectedIndex()== -1){
                     JOptionPane.showMessageDialog(null, "Complete los datos del Transporte","Atención", JOptionPane.ERROR_MESSAGE);
                 }else{
-  
-                    //DEBEMOS DETECTAR SI ES NUEVO O MODIFICACION
+
+                    Double precio = Double.valueOf(tbPrecio.getText());
                     
+                    if (tbId.getText().isEmpty()) {
+                                              
+                        switch (cbTipoTransporte.getSelectedItem().toString()) {
+                        case "Avion":
+                            trans = new Avion((Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio);
+                            break;
+                        case "Auto":
+                            trans = new Auto((Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio);
+                            break;
+                        case "Colectivo":
+                            trans = new Colectivo((Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio);
+                            break;
+                        default:
+                            System.out.println("Selección no válida");
+                        }
+                        tData.guardarTransporte(trans);
+                        tbId.setText(String.valueOf(trans.getIdTransporte()));
+
+                    } else {
+                        
+                        trans.setNombreEmpresaTransporte(tbEmpresa.getText());
+                        trans.setCiudadOrigen((Ciudad) cbCiudadDesde.getSelectedItem());
+                        trans.setCiudadDestino((Ciudad) cbCiudadHasta.getSelectedItem());
+                        trans.setPrecioPersona(precio);
+                        tData.modificarTransporte(trans);
+                        
+                    }
                     
-//                    
-//                     int id = Integer.parseInt(tbId.getText());
-//                     encontrada = tData.buscarPorId(id);
-///                    if (encontrada == null) {
-////                        //Nuevo Alumno
-//                        encontrada = new Alumno(documento, tbNombre.getText(), tbApellido.getText(), fechanac, jrEstado.isSelected());
-//                        movimientos.guardarAlumno(encontrada);
-//                        tbID.setText(String.valueOf(encontrada.getIdAlumno()));
-//                    } else {
-//                        //Alumno a modificar
-//                        encontrada.setNombre(tbNombre.getText());
-//                        encontrada.setApellido(tbApellido.getText());
-//                        encontrada.setFechaNacimiento(fechanac);
-//                        encontrada.setActivo(jrEstado.isSelected());
-//                        movimientos.modificarAlumno(encontrada);
-//                    }
-//
-//                    Nuevo(); 
-//                    encontrada = null; 
+                    Nuevo(); 
+                    trans = null; 
                     
                 }
                 
@@ -542,7 +557,7 @@ public FormTransportes() {
         TableColumnModel columnModel = tTransportes.getColumnModel();
 
         //Ancho de las columnas
-        columnModel.getColumn(0).setPreferredWidth(10);   // "ID"
+        columnModel.getColumn(0).setPreferredWidth(1);   // "ID"
         columnModel.getColumn(1).setPreferredWidth(80);  // "Origen"
         columnModel.getColumn(2).setPreferredWidth(80);  // "Destino"
         columnModel.getColumn(3).setPreferredWidth(30);   // "Tipo"
