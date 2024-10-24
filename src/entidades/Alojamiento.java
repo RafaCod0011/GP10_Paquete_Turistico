@@ -1,9 +1,11 @@
 package entidades;
 
+import java.util.List;
+
 public class Alojamiento {
 
     private int idAlojamiento;
-    private int idTipoAlojamiento;
+    private String idTipoAlojamiento;
     private String nombre;
     private String direccion;
     private Ciudad ciudad;
@@ -12,9 +14,13 @@ public class Alojamiento {
     private int capacidad;
     private int camas;
     private int banios;
-    private Habitacion habitaciones;
+    private List<Habitacion> habitaciones;
+    
+//    , Habitacion habitaciones
 
-    public Alojamiento(int idAlojamiento, int idTipoAlojamiento, String nombre, String direccion, Ciudad ciudad, double precioNoche, boolean activo, int capacidad, int camas, int banios, Habitacion habitaciones) {
+//    this.habitaciones = habitaciones;
+    
+    public Alojamiento(int idAlojamiento, String idTipoAlojamiento, String nombre, String direccion, Ciudad ciudad, double precioNoche, boolean activo, int capacidad, int camas, int banios, List<Habitacion> habitaciones) {
         this.idAlojamiento = idAlojamiento;
         this.idTipoAlojamiento = idTipoAlojamiento;
         this.nombre = nombre;
@@ -26,6 +32,7 @@ public class Alojamiento {
         this.camas = camas;
         this.banios = banios;
         this.habitaciones = habitaciones;
+        
     }
 
         
@@ -41,13 +48,15 @@ public class Alojamiento {
         this.idAlojamiento = idAlojamiento;
     }
 
-    public int getIdTipoAlojamiento() {
+    public String getIdTipoAlojamiento() {
         return idTipoAlojamiento;
     }
 
-    public void setIdTipoAlojamiento(int idTipoAlojamiento) {
+    public void setIdTipoAlojamiento(String idTipoAlojamiento) {
         this.idTipoAlojamiento = idTipoAlojamiento;
     }
+
+    
 
     public String getNombre() {
         return nombre;
@@ -113,17 +122,12 @@ public class Alojamiento {
         this.banios = banios;
     }
 
-    public Habitacion getHabitaciones() {
+     public List<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
-    public void setHabitaciones(Habitacion habitaciones) {
+    public void setHabitaciones(List<Habitacion> habitaciones) {
         this.habitaciones = habitaciones;
     }
 
-    
-    
-
-
-  
 }
