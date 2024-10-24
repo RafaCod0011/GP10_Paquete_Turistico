@@ -25,11 +25,15 @@ public class AlojamientoData {
     
     public void agregarAlojamiento(Alojamiento alojamiento){
         
-        String sql = "INSERT INTO alojamientos (idTipoAlojamiento, nombre, direccion, idciudad, precioNoche, activo, capacidad, camas, banios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        if (alojamientoExiste(alojamiento.getNombre(), alojamiento.getDireccion())) {
+            JOptionPane.showMessageDialog(null, "El alojamiento ya existe.");
+            return;
+        }
+        String sql = "INSERT INTO alojamientos (tipoAlojamiento, nombre, direccion, idciudad, precioNoche, activo, capacidad, camas, banios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, alojamiento.getIdTipoAlojamiento());
+            ps.setString(1, alojamiento.getTipoAlojamiento());
             ps.setString(2, alojamiento.getNombre());
             ps.setString(3, alojamiento.getDireccion());
             ps.setInt(4, alojamiento.getCiudad().getIdCiudad());
@@ -39,8 +43,6 @@ public class AlojamientoData {
             ps.setInt(8, alojamiento.getCamas());
             ps.setInt(9, alojamiento.getBanios());
             
-            
-//            ps.setString(10, alojamiento.getHabitaciones().toString()); 
             
             ps.executeUpdate();
             ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -54,11 +56,11 @@ public class AlojamientoData {
     }
         
     public void modificarAlojamiento(Alojamiento alojamiento){
-        String sql = "UPDATE alojamiento SET idTipoAlojamiento = ?, nombre = ?, direccion = ?, ciudad = ?, precioNoche = ?, activo = ?, capacidad = ?, camas = ?, banios = ?, habitaciones = ? WHERE idAlojamiento = ?";
+        String sql = "UPDATE alojamiento SET tipoAlojamiento = ?, nombre = ?, direccion = ?, ciudad = ?, precioNoche = ?, activo = ?, capacidad = ?, camas = ?, banios = ?, habitaciones = ? WHERE idAlojamiento = ?";
 
         try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, alojamiento.getIdTipoAlojamiento());
+            ps.setString(1, alojamiento.getTipoAlojamiento());
             ps.setString(2, alojamiento.getNombre());
             ps.setString(3, alojamiento.getDireccion());
             ps.setInt(4, alojamiento.getCiudad().getIdCiudad());
@@ -93,7 +95,7 @@ public class AlojamientoData {
                 while (rs.next()) {
                 Alojamiento alojamiento = new Alojamiento();
                 alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
-                alojamiento.setIdTipoAlojamiento(rs.getString("idTipoAlojamiento"));
+                alojamiento.setTipoAlojamiento(rs.getString("tipoAlojamiento"));
                 alojamiento.setNombre(rs.getString("nombre"));
                 alojamiento.setDireccion(rs.getString("direccion"));
                 
@@ -134,7 +136,7 @@ public class AlojamientoData {
             while (rs.next()) {
                 Alojamiento alojamiento = new Alojamiento();
                 alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
-                alojamiento.setIdTipoAlojamiento(rs.getString("idTipoAlojamiento"));
+                alojamiento.setTipoAlojamiento(rs.getString("tipoAlojamiento"));
                 alojamiento.setNombre(rs.getString("nombre"));
                 alojamiento.setDireccion(rs.getString("direccion"));
                 alojamiento.setPrecioNoche(rs.getDouble("precioNoche"));
@@ -166,20 +168,20 @@ public class AlojamientoData {
 
     }    
         
-    public List<Alojamiento> listarPorTipo(int idTipoAlojamiento){
+    public List<Alojamiento> listarPorTipo(int tipoAlojamiento){
         
     List<Alojamiento> listaAlojamientos = new ArrayList<>();
    
     try {
-        String sql = "SELECT a.*, c.* FROM alojamiento a JOIN ciudad c ON a.ciudad = c.idCiudad WHERE a.idTipoAlojamiento = ?";
+        String sql = "SELECT a.*, c.* FROM alojamiento a JOIN ciudad c ON a.ciudad = c.idCiudad WHERE a.tipoAlojamiento = ?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idTipoAlojamiento); // Filtrar por el tipo de alojamiento
+        ps.setInt(1, tipoAlojamiento); // Filtrar por el tipo de alojamiento
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
             Alojamiento alojamiento = new Alojamiento();
             alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
-            alojamiento.setIdTipoAlojamiento(rs.getString("idTipoAlojamiento"));
+            alojamiento.setTipoAlojamiento(rs.getString("tipoAlojamiento"));
             alojamiento.setNombre(rs.getString("nombre"));
             alojamiento.setDireccion(rs.getString("direccion"));
 
@@ -222,7 +224,7 @@ public class AlojamientoData {
         if (rs.next()) {
             alojamiento = new Alojamiento();
             alojamiento.setIdAlojamiento(rs.getInt("idAlojamiento"));
-            alojamiento.setIdTipoAlojamiento(rs.getString("idTipoAlojamiento"));
+            alojamiento.setTipoAlojamiento(rs.getString("tipoAlojamiento"));
             alojamiento.setNombre(rs.getString("nombre"));
             alojamiento.setDireccion(rs.getString("direccion"));
 
@@ -255,6 +257,23 @@ public class AlojamientoData {
 }
     return alojamiento;
     } 
+    
+    public boolean alojamientoExiste(String nombre, String direccion) {
+        String sql = "SELECT COUNT(*) FROM alojamientos WHERE nombre = ? AND direccion = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setString(2, direccion);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; 
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alojamientos: " + ex.getMessage());
+        }
+        return false;
+    }
     
 }
     

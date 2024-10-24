@@ -1,11 +1,12 @@
 package entidades;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Alojamiento {
 
     private int idAlojamiento;
-    private String idTipoAlojamiento;
+    private String tipoAlojamiento;
     private String nombre;
     private String direccion;
     private Ciudad ciudad;
@@ -15,14 +16,10 @@ public class Alojamiento {
     private int camas;
     private int banios;
     private List<Habitacion> habitaciones;
-    
-//    , Habitacion habitaciones
-
-//    this.habitaciones = habitaciones;
-    
-    public Alojamiento(int idAlojamiento, String idTipoAlojamiento, String nombre, String direccion, Ciudad ciudad, double precioNoche, boolean activo, int capacidad, int camas, int banios, List<Habitacion> habitaciones) {
+   
+    public Alojamiento(int idAlojamiento, String tipoAlojamiento, String nombre, String direccion, Ciudad ciudad, double precioNoche, boolean activo, int capacidad, int camas, int banios) {
         this.idAlojamiento = idAlojamiento;
-        this.idTipoAlojamiento = idTipoAlojamiento;
+        this.tipoAlojamiento = tipoAlojamiento;
         this.nombre = nombre;
         this.direccion = direccion;
         this.ciudad = ciudad;
@@ -31,7 +28,7 @@ public class Alojamiento {
         this.capacidad = capacidad;
         this.camas = camas;
         this.banios = banios;
-        this.habitaciones = habitaciones;
+        this.habitaciones = new ArrayList<>();
         
     }
 
@@ -48,13 +45,15 @@ public class Alojamiento {
         this.idAlojamiento = idAlojamiento;
     }
 
-    public String getIdTipoAlojamiento() {
-        return idTipoAlojamiento;
+    public String getTipoAlojamiento() {
+        return tipoAlojamiento;
     }
 
-    public void setIdTipoAlojamiento(String idTipoAlojamiento) {
-        this.idTipoAlojamiento = idTipoAlojamiento;
+    public void setTipoAlojamiento(String tipoAlojamiento) {
+        this.tipoAlojamiento = tipoAlojamiento;
     }
+
+   
 
     
 
