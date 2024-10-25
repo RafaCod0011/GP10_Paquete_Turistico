@@ -79,7 +79,7 @@ public class RegimenData {
             
             if (rs.next()) {
                 
-                regimen = new Regimen();
+                //regimen = new Regimen();
                 regimen.setIdRegimen(rs.getInt("idRegimen"));
                 regimen.setDenominacion(rs.getString("denominacion"));
                 regimen.setCargoExtra(rs.getDouble("cargoExtra"));

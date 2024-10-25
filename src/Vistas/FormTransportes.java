@@ -430,7 +430,7 @@ public FormTransportes() {
                
         int respuesta = JOptionPane.showConfirmDialog(null
             ,"Va a grabar los datos ingresados del Transporte. ¿Esta Seguro/a?"
-            ,"Grabar Alumno"
+            ,"Grabar Datos del Transporte"
             ,JOptionPane.YES_NO_OPTION);
         
         if(respuesta == JOptionPane.YES_OPTION){  
@@ -459,18 +459,35 @@ public FormTransportes() {
                         }
                         tData.guardarTransporte(trans);
                         tbId.setText(String.valueOf(trans.getIdTransporte()));
+                        
 
                     } else {
                         
-                        trans.setNombreEmpresaTransporte(tbEmpresa.getText());
-                        trans.setCiudadOrigen((Ciudad) cbCiudadDesde.getSelectedItem());
-                        trans.setCiudadDestino((Ciudad) cbCiudadHasta.getSelectedItem());
-                        trans.setPrecioPersona(precio);
+                        int identificacion= Integer.parseInt(tbId.getText());
+//                        'trans.setIdTransporte(identificacion);
+//                        trans.setNombreEmpresaTransporte(tbEmpresa.getText());
+//                        trans.setCiudadOrigen((Ciudad) cbCiudadDesde.getSelectedItem());
+//                        trans.setCiudadDestino((Ciudad) cbCiudadHasta.getSelectedItem());
+//                        trans.setPrecioPersona(precio);
+                        switch (cbTipoTransporte.getSelectedItem().toString()) {
+                            case "Avion":
+                                trans = new Avion(identificacion,(Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio); 
+                                break;
+                            case "Auto":
+                                trans = new Auto(identificacion, (Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio);
+                                break;
+                            case "Colectivo":
+                                trans = new Colectivo(identificacion,(Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio);
+                                break;
+                        default:
+                                System.out.println("Selección no válida");
+                        }
                         tData.modificarTransporte(trans);
                         
                     }
                     
                     Nuevo(); 
+                    cargarTabla();
                     trans = null; 
                     
                 }
