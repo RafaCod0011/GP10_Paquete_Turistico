@@ -34,6 +34,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmTransportes = new javax.swing.JMenuItem();
         jmAlojamientos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jmPresupuestos = new javax.swing.JMenuItem();
         jmSalir = new javax.swing.JMenu();
 
         jMenuItem3.setText("jMenuItem3");
@@ -103,6 +104,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jmPrincipal);
 
         jMenu1.setText("Paquetes Turisticos");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jmPresupuestos.setText("Confeccionar Presupuesto");
+        jmPresupuestos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPresupuestosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPresupuestos);
+
         jMenuBar1.add(jMenu1);
 
         jmSalir.setText("Salir");
@@ -163,6 +178,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmAlojamientosActionPerformed
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jmPresupuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPresupuestosActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormVentaPaquetes paquetes = new FormVentaPaquetes();
+        paquetes.setVisible(true);
+        escritorio.add(paquetes);
+        escritorio.moveToFront(paquetes);
+    }//GEN-LAST:event_jmPresupuestosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,6 +236,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmAlojamientos;
     private javax.swing.JMenuItem jmCiudades;
+    private javax.swing.JMenuItem jmPresupuestos;
     private javax.swing.JMenu jmPrincipal;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenuItem jmTransportes;
