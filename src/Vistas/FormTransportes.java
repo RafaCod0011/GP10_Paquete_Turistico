@@ -122,6 +122,11 @@ public FormTransportes() {
                 tTransportesMouseClicked(evt);
             }
         });
+        tTransportes.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tTransportesPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(tTransportes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -411,7 +416,7 @@ public FormTransportes() {
             int filaSeleccionada = tTransportes.getSelectedRow();
 
             if (filaSeleccionada != -1) { 
-                    int respuesta = JOptionPane.showConfirmDialog(null
+                    int respuesta = JOptionPane.showConfirmDialog(this
                     ,"¿Está seguro/a de Eliminar el transporte seleccionado?"
                     ,"Eliminar Transporte"
                     ,JOptionPane.YES_NO_OPTION);
@@ -428,7 +433,7 @@ public FormTransportes() {
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
 
                
-        int respuesta = JOptionPane.showConfirmDialog(null
+        int respuesta = JOptionPane.showConfirmDialog(this
             ,"Va a grabar los datos ingresados del Transporte. ¿Esta Seguro/a?"
             ,"Grabar Datos del Transporte"
             ,JOptionPane.YES_NO_OPTION);
@@ -437,7 +442,7 @@ public FormTransportes() {
 
             try{
                 if(tbEmpresa.getText().isEmpty()||tbPrecio.getText().isEmpty() || cbTipoTransporte.getSelectedIndex()== -1){
-                    JOptionPane.showMessageDialog(null, "Complete los datos del Transporte","Atención", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Complete los datos del Transporte","Atención", JOptionPane.ERROR_MESSAGE);
                 }else{
 
                     Double precio = Double.valueOf(tbPrecio.getText());
@@ -464,11 +469,7 @@ public FormTransportes() {
                     } else {
                         
                         int identificacion= Integer.parseInt(tbId.getText());
-//                        'trans.setIdTransporte(identificacion);
-//                        trans.setNombreEmpresaTransporte(tbEmpresa.getText());
-//                        trans.setCiudadOrigen((Ciudad) cbCiudadDesde.getSelectedItem());
-//                        trans.setCiudadDestino((Ciudad) cbCiudadHasta.getSelectedItem());
-//                        trans.setPrecioPersona(precio);
+
                         switch (cbTipoTransporte.getSelectedItem().toString()) {
                             case "Avion":
                                 trans = new Avion(identificacion,(Ciudad) cbCiudadDesde.getSelectedItem(), (Ciudad) cbCiudadHasta.getSelectedItem(), tbEmpresa.getText(),precio); 
@@ -493,7 +494,7 @@ public FormTransportes() {
                 }
                 
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
+                JOptionPane.showMessageDialog(this, "Corrobore la información ingresada",
                         "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -526,9 +527,6 @@ public FormTransportes() {
     }//GEN-LAST:event_tTransportesMouseClicked
 
     private void cbCiudadHastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadHastaActionPerformed
-
-
-
     }//GEN-LAST:event_cbCiudadHastaActionPerformed
 
     private void cbCiudadDesdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCiudadDesdeActionPerformed
@@ -538,6 +536,9 @@ public FormTransportes() {
     private void cbTipoTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoTransporteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoTransporteActionPerformed
+
+    private void tTransportesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tTransportesPropertyChange
+    }//GEN-LAST:event_tTransportesPropertyChange
 
     
     private void cargarCombos(){
