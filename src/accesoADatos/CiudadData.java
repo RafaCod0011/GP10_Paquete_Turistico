@@ -50,6 +50,29 @@ public class CiudadData {
         }
     }
     
+    public void eliminarCiudad(int idCiudad) {
+
+    String sql = "DELETE FROM ciudades WHERE idCiudad=?";
+
+        try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idCiudad);
+
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "¡Ciudad eliminada correctamente!");
+        }else {
+            JOptionPane.showMessageDialog(null, "No se encontró la ciudad con el ID especificado.");
+        }
+
+        ps.close();
+
+      }catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar la ciudad: " + ex.getMessage());
+       }
+    }
+    
     public void modificarCiudad(Ciudad ciudad){
         
         String sql = "UPDATE ciudades SET nombre=?, fechaInicioTemporada=?, fechaFinTemporada=?, destinoActivo=?)"

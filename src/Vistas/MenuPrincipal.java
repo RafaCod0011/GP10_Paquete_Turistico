@@ -144,7 +144,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCiudadesActionPerformed
-        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormCiudades ciudades= new FormCiudades();
+        ciudades.setVisible(true);
+        escritorio.add(ciudades);
+        escritorio.moveToBack(ciudades);
     }//GEN-LAST:event_jmCiudadesActionPerformed
 
     private void jmTransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTransportesActionPerformed
