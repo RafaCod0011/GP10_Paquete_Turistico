@@ -13,6 +13,7 @@ import javax.swing.table.TableColumnModel;
 public class FormVentaPaquetes extends javax.swing.JInternalFrame {
 public Turista viajero = new Turista();
 public TuristaData tData = new TuristaData();
+public ArrayList<Turista> viajeros = new ArrayList<>();
     
 private DefaultTableModel modelo= new DefaultTableModel(){
 
@@ -27,6 +28,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         
         initComponents();
         armarCabecera();
+        
+        //no olvidar; hay que hacer un metodo que reciba un arraylist de turistas y lo agregue
+        //en la tabla paquetes / turistas
         
         
     }
@@ -69,9 +73,16 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         tbPasajerosMayores = new javax.swing.JTextField();
         tbPasajerosMenores = new javax.swing.JTextField();
 
+        setClosable(true);
+
         panelGrupoTuristas.setBackground(new java.awt.Color(204, 204, 204));
 
         tbEliminar.setText("Eliminar de la Lista");
+        tbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbEliminarActionPerformed(evt);
+            }
+        });
 
         tTuristas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -370,17 +381,31 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
     private void btAgregarTuristas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarTuristas1ActionPerformed
  
-
         try {
                 String doc = JOptionPane.showInputDialog(this,"Ingrese el número de documento del viajero");
 
                 int documento = Integer.parseInt(doc);
-
+                
                 if (!doc.isEmpty()){
+                    
+                    //primero deberia controla que el documento no exista en el arreglo
+                    for (Turista viajero1 : viajeros) {
+                        JOptionPane.showMessageDialog(this, "documento del array: " + viajero1.getDocumento());
+                        if (viajero1.getDocumento()==documento){
+                            JOptionPane.showMessageDialog(this, "El documento ingresado ya se encuentra en la lista de viajeros");
+                            return;
+                        }
+                        
+                    }
+                    JOptionPane.showMessageDialog(this, "ya controlé todos");       
+                    
+                    //si no está en el arreglo, lo buscamos en la base de datos
                     viajero = tData.buscarTurista(documento);
                     if (viajero!=null){
-                        modelo.addRow(new Object[] {viajero.getDocumento(),viajero.getFullName(),viajero.getEdad()});
-
+                        JOptionPane.showMessageDialog(this, "Está en tabla");    
+                        //si recuerpero un turista, lo cargo en la tabla y en el arraylist
+                        modelo.addRow(new Object[] {viajero.getIdTurista(),viajero.getDocumento(),viajero.getFullName(),viajero.getEdad()});   
+                        viajeros.add(viajero);
                     }else{
 
                         String apelNom = JOptionPane.showInputDialog(this, "Ingrese el apellido y nombres", "Datos del Viajero", JOptionPane.PLAIN_MESSAGE);
@@ -409,7 +434,18 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                           } while (!edadCorrecta);
 
                         JOptionPane.showMessageDialog(this, "El pasajaero es " + apelNom + " y tiene " + edad + " años");
-                        modelo.addRow(new Object[] {documento,apelNom,edad});
+                        
+
+                        //Al nuevo turista ingresado, lo agrego a la base de datos, lo cargo en la tabla y al ArrayList
+
+                        Turista viajero= new Turista(documento, apelNom, edad);
+                        tData.guardarTurista(viajero);
+                        
+                        modelo.addRow(new Object[] {viajero.getIdTurista(),viajero.getDocumento(),viajero.getFullName(),viajero.getEdad()});
+    
+                        viajeros.add(viajero);
+                        
+                        
                     }
 
                 }  
@@ -421,13 +457,38 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         
         }
 
-                     
-        
 
-        
-        
 
     }//GEN-LAST:event_btAgregarTuristas1ActionPerformed
+
+    private void tbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbEliminarActionPerformed
+        
+        if (tTuristas.isEnabled()){
+            int filaSeleccionada = tTuristas.getSelectedRow();
+            
+            JOptionPane.showMessageDialog(this, "Fila " + filaSeleccionada);
+                   
+            
+            if (filaSeleccionada != -1) { 
+                    int respuesta = JOptionPane.showConfirmDialog(this
+                    ,"¿Está seguro/a de eliminar de la lista el viajero seleccionado?"
+                    ,"Eliminar Viajero de la Lista"
+                    ,JOptionPane.YES_NO_OPTION);
+
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    int docu = (int) tTuristas.getValueAt(filaSeleccionada, 1);
+                    
+                    viajero = tData.buscarTurista(docu);
+                    viajeros.remove(viajero);
+                    ((DefaultTableModel) tTuristas.getModel()).removeRow(filaSeleccionada);
+
+
+                    //modelo.fireTableDataChanged();
+                    
+                }
+            }
+        }   
+     }//GEN-LAST:event_tbEliminarActionPerformed
     private void cargarCombos(){
 //        listadoC = (ArrayList) cData.listarCiudades();
 //        for (Ciudad ciudad : listadoC) {
@@ -445,10 +506,25 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 //        }
         
     } 
-       
+    
+    private void calcularEdades(){
+        
+        int contarMayores = 0;
+        int contarMenores = 0;
+        for (Turista viajero1 : viajeros) {
+            if (viajero1.getEdad()>10){
+                contarMayores++;
+            }else {
+                contarMenores++;
+            }
+        }
+    
+    }
+    
     
     private void armarCabecera(){
 
+        modelo.addColumn("ID");
         modelo.addColumn("Documento");
         modelo.addColumn("Apellido y Nombres");
         modelo.addColumn("Edad");
@@ -459,15 +535,17 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         TableColumnModel columnModel = tTuristas.getColumnModel();
 
         //Ancho de las columnas
-        columnModel.getColumn(0).setPreferredWidth(20);  // "Documento"
-        columnModel.getColumn(1).setPreferredWidth(80);  // "Apellido y Nombres"
-        columnModel.getColumn(2).setPreferredWidth(20);  // "Edad"
+        columnModel.getColumn(0).setPreferredWidth(10);  // "Documento"
+        columnModel.getColumn(1).setPreferredWidth(20);  // "Documento"
+        columnModel.getColumn(2).setPreferredWidth(80);  // "Apellido y Nombres"
+        columnModel.getColumn(3).setPreferredWidth(20);  // "Edad"
 
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        tTuristas.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        
+        tTuristas.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tTuristas.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         
     }
 

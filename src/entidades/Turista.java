@@ -31,9 +31,6 @@ public class Turista {
     public void setIdTurista(int idTurista) {
         this.idTurista = idTurista;
     }
-
-    
-    
     
     public int getDocumento() {
         return documento;
@@ -62,6 +59,27 @@ public class Turista {
     @Override
     public String toString() {
         return fullName + " - "  + documento + " - " + edad + " años";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Turista other = (Turista) obj;
+        return this.documento == other.documento;
     }
 
 

@@ -77,7 +77,7 @@ public class TuristaData {
     public Turista buscarTurista(int documento){
         
         Turista turista = null;
-        String sql= "SELECT documento,fullName,edad FROM turistas WHERE documento=?";
+        String sql= "SELECT documento,fullName,edad, idTurista FROM turistas WHERE documento=?";
         PreparedStatement ps = null;
         
         try{
@@ -89,9 +89,11 @@ public class TuristaData {
             if(rs.next()){
                 
                 turista=new Turista();
+                turista.setIdTurista(rs.getInt("idTurista"));
                 turista.setDocumento(rs.getInt("documento"));
                 turista.setFullName(rs.getString("fullName"));
                 turista.setEdad(rs.getInt("edad"));
+                
                 
             }
             

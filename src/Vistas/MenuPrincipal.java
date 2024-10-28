@@ -25,6 +25,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -35,11 +37,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmAlojamientos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmPresupuestos = new javax.swing.JMenuItem();
-        jmSalir = new javax.swing.JMenu();
 
         jMenuItem3.setText("jMenuItem3");
 
         jMenuItem5.setText("jMenuItem5");
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,9 +124,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1.add(jmPresupuestos);
 
         jMenuBar1.add(jMenu1);
-
-        jmSalir.setText("Salir");
-        jMenuBar1.add(jmSalir);
 
         setJMenuBar(jMenuBar1);
 
@@ -231,6 +233,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
@@ -238,7 +242,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmCiudades;
     private javax.swing.JMenuItem jmPresupuestos;
     private javax.swing.JMenu jmPrincipal;
-    private javax.swing.JMenu jmSalir;
     private javax.swing.JMenuItem jmTransportes;
     private javax.swing.JMenuItem jmTuristas;
     // End of variables declaration//GEN-END:variables
