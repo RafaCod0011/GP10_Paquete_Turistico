@@ -513,27 +513,28 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
     private void cbTransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTransportesActionPerformed
     
-    Transporte transporteSeleccionado = (Transporte) cbTransportes.getSelectedItem();
-    if (transporteSeleccionado.getTipoTransporte()=="Avion"){
-       transporteSeleccionado = (Avion) cbTransportes.getSelectedItem();
-       double precioPersona = transporteSeleccionado.calcularPrecio();
-        JOptionPane.showMessageDialog(this, "El transporte seleccionado es un avión. Precio Final x Persona: " + precioPersona);
-    }
 
-//    if (transporteSeleccionado != null) {
-//
-//         double precioPersona = transporteSeleccionado.calcularPrecio();
-//
-//         // Verificar de qué tipo es el transporte seleccionado
-//         if (transporteSeleccionado instanceof Avion) {
-//             JOptionPane.showMessageDialog(this, "El transporte seleccionado es un avión. Precio Final x Persona: " + precioPersona);
-//         } else if (transporteSeleccionado instanceof Colectivo) {
-//             JOptionPane.showMessageDialog(this, "El transporte seleccionado es un colectivo. Precio Final x Persona: " + precioPersona);
-//         } else {
-//             JOptionPane.showMessageDialog(this, "Transporte genérico. Precio Final x Persona: " + precioPersona);
-//         }
-//     }
+        Transporte transporteSeleccionado = (Transporte) cbTransportes.getSelectedItem();
 
+
+        if (transporteSeleccionado != null) {
+
+         
+        
+
+             // Verificar de qué tipo es el transporte seleccionado
+             if (transporteSeleccionado instanceof Avion) {
+                 double precioPersona = transporteSeleccionado.calcularPrecio();
+                 JOptionPane.showMessageDialog(this, "El transporte seleccionado es un avión. Precio Final x Persona: " + precioPersona);
+             } else if (transporteSeleccionado instanceof Colectivo) {
+                      double precioPersona = transporteSeleccionado.calcularPrecio();
+                 JOptionPane.showMessageDialog(this, "El transporte seleccionado es un colectivo. Precio Final x Persona: " + precioPersona);
+             } else {
+                      double precioPersona = transporteSeleccionado.calcularPrecio();
+                 JOptionPane.showMessageDialog(this, "Transporte genérico. Precio Final x Persona: " + precioPersona);
+             }
+
+        }     
     }//GEN-LAST:event_cbTransportesActionPerformed
     private void cargarCombosFiltro(){
         
@@ -545,9 +546,33 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             Ciudad cOrigen = (Ciudad) cbOrigen.getSelectedItem();
             Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
             listadoT = (ArrayList) tpData.buscarTransporte(cOrigen,cDestino);
+            
+            
+            
             for (Transporte transporte : listadoT) {
-                cbTransportes.addItem(transporte);
-            }
+            
+                if ("Avion".equals(transporte.getTipoTransporte())) {
+                    Avion avion = new Avion(transporte.getIdTransporte(), 
+                                             transporte.getCiudadOrigen(), 
+                                             transporte.getCiudadDestino(), 
+                                             transporte.getNombreEmpresaTransporte(), 
+                                             transporte.getPrecioPersona());
+                    cbTransportes.addItem(avion);
+                } else if ("Colectivo".equals(transporte.getTipoTransporte())) {
+                    Colectivo colectivo = new Colectivo(transporte.getIdTransporte(), 
+                                                         transporte.getCiudadOrigen(), 
+                                                         transporte.getCiudadDestino(), 
+                                                         transporte.getNombreEmpresaTransporte(), 
+                                                         transporte.getPrecioPersona());
+                    cbTransportes.addItem(colectivo);
+                }
+        }
+            
+//            for (Transporte transporte : listadoT) {
+//                
+//                if (transporte.getTipoTransporte())
+//                cbTransportes.addItem(transporte);
+//            }
         }    
         
         

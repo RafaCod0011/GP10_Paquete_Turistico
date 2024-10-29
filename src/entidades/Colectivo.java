@@ -22,7 +22,10 @@ public class Colectivo extends Transporte {
         super(); 
         this.tipoTransporte = "Colectivo"; 
     }
+    
+    
+    @Override
     public double calcularPrecio() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return this.precioPersona;
     }
 }
