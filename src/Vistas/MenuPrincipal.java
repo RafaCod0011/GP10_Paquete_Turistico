@@ -151,7 +151,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         FormCiudades ciudades= new FormCiudades();
         ciudades.setVisible(true);
         escritorio.add(ciudades);
-        escritorio.moveToBack(ciudades);
+        escritorio.moveToFront(ciudades);
     }//GEN-LAST:event_jmCiudadesActionPerformed
 
     private void jmTransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTransportesActionPerformed
