@@ -1,6 +1,7 @@
 package entidades;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Transporte {
 
@@ -9,7 +10,7 @@ public class Transporte {
     private Ciudad ciudadDestino;
     private String nombreEmpresaTransporte;
     String tipoTransporte;
-    private double precioPersona;
+    public double precioPersona;
 
     public Transporte(int idTransporte, Ciudad ciudadOrigen, Ciudad ciudadDestino, String nombreEmpresaTransporte, String tipoTransporte, double precioPersona) {
         this.idTransporte = idTransporte;
@@ -90,15 +91,13 @@ public class Transporte {
 
     @Override
     public String toString() {
-        return idTransporte + " - " + ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + " | "+ tipoTransporte +"-"+ nombreEmpresaTransporte +  " $" + precioPersona;
+        return ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + "  |  "+ tipoTransporte +" - "+ nombreEmpresaTransporte +  " $" + precioPersona;
+        //return idTransporte + " - " + ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + " | "+ tipoTransporte +"-"+ nombreEmpresaTransporte +  " $" + precioPersona;
     }
 
-
-
+    
     public double calcularPrecio() {
-        
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+       return this.precioPersona;
     }
 
 

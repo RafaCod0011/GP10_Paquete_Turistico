@@ -1,6 +1,8 @@
 
 package Vistas;
 
+import accesoADatos.CiudadData;
+import accesoADatos.TransporteData;
 import accesoADatos.TuristaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -11,9 +13,17 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 
 public class FormVentaPaquetes extends javax.swing.JInternalFrame {
+    
 public Turista viajero = new Turista();
+public Transporte transporte = new Transporte();
+
 public TuristaData tData = new TuristaData();
+public TransporteData tpData = new TransporteData();
+public CiudadData cData = new CiudadData();
+
 public ArrayList<Turista> viajeros = new ArrayList<>();
+public ArrayList<Transporte> listadoT = new ArrayList<>();
+public ArrayList<Ciudad> listadoC = new ArrayList<>();
     
 private DefaultTableModel modelo= new DefaultTableModel(){
 
@@ -28,6 +38,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         
         initComponents();
         armarCabecera();
+        cargarCombos();
+        cbOrigen.setSelectedItem(null);
+        cbDestino.setSelectedItem(null);
+
         
         //no olvidar; hay que hacer un metodo que reciba un arraylist de turistas y lo agregue
         //en la tabla paquetes / turistas
@@ -44,6 +58,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jScrollPane3 = new javax.swing.JScrollPane();
         tTuristas = new javax.swing.JTable();
         btAgregarTuristas1 = new javax.swing.JButton();
+        lMen = new javax.swing.JLabel();
+        lMay = new javax.swing.JLabel();
         panelDestino = new javax.swing.JPanel();
         cbOrigen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -57,7 +73,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         cbRegimen = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbTransportes = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -77,7 +93,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
         panelGrupoTuristas.setBackground(new java.awt.Color(204, 204, 204));
 
-        tbEliminar.setText("Eliminar de la Lista");
+        tbEliminar.setText("Quitar de la lista");
         tbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tbEliminarActionPerformed(evt);
@@ -104,19 +120,26 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        lMen.setText(".");
+
+        lMay.setText(".");
+
         javax.swing.GroupLayout panelGrupoTuristasLayout = new javax.swing.GroupLayout(panelGrupoTuristas);
         panelGrupoTuristas.setLayout(panelGrupoTuristasLayout);
         panelGrupoTuristasLayout.setHorizontalGroup(
             panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
-                .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(tbEliminar)))
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(335, Short.MAX_VALUE))
+            .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
+                .addGap(141, 141, 141)
+                .addComponent(tbEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lMen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lMay, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
             .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -126,8 +149,15 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelGrupoTuristasLayout.setVerticalGroup(
             panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(tbEliminar)
+                .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(tbEliminar))
+                    .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lMay)
+                            .addComponent(lMen))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -213,7 +243,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel5.setForeground(new java.awt.Color(51, 51, 255));
         jLabel5.setText("Transporte:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTransportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTransportesActionPerformed(evt);
+            }
+        });
 
         jLabel8.setForeground(new java.awt.Color(51, 51, 255));
         jLabel8.setText("Régimen:");
@@ -248,11 +282,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGap(19, 19, 19))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 47, Short.MAX_VALUE))))
+                .addComponent(panelDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -271,7 +301,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(189, 189, 189)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -284,7 +314,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(tbTransporteMenores, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(37, 37, 37)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
@@ -312,8 +342,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                 .addComponent(tbPasajerosMenores, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(229, 229, 229)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(212, Short.MAX_VALUE))
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,7 +360,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -376,18 +407,19 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void btVerOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerOpcionesActionPerformed
-        // TODO add your handling code here:
+   
+        cargarCombosFiltro();
+        
+        
+        
     }//GEN-LAST:event_btVerOpcionesActionPerformed
 
     private void btAgregarTuristas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarTuristas1ActionPerformed
  
         try {
                 String doc = JOptionPane.showInputDialog(this,"Ingrese el número de documento del viajero");
-
                 int documento = Integer.parseInt(doc);
-                
                 if (!doc.isEmpty()){
-                    
                     //primero deberia controla que el documento no exista en el arreglo
                     for (Turista viajero1 : viajeros) {
                         JOptionPane.showMessageDialog(this, "documento del array: " + viajero1.getDocumento());
@@ -395,10 +427,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                             JOptionPane.showMessageDialog(this, "El documento ingresado ya se encuentra en la lista de viajeros");
                             return;
                         }
-                        
                     }
                     JOptionPane.showMessageDialog(this, "ya controlé todos");       
-                    
                     //si no está en el arreglo, lo buscamos en la base de datos
                     viajero = tData.buscarTurista(documento);
                     if (viajero!=null){
@@ -406,13 +436,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                         //si recuerpero un turista, lo cargo en la tabla y en el arraylist
                         modelo.addRow(new Object[] {viajero.getIdTurista(),viajero.getDocumento(),viajero.getFullName(),viajero.getEdad()});   
                         viajeros.add(viajero);
+                        calcularEdades();
                     }else{
-
                         String apelNom = JOptionPane.showInputDialog(this, "Ingrese el apellido y nombres", "Datos del Viajero", JOptionPane.PLAIN_MESSAGE);
                         if (apelNom == null) {
                             return;
                         }
-
                         boolean edadCorrecta=false;
                         int edad = 0;
                         do {
@@ -420,7 +449,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                               if (edadS == null || edadS.isEmpty()) {
                                   return; 
                               }
-
                               try {
                                   edad = Integer.parseInt(edadS);
                                   if (edad >= 1 && edad <= 150) {
@@ -432,24 +460,15 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                   JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para la edad.", "Entrada Inválida", JOptionPane.ERROR_MESSAGE);
                               }
                           } while (!edadCorrecta);
-
                         JOptionPane.showMessageDialog(this, "El pasajaero es " + apelNom + " y tiene " + edad + " años");
-                        
-
                         //Al nuevo turista ingresado, lo agrego a la base de datos, lo cargo en la tabla y al ArrayList
-
                         Turista viajero= new Turista(documento, apelNom, edad);
                         tData.guardarTurista(viajero);
-                        
                         modelo.addRow(new Object[] {viajero.getIdTurista(),viajero.getDocumento(),viajero.getFullName(),viajero.getEdad()});
-    
                         viajeros.add(viajero);
-                        
-                        
+                        calcularEdades();
                     }
-
                 }  
-            
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para el documento.", "Error de Formato", JOptionPane.ERROR_MESSAGE);
             } catch (Exception e) {
@@ -457,14 +476,17 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         
         }
 
-
-
     }//GEN-LAST:event_btAgregarTuristas1ActionPerformed
 
     private void tbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbEliminarActionPerformed
         
+        int filaSeleccionada = tTuristas.getSelectedRow();
+        if (filaSeleccionada==-1){
+             JOptionPane.showMessageDialog(this, "Seleccione un viajero para poder quitarlo del presupuesto","Quitar viajero", JOptionPane.ERROR_MESSAGE);
+             return;
+        }
         if (tTuristas.isEnabled()){
-            int filaSeleccionada = tTuristas.getSelectedRow();
+            //int filaSeleccionada = tTuristas.getSelectedRow();
             
             JOptionPane.showMessageDialog(this, "Fila " + filaSeleccionada);
                    
@@ -481,20 +503,64 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     viajero = tData.buscarTurista(docu);
                     viajeros.remove(viajero);
                     ((DefaultTableModel) tTuristas.getModel()).removeRow(filaSeleccionada);
-
-
-                    //modelo.fireTableDataChanged();
                     
+                    calcularEdades();
+
                 }
             }
         }   
      }//GEN-LAST:event_tbEliminarActionPerformed
+
+    private void cbTransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTransportesActionPerformed
+    
+    Transporte transporteSeleccionado = (Transporte) cbTransportes.getSelectedItem();
+    if (transporteSeleccionado.getTipoTransporte()=="Avion"){
+       transporteSeleccionado = (Avion) cbTransportes.getSelectedItem();
+       double precioPersona = transporteSeleccionado.calcularPrecio();
+        JOptionPane.showMessageDialog(this, "El transporte seleccionado es un avión. Precio Final x Persona: " + precioPersona);
+    }
+
+//    if (transporteSeleccionado != null) {
+//
+//         double precioPersona = transporteSeleccionado.calcularPrecio();
+//
+//         // Verificar de qué tipo es el transporte seleccionado
+//         if (transporteSeleccionado instanceof Avion) {
+//             JOptionPane.showMessageDialog(this, "El transporte seleccionado es un avión. Precio Final x Persona: " + precioPersona);
+//         } else if (transporteSeleccionado instanceof Colectivo) {
+//             JOptionPane.showMessageDialog(this, "El transporte seleccionado es un colectivo. Precio Final x Persona: " + precioPersona);
+//         } else {
+//             JOptionPane.showMessageDialog(this, "Transporte genérico. Precio Final x Persona: " + precioPersona);
+//         }
+//     }
+
+    }//GEN-LAST:event_cbTransportesActionPerformed
+    private void cargarCombosFiltro(){
+        
+        //Controlamos que haya seleccionado un origen y un destino, y traemos los transportes
+        //que realicen ese recorrido
+        
+        cbTransportes.removeAllItems();
+        if (cbOrigen.getSelectedItem()!=null && cbDestino.getSelectedItem()!=null){
+            Ciudad cOrigen = (Ciudad) cbOrigen.getSelectedItem();
+            Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
+            listadoT = (ArrayList) tpData.buscarTransporte(cOrigen,cDestino);
+            for (Transporte transporte : listadoT) {
+                cbTransportes.addItem(transporte);
+            }
+        }    
+        
+        
+    }
+    
     private void cargarCombos(){
-//        listadoC = (ArrayList) cData.listarCiudades();
-//        for (Ciudad ciudad : listadoC) {
-//            cbCiudadDesde.addItem(ciudad);
-//            cbCiudadHasta.addItem(ciudad);
-//        }
+    
+            listadoC = (ArrayList) cData.listarCiudades();
+            for (Ciudad ciudad : listadoC) {
+                cbOrigen.addItem(ciudad);
+                cbDestino.addItem(ciudad);
+            }
+    
     }
     
     private void cargarTabla(){
@@ -509,6 +575,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     
     private void calcularEdades(){
         
+        lMay.setText("");
+        lMen.setText("");
         int contarMayores = 0;
         int contarMenores = 0;
         for (Turista viajero1 : viajeros) {
@@ -518,6 +586,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 contarMenores++;
             }
         }
+        String mayores = String.valueOf(contarMayores);
+        String menores = String.valueOf(contarMenores);
+        lMay.setText(mayores);
+        lMen.setText(menores);
     
     }
     
@@ -561,10 +633,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private javax.swing.JButton btAgregarTuristas1;
     private javax.swing.JButton btVerOpciones;
     private javax.swing.JComboBox<String> cbAlojamiento;
-    private javax.swing.JComboBox<String> cbDestino;
-    private javax.swing.JComboBox<String> cbOrigen;
+    private javax.swing.JComboBox<Ciudad> cbDestino;
+    private javax.swing.JComboBox<Ciudad> cbOrigen;
     private javax.swing.JComboBox<String> cbRegimen;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Transporte> cbTransportes;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -578,6 +650,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lMay;
+    private javax.swing.JLabel lMen;
     private javax.swing.JLabel lbTransportes;
     private javax.swing.JLabel lbTransportesRecorridos;
     private javax.swing.JPanel panelDestino;

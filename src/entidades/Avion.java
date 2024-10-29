@@ -19,8 +19,17 @@ public class Avion extends Transporte {
         super(); 
         this.tipoTransporte = "Avion"; 
     }
-      
-    public double calcularPrecio() {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+    
+    
+    @Override
+    public String toString() {
+        return super.toString() + " (Avión)";
     }
+    
+    @Override
+    public double calcularPrecio() {
+       return this.precioPersona * 1.05;
+    }
+    
 }
