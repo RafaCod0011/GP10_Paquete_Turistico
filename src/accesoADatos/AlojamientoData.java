@@ -28,8 +28,9 @@ public class AlojamientoData {
         if (alojamientoExiste(alojamiento.getNombre(), alojamiento.getDireccion())) {
             JOptionPane.showMessageDialog(null, "El alojamiento ya existe.");
             return;
-        }
-        String sql = "INSERT INTO alojamientos (tipoAlojamiento, nombre, direccion, idciudad, precioNoche, activo, capacidad, camas, banios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        }else{
+            
+            String sql = "INSERT INTO alojamientos (tipoAlojamiento, nombre, direccion, idciudad, precioNoche, activo, capacidad, camas, banios) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -53,6 +54,8 @@ public class AlojamientoData {
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alojamiento");
         }
+        }
+        
     }
         
     public void modificarAlojamiento(Alojamiento alojamiento){
@@ -71,8 +74,13 @@ public class AlojamientoData {
             ps.setInt(9, alojamiento.getBanios());
             ps.setInt(10, alojamiento.getIdAlojamiento());  
 
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Alojamientos modificado exitosamente");
+            int exito= ps.executeUpdate();
+            if (exito == 1) {
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el alojamiento a modificar");
+        }
+            ps.close();
         }catch (SQLException ex) {
             ex.printStackTrace(); 
             JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Alojamientos");
@@ -229,7 +237,7 @@ public class AlojamientoData {
             alojamiento.setNombre(rs.getString("nombre"));
             alojamiento.setDireccion(rs.getString("direccion"));
 
-            // Crear el objeto Ciudad
+            
             Ciudad ciudad = new Ciudad();
             ciudad.setIdCiudad(rs.getInt("idCiudad"));
             ciudad.setNombre(rs.getString("c.nombre")); // Alias para evitar conflictos de nombre
@@ -245,11 +253,11 @@ public class AlojamientoData {
             alojamiento.setCamas(rs.getInt("camas"));
             alojamiento.setBanios(rs.getInt("banios"));
 
-            // Si tienes habitaciones asociadas, puedes cargarlas aquí:
-            HabitacionData habitacionData = new HabitacionData();
-            List<Habitacion> habitaciones = habitacionData.listarHabitacionesPorAlojamiento(idAlojamiento);
             
-            alojamiento.setHabitaciones(habitaciones); // Asumiendo que el alojamiento tiene un setHabitaciones()
+//            HabitacionData habitacionData = new HabitacionData();
+//            List<Habitacion> habitaciones = habitacionData.listarHabitacionesPorAlojamiento(idAlojamiento);
+//            
+//            alojamiento.setHabitaciones(habitaciones); 
         }
     }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno " + ex.getMessage());
