@@ -95,29 +95,7 @@ public class Transporte {
         //return idTransporte + " - " + ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + " | "+ tipoTransporte +"-"+ nombreEmpresaTransporte +  " $" + precioPersona;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.tipoTransporte);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Transporte other = (Transporte) obj;
-        return Objects.equals(this.tipoTransporte, other.tipoTransporte);
-    }
-
-    
+   
     public double calcularPrecio() {
        return this.precioPersona;
     }

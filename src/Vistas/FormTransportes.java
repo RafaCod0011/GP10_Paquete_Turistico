@@ -103,6 +103,8 @@ public FormTransportes() {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Desde la ciudad:");
 
+        setClosable(true);
+
         jSeparator2.setMaximumSize(new java.awt.Dimension(31767, 31767));
         jSeparator2.setName(""); // NOI18N
 
