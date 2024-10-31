@@ -16,6 +16,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
     
     public CiudadData Cdata = new CiudadData();
     public ArrayList<Ciudad> listado = new ArrayList();
+    public Ciudad ciudad = new Ciudad();
     
     
     private DefaultTableModel modelo= new DefaultTableModel(){
@@ -290,6 +291,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
         //ID
             int id = (int) TCiudades.getValueAt(filaSeleccionada, 0);
             String code = String.valueOf(id);
+            tbId.setText(code);
         // NOMBRE DE LA CIUDAD
         String nombre = (String) TCiudades.getValueAt(filaSeleccionada, 1); 
         JtNombre.setText(nombre);
@@ -301,6 +303,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
 
     
     private void Nuevo(){
+        tbId.setText("");
         TCiudades.clearSelection();
         JtNombre.setText("");
         JRBactivo.setSelected(false);
@@ -315,59 +318,26 @@ public class FormCiudades extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JtNombreActionPerformed
 
     private void JBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBGuardarActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(null
-            ,"Va a grabar los datos ingresados de la ciudad. ¿Esta Seguro/a?"
-            ,"Grabar datos de la Ciudad"
-            ,JOptionPane.YES_NO_OPTION);
-        
-        if(respuesta == JOptionPane.YES_OPTION){  
-            try{
-                if(JtNombre.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Complete los datos de la Ciudad","Atención", JOptionPane.ERROR_MESSAGE);
-                }else{
-  
-                    String nombre = JtNombre.getText();
-                    boolean activo = JRBactivo.isSelected();
-                
-                    int filaSeleccionada = TCiudades.getSelectedRow();
-                    
-                    if(filaSeleccionada == -1){
-                        Ciudad ciudad = new Ciudad(nombre, activo);
-                        Cdata.agregarCiudad(ciudad);
-                    }else{
-                     int idCiudad =(int)TCiudades.getValueAt(filaSeleccionada, 0);
-                     Ciudad ciudad = new Ciudad(idCiudad, nombre, activo);
-                    }
-                    
-                    limpiarFormulario();
-                    cargarTabla();
-                }
-                
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
-                        "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        guardarCiudad();
     }//GEN-LAST:event_JBGuardarActionPerformed
 
     private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
-        if (TCiudades.isEnabled()){
-            int filaSeleccionada = TCiudades.getSelectedRow();
+        if (TCiudades.isEnabled()) {
+          int filaSeleccionada = TCiudades.getSelectedRow();
 
-            if (filaSeleccionada != -1) { // Controlamos que haya una fila seleccionada
-                    int respuesta = JOptionPane.showConfirmDialog(null
-                    ,"¿Está seguro/a de Eliminar la ciudad seleccionada?"
-                    ,"Eliminar Ciudad"
-                    ,JOptionPane.YES_NO_OPTION);
+          if (filaSeleccionada != -1) { 
+            int respuesta = JOptionPane.showConfirmDialog(this,
+                    "¿Está seguro/a de Eliminar la ciudad seleccionada?",
+                    "Eliminar Ciudad",
+                    JOptionPane.YES_NO_OPTION);
 
-                if (respuesta == JOptionPane.YES_OPTION) {
-                    int ciudadEliminar = (int) TCiudades.getValueAt(filaSeleccionada, 0);
-                    Cdata.eliminarCiudad(ciudadEliminar);
-                    Nuevo();
-                    cargarTabla();
-                }
+            if (respuesta == JOptionPane.YES_OPTION) {
+                int idCiudad = Integer.parseInt(tbId.getText());
+                Cdata.eliminarCiudad(idCiudad);
+                Nuevo();
             }
         }
+     } 
     }//GEN-LAST:event_JBEliminarActionPerformed
 
     private void JBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBNuevoActionPerformed
@@ -389,11 +359,55 @@ public class FormCiudades extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_JBSalirActionPerformed
 
-    private void limpiarFormulario() {
-    TCiudades.clearSelection();
-    JtNombre.setText("");
-    JRBactivo.setSelected(false);
-}
+    private void guardarCiudad(){
+    int respuesta = JOptionPane.showConfirmDialog(null,
+        "Va a grabar los datos ingresados de la ciudad. ¿Está Seguro/a?",
+        "Grabar datos de la Ciudad",
+        JOptionPane.YES_NO_OPTION);
+
+    if(respuesta == JOptionPane.YES_OPTION){  
+        try {
+            if(JtNombre.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Complete los datos de la Ciudad", "Atención", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (tbId.getText().isEmpty()) {  // Nuevo registro
+                    String nombre= JtNombre.getText();
+                    boolean Activo = JRBactivo.isSelected();
+
+                    // Crear la nueva ciudad sin ID
+                    ciudad = new Ciudad(0, nombre, Activo);
+                    Cdata.agregarCiudad(ciudad);
+
+                    // Actualizar tbId con el ID generado
+                    tbId.setText(String.valueOf(ciudad.getIdCiudad()));
+                    JOptionPane.showMessageDialog(this, "Ciudad agregada correctamente");
+                } else {  // Actualizar ciudad existente
+                    int idCiudad = Integer.parseInt(tbId.getText());
+                    Ciudad ciudadActual = Cdata.buscarCiudad(idCiudad);
+                    
+                    String nombre= JtNombre.getText();
+                    boolean Activo = JRBactivo.isSelected();
+
+                    if(ciudadActual.getNombre().equals(nombre) &&
+                       ciudadActual.getDestinoActivo() == Activo){
+                        JOptionPane.showMessageDialog(this, "Debe modificar algún parámetro para editar", "Atención", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        ciudad = new Ciudad(idCiudad, nombre, Activo);
+                        Cdata.modificarCiudad(ciudad);
+                        JOptionPane.showMessageDialog(this, "Ciudad modificada correctamente");
+                    }
+                }
+
+                cargarTabla();
+                Nuevo();
+                ciudad = null;    
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Corrobore la información ingresada",
+                    "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    }
     
     private void cargarTabla(){
     
