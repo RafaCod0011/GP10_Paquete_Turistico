@@ -21,7 +21,7 @@ public class CiudadData {
     
     public void agregarCiudad(Ciudad ciudad){
         
-        String sql = "INSERT INTO ciudades (nombre, fechaInicioTemporada, fechaFinTemporada, destinoActivo)" 
+        String sql = "INSERT INTO ciudades (nombre, destinoActivo)" 
                    + "VALUES (?, ?, ?, ?)";
         
         try{
@@ -72,7 +72,7 @@ public class CiudadData {
     
     public void modificarCiudad(Ciudad ciudad){
         
-        String sql = "UPDATE ciudades SET nombre=?, fechaInicioTemporada=?, fechaFinTemporada=?, destinoActivo=?)"
+        String sql = "UPDATE ciudades SET nombre=?, destinoActivo=?)"
                 + "WHERE idCiudad=?";
         
         try{
