@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import javax.swing.JOptionPane;
 import entidades.Ciudad;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +27,7 @@ public class CiudadData {
         try{
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, ciudad.getNombre());
-            ps.setDate(2, java.sql.Date.valueOf(ciudad.getFechaInicioTemporada()));
-            ps.setDate(3, java.sql.Date.valueOf(ciudad.getFechaFinTemporada()));
-            ps.setBoolean(4, ciudad.getDestinoActivo());
+            ps.setBoolean(2, ciudad.getDestinoActivo());
             
             ps.executeUpdate();
             
@@ -81,10 +78,8 @@ public class CiudadData {
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, ciudad.getNombre());
-            ps.setDate(2, java.sql.Date.valueOf(ciudad.getFechaInicioTemporada()));
-            ps.setDate(3, java.sql.Date.valueOf(ciudad.getFechaFinTemporada()));
-            ps.setBoolean(4, ciudad.getDestinoActivo());
-            ps.setInt(5, ciudad.getIdCiudad());
+            ps.setBoolean(2, ciudad.getDestinoActivo());
+            ps.setInt(3, ciudad.getIdCiudad());
             
             int exito = ps.executeUpdate();
             
@@ -114,8 +109,6 @@ public class CiudadData {
                 
                 ciudad.setIdCiudad(rs.getInt("idCiudad"));
                 ciudad.setNombre(rs.getString("nombre"));
-                ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
-                ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
                 ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
                 
             }
@@ -186,8 +179,6 @@ public class CiudadData {
                 Ciudad ciudad = new Ciudad();
                 ciudad.setIdCiudad(rs.getInt("idCiudad"));
                 ciudad.setNombre(rs.getString("nombre"));
-                ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
-                ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
                 ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
 
                 ciudades.add(ciudad);
@@ -219,8 +210,6 @@ public class CiudadData {
                 Ciudad ciudad = new Ciudad();
                 ciudad.setIdCiudad(rs.getInt("idCiudad"));
                 ciudad.setNombre(rs.getString("nombre"));
-                ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
-                ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
                 ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
 
                 ciudades.add(ciudad);

@@ -30,8 +30,8 @@ public class Main {
         LocalDate fechaFin  =  LocalDate.parse(cadena2, formatter);
         
         
-        Ciudad origen = new Ciudad(1,"Mendoza", fechaInicio, fechaFin, true);
-        Ciudad destino = new Ciudad(2,"Cordoba", fechaInicio, fechaFin, true);
+        Ciudad origen = new Ciudad(1,"Mendoza", true);
+        Ciudad destino = new Ciudad(2,"Cordoba", true);
 //        
         //Transporte t1 = new Avion(8,origen, destino,"Latam", 2100);
         Transporte t1 = new Avion(origen, destino,"Aerolineas", 2850);

@@ -198,8 +198,6 @@ public class AlojamientoData {
             Ciudad ciudad = new Ciudad();
             ciudad.setIdCiudad(rs.getInt("idCiudad"));
             ciudad.setNombre(rs.getString("nombre"));
-            ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
-            ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
             ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
 
             alojamiento.setCiudad(ciudad);
@@ -241,8 +239,6 @@ public class AlojamientoData {
             Ciudad ciudad = new Ciudad();
             ciudad.setIdCiudad(rs.getInt("idCiudad"));
             ciudad.setNombre(rs.getString("c.nombre")); // Alias para evitar conflictos de nombre
-            ciudad.setFechaInicioTemporada(rs.getDate("fechaInicioTemporada").toLocalDate());
-            ciudad.setFechaFinTemporada(rs.getDate("fechaFinTemporada").toLocalDate());
             ciudad.setDestinoActivo(rs.getBoolean("destinoActivo"));
 
             alojamiento.setCiudad(ciudad);
