@@ -13,6 +13,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import entidades.Ciudad;
 import entidades.Habitacion;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 
 public class AlojamientoData {
@@ -136,7 +138,7 @@ public class AlojamientoData {
         
         try{
             
-            String sql = "SELECT * FROM alojamiento WHERE ciudad = ?";
+            String sql = "SELECT * FROM alojamientos WHERE idCiudad = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idCiudad);
             ResultSet rs = ps.executeQuery();
@@ -181,7 +183,7 @@ public class AlojamientoData {
     List<Alojamiento> listaAlojamientos = new ArrayList<>();
    
     try {
-        String sql = "SELECT a.*, c.* FROM alojamiento a JOIN ciudad c ON a.ciudad = c.idCiudad WHERE a.tipoAlojamiento = ?";
+        String sql = "SELECT a.*, c.* FROM alojamientos a JOIN ciudadess c ON a.ciudades = c.idCiudad WHERE a.tipoAlojamiento = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, tipoAlojamiento); 
         ResultSet rs = ps.executeQuery();
@@ -278,6 +280,38 @@ public class AlojamientoData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alojamientos: " + ex.getMessage());
         }
         return false;
+    }
+    
+    public double precioTotalEstadia(int idAlojamiento, LocalDate fechaDesde, LocalDate fechaHasta) {
+        
+        if (fechaDesde.isAfter(fechaHasta) || fechaDesde.isEqual(fechaHasta)) {
+            JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin.");
+            return 0;
+        }
+
+        double precioTotal = 0;
+        String sql = "SELECT precioNoche FROM alojamientos WHERE idAlojamiento = ? AND activo = true";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlojamiento);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                double precioPorNoche = rs.getDouble("precioNoche");
+                long dias = ChronoUnit.DAYS.between(fechaDesde, fechaHasta);
+                precioTotal = precioPorNoche * dias;
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el alojamiento activo con el ID especificado.");
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alojamientos");
+        }
+
+        return precioTotal;
     }
     
 }

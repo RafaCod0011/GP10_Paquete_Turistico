@@ -351,6 +351,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JBGuardarActionPerformed
 
     private void JBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEliminarActionPerformed
+        
         if (TCiudades.isEnabled()){
             int filaSeleccionada = TCiudades.getSelectedRow();
 

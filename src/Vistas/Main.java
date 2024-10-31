@@ -20,23 +20,31 @@ public class Main {
         
 //      TransporteData td= new TransporteData();      
 //      ArrayList<Transporte>listado = new ArrayList();
-        
-        
 
-        String cadena1 = "11/01/2024";
-        String cadena2 = "15/03/2024";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaInicio =  LocalDate.parse(cadena1, formatter);
-        LocalDate fechaFin  =  LocalDate.parse(cadena2, formatter);
+            AlojamientoData alo = new AlojamientoData();
         
-        
-        Ciudad origen = new Ciudad(1,"Mendoza", true);
-        Ciudad destino = new Ciudad(2,"Cordoba", true);
+            int idAlojamiento = 1; 
+            LocalDate fechaDesde = LocalDate.of(2024, 10, 1);
+            LocalDate fechaHasta = LocalDate.of(2024, 10, 10);
+
+            
+            double precioTotal = alo.precioTotalEstadia(idAlojamiento, fechaDesde, fechaHasta);
+            System.out.println("El precio total de la estadía es: $" + precioTotal);
+//
+//        String cadena1 = "11/01/2024";
+//        String cadena2 = "15/03/2024";
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        LocalDate fechaInicio =  LocalDate.parse(cadena1, formatter);
+//        LocalDate fechaFin  =  LocalDate.parse(cadena2, formatter);
 //        
-        //Transporte t1 = new Avion(8,origen, destino,"Latam", 2100);
-        Transporte t1 = new Avion(origen, destino,"Aerolineas", 2850);
-        Transporte t2 = new Avion(origen, destino,"Jet Smart", 1800);
-        Transporte t3 = new Colectivo(origen, destino,"Chevallier", 1400);
+//        
+//        Ciudad origen = new Ciudad(1,"Mendoza", true);
+//        Ciudad destino = new Ciudad(2,"Cordoba", true);
+////        
+//        //Transporte t1 = new Avion(8,origen, destino,"Latam", 2100);
+//        Transporte t1 = new Avion(origen, destino,"Aerolineas", 2850);
+//        Transporte t2 = new Avion(origen, destino,"Jet Smart", 1800);
+//        Transporte t3 = new Colectivo(origen, destino,"Chevallier", 1400);
 
 //        String cadena1 = "11/01/2024";
 //        String cadena2 = "15/03/2024";
@@ -45,7 +53,7 @@ public class Main {
 //        LocalDate fechaFin  =  LocalDate.parse(cadena2, formatter);
 //        
 //        
-          CiudadData cda = new CiudadData();
+//          CiudadData cda = new CiudadData();
 //        
 //        Ciudad origen = new Ciudad(5,"Mendoza", fechaInicio, fechaFin, true);
 //        Ciudad destino = new Ciudad(6,"Cordoba", fechaInicio, fechaFin, true);
@@ -57,7 +65,7 @@ public class Main {
 //        
 //        Habitacion basica= new Habitacion(1, 1, 3, 5, true);
 //        
-//          AlojamientoData alo = new AlojamientoData();
+
 //          Ciudad Mendoza = cda.buscarCiudad(3);
 //          Alojamiento hotel = new Alojamiento(1,"2","Valle del sol","Mart3 456",Mendoza,300,true,2,2,2,basica);
 
