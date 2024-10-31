@@ -21,8 +21,7 @@ public class RegimenData {
     
     public void agregarRegimenes(Regimen regimen){
         
-        String sql= "UPDATE regimenes SET idRegimen=?, denominacion=?, cargoExtra=? "
-                + "VALUES (?, ?, ?)";
+        String sql = "INSERT INTO regimenes (idRegimen, denominacion, cargoExtra) VALUES (?, ?, ?)";
 
         try {
             
@@ -49,7 +48,7 @@ public class RegimenData {
 
     public List<Regimen> listarRegimenes () {
         List<Regimen> regimenes = new ArrayList<>();
-        String sql = "SELECT * FROM regimen";
+        String sql = "SELECT * FROM regimenes";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -79,7 +78,7 @@ public class RegimenData {
             
             if (rs.next()) {
                 
-                //regimen = new Regimen();
+                regimen = new Regimen();
                 regimen.setIdRegimen(rs.getInt("idRegimen"));
                 regimen.setDenominacion(rs.getString("denominacion"));
                 regimen.setCargoExtra(rs.getDouble("cargoExtra"));

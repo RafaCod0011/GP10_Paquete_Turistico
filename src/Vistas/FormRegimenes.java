@@ -4,7 +4,10 @@ import accesoADatos.RegimenData;
 import entidades.Regimen;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -18,9 +21,28 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
 
     public FormRegimenes() {
         initComponents();
-        armarCabecera();
-        cargaTabla();
         this.setTitle("Formulario Regimenes");
+
+        rData = new RegimenData(); // inicializar antes de cargar la tabla
+        listadoR = (ArrayList<Regimen>) rData.listarRegimenes();
+        modelo = new DefaultTableModel();
+
+        armarCabecera();
+        cargaTabla(); // cargar después de inicializar rData y listadoR
+
+        // Configuración del selector de filas
+        ListSelectionModel modeloS = jtRegimenes.getSelectionModel();
+        modeloS.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int filaSeleccionada = jtRegimenes.getSelectedRow();
+                if (filaSeleccionada != -1) {
+                    leerTabla();
+                }
+            }
+        }
+    });
         
         rData = new RegimenData();
         listadoR = (ArrayList<Regimen>)rData.listarRegimenes();
@@ -28,7 +50,6 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         
         this.setTitle("Formulario Regimenes");
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,7 +91,6 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jtRegimenes);
 
         jbEliminar.setText("ELIMINAR");
-        jbEliminar.setActionCommand("ELIMINAR");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbEliminarActionPerformed(evt);
@@ -155,10 +175,11 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbAgregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -192,8 +213,25 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void leerTabla() { 
+    int filaSeleccionada = jtRegimenes.getSelectedRow();
+
+    if (filaSeleccionada != -1) {
+        
+        //ID
+            int id = (int) jtRegimenes.getValueAt(filaSeleccionada, 0);
+            String code = String.valueOf(id);
+        // NOMBRE DE EL REGIMEN
+        String denominacion = (String) jtRegimenes.getValueAt(filaSeleccionada, 1); 
+        tfDenominacion.setText(denominacion);
+        // DESTINO ACTIVO
+        double cargoExtra = (double) jtRegimenes.getValueAt(filaSeleccionada, 2);
+        tfCargoExtra.setText(String.valueOf(cargoExtra));
+    }
+}
+    
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-                
+
         if (jtRegimenes.isEnabled()){
             int filaSeleccionada = jtRegimenes.getSelectedRow();
 
@@ -215,36 +253,35 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         RegimenData movimiento = new RegimenData();
-        
+
         int respuesta = JOptionPane.showConfirmDialog(null
             , "Va a grabar un nuevo Regimen ¿Esta seguro/a?"
             ,"Nuevo Regimen"
             ,JOptionPane.YES_NO_OPTION);
-        
+
         if (respuesta == JOptionPane.YES_OPTION) {
-    
+
             try {
 
-                    if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(null, "Complete los datos del Regimen a ingresar","Atención", JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        String denominacion = tfDenominacion.getText();
-                        double cargoExtra = Integer.parseInt(tfCargoExtra.getText());
-                        Regimen regimenNuevo = new Regimen(denominacion ,cargoExtra);
-                        movimiento.agregarRegimenes(regimenNuevo);
-                    }
-
-                } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
-                        "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+                if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Complete los datos del Regimen a ingresar","Atención", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    String denominacion = tfDenominacion.getText();
+                    double cargoExtra = Double.parseDouble(tfCargoExtra.getText());
+                    Regimen regimenNuevo = new Regimen(denominacion ,cargoExtra);
+                    movimiento.agregarRegimenes(regimenNuevo);
                 }
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
+                    "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
-
 
     private void armarCabecera(){
         modelo.addColumn("ID");
@@ -265,6 +302,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
 
         jtRegimenes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     }
+
     
     private void cargaTabla(){
     
@@ -289,6 +327,8 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         tfCargoExtra.setText("");
     }
     
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

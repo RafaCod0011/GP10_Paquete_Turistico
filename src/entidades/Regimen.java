@@ -16,6 +16,10 @@ public class Regimen {
         this.denominacion = denominacion;
         this.cargoExtra = cargoExtra;
     }
+
+    public Regimen() {
+    }
+    
     
 
     public int getIdRegimen() {
