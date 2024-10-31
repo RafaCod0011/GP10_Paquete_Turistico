@@ -35,6 +35,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmCiudades = new javax.swing.JMenuItem();
         jmTransportes = new javax.swing.JMenuItem();
         jmAlojamientos = new javax.swing.JMenuItem();
+        jmRegimenes = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmPresupuestos = new javax.swing.JMenuItem();
 
@@ -105,6 +106,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jmPrincipal.add(jmAlojamientos);
+
+        jmRegimenes.setText("Regimenes");
+        jmRegimenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmRegimenesActionPerformed(evt);
+            }
+        });
+        jmPrincipal.add(jmRegimenes);
 
         jMenuBar1.add(jmPrincipal);
 
@@ -181,8 +190,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         alojamientos.setVisible(true);
         escritorio.add(alojamientos);
         escritorio.moveToFront(alojamientos);
-        
-        
     }//GEN-LAST:event_jmAlojamientosActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
@@ -197,6 +204,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         escritorio.add(paquetes);
         escritorio.moveToFront(paquetes);
     }//GEN-LAST:event_jmPresupuestosActionPerformed
+
+    private void jmRegimenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRegimenesActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormRegimenes regimenes = new FormRegimenes();
+        regimenes.setVisible(true);
+        escritorio.add(regimenes);
+        escritorio.moveToFront(regimenes);
+    }//GEN-LAST:event_jmRegimenesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,6 +263,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmCiudades;
     private javax.swing.JMenuItem jmPresupuestos;
     private javax.swing.JMenu jmPrincipal;
+    private javax.swing.JMenuItem jmRegimenes;
     private javax.swing.JMenuItem jmTransportes;
     private javax.swing.JMenuItem jmTuristas;
     // End of variables declaration//GEN-END:variables

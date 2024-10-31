@@ -3,6 +3,7 @@ package Vistas;
 import accesoADatos.RegimenData;
 import entidades.Regimen;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -12,12 +13,14 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
     public RegimenData rData;
     public ArrayList<Regimen> listadoR;
     
+    
     public DefaultTableModel modelo;
 
     public FormRegimenes() {
         initComponents();
         armarCabecera();
         cargaTabla();
+        this.setTitle("Formulario Regimenes");
         
         rData = new RegimenData();
         listadoR = (ArrayList<Regimen>)rData.listarRegimenes();
@@ -36,10 +39,9 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         jlTitle = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tRegimenes = new javax.swing.JTable();
-        jbBuscar = new javax.swing.JButton();
+        jtRegimenes = new javax.swing.JTable();
+        jbEliminar = new javax.swing.JButton();
         jbAgregar = new javax.swing.JButton();
-        jbListar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jlDenominacion = new javax.swing.JLabel();
@@ -54,7 +56,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         jlTitle.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlTitle.setText("Regimenes");
 
-        tRegimenes.setModel(new javax.swing.table.DefaultTableModel(
+        jtRegimenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -65,20 +67,29 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tRegimenes);
+        jScrollPane1.setViewportView(jtRegimenes);
 
-        jbBuscar.setText("BUSCAR");
-        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+        jbEliminar.setText("ELIMINAR");
+        jbEliminar.setActionCommand("ELIMINAR");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarActionPerformed(evt);
+                jbEliminarActionPerformed(evt);
             }
         });
 
         jbAgregar.setText("AGREGAR");
-
-        jbListar.setText("LISTAR");
+        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAgregarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("SALIR");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jlDenominacion.setText("Denominacion:");
 
@@ -88,37 +99,36 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlTitle)
-                .addGap(28, 28, 28))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jlDenominacion)
-                    .addComponent(jlCargoExtra))
-                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDenominacion)
-                    .addComponent(tfCargoExtra))
-                .addGap(18, 18, 18)
-                .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jlTitle)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(174, 174, 174))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addGap(66, 66, 66)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbListar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addGap(168, 168, 168)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jlDenominacion)
+                            .addComponent(jlCargoExtra))
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfDenominacion)
+                            .addComponent(tfCargoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(25, 25, 25)
@@ -130,31 +140,26 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jlTitle)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlDenominacion)
-                            .addComponent(tfDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlCargoExtra)
-                            .addComponent(tfCargoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbListar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlDenominacion)
+                    .addComponent(tfDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlCargoExtra)
+                    .addComponent(tfCargoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(26, 26, 26)
@@ -187,9 +192,58 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbBuscarActionPerformed
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+                
+        if (jtRegimenes.isEnabled()){
+            int filaSeleccionada = jtRegimenes.getSelectedRow();
+
+            if (filaSeleccionada != -1) { 
+                    int respuesta = JOptionPane.showConfirmDialog(null
+                    ,"¿Está seguro/a de Eliminar el Regimen seleccionado?"
+                    ,"Eliminar Regimen"
+                    ,JOptionPane.YES_NO_OPTION);
+
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    int regimenEliminar = (int) jtRegimenes.getValueAt(filaSeleccionada, 0);
+                    rData.eliminarRegimenes(regimenEliminar);
+                    JOptionPane.showMessageDialog(null, "Regimen eliminado correctamente.");
+                    Nuevo();
+                }
+            }
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+        RegimenData movimiento = new RegimenData();
+        
+        int respuesta = JOptionPane.showConfirmDialog(null
+            , "Va a grabar un nuevo Regimen ¿Esta seguro/a?"
+            ,"Nuevo Regimen"
+            ,JOptionPane.YES_NO_OPTION);
+        
+        if (respuesta == JOptionPane.YES_OPTION) {
+    
+            try {
+
+                    if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Complete los datos del Regimen a ingresar","Atención", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        String denominacion = tfDenominacion.getText();
+                        double cargoExtra = Integer.parseInt(tfCargoExtra.getText());
+                        Regimen regimenNuevo = new Regimen(denominacion ,cargoExtra);
+                        movimiento.agregarRegimenes(regimenNuevo);
+                    }
+
+                } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
+                        "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+                }
+        }
+    }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     private void armarCabecera(){
@@ -197,9 +251,9 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         modelo.addColumn("Denominacion");
         modelo.addColumn("Cargo Extra");
         
-        tRegimenes.setModel(modelo);
+        jtRegimenes.setModel(modelo);
         
-        TableColumnModel columnModel = tRegimenes.getColumnModel();
+        TableColumnModel columnModel = jtRegimenes.getColumnModel();
         
          //Ancho de las columnas
         columnModel.getColumn(0).setPreferredWidth(1);   // "ID"
@@ -209,7 +263,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        tRegimenes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        jtRegimenes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     }
     
     private void cargaTabla(){
@@ -228,22 +282,27 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         	modelo.removeRow(i);
         }
     }
-
+    
+    private void Nuevo(){
+        jtRegimenes.clearSelection(); 
+        tfDenominacion.setText("");
+        tfCargoExtra.setText("");
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JButton jbAgregar;
-    private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbListar;
+    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlCargoExtra;
     private javax.swing.JLabel jlDenominacion;
     private javax.swing.JLabel jlListRegimenes;
     private javax.swing.JLabel jlTitle;
     private javax.swing.JPanel jpGeneral;
-    private javax.swing.JTable tRegimenes;
+    private javax.swing.JTable jtRegimenes;
     private javax.swing.JTextField tfCargoExtra;
     private javax.swing.JTextField tfDenominacion;
     // End of variables declaration//GEN-END:variables

@@ -12,6 +12,12 @@ public class Regimen {
         this.cargoExtra = cargoExtra;
     }
 
+    public Regimen(String denominacion, double cargoExtra) {
+        this.denominacion = denominacion;
+        this.cargoExtra = cargoExtra;
+    }
+    
+
     public int getIdRegimen() {
         return idRegimen;
     }

@@ -90,4 +90,26 @@ public class RegimenData {
         }
         return regimen;
     }
+    
+    public void eliminarRegimenes (int idRegimen) {
+         String sql = "DELETE FROM regimenes WHERE idRegimen=?";
+
+        try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idRegimen);
+
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "¡Regimen eliminado correctamente!");
+        }else {
+            JOptionPane.showMessageDialog(null, "No se encontró la el Regimen con el ID especificado.");
+        }
+
+        ps.close();
+
+      }catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar el Regimen: " + ex.getMessage());
+       }
+    }
 }
