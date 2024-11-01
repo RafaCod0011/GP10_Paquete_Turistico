@@ -2,12 +2,21 @@ package entidades;
 
 public class Habitacion {
 
+    private int idAlojamiento;
     private int idHabitacion;
     private int planta;
     private int numHab;
     private int cupo;
     private boolean estado;
 
+    public Habitacion(int idAlojamiento, int idHabitacion, int planta, int numHab, int cupo, boolean estado) {
+        this.idAlojamiento = idAlojamiento;
+        this.idHabitacion = idHabitacion;
+        this.planta = planta;
+        this.numHab = numHab;
+        this.cupo = cupo;
+        this.estado = estado;
+    }
     public Habitacion(int idHabitacion, int planta, int numHab, int cupo, boolean estado) {
         this.idHabitacion = idHabitacion;
         this.planta = planta;
@@ -23,9 +32,14 @@ public class Habitacion {
         this.estado = estado;
     }
 
-    
-    
-    
+    public int getIdAlojamiento() {
+        return idAlojamiento;
+    }
+
+    public void setIdAlojamiento(int idAlojamiento) {
+        this.idAlojamiento = idAlojamiento;
+    }
+  
     public int getNroHabitacion() {
         return idHabitacion;
     }

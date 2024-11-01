@@ -24,8 +24,6 @@
       <Fields>
         <Field name="idCiudad" type="int" visibility="private"/>
         <Field name="nombre" type="String" visibility="private"/>
-        <Field name="fechaInicioTemporada" type="LocalDate" visibility="private"/>
-        <Field name="fechaFinTemporada" type="LocalDate" visibility="private"/>
         <Field name="destinoActivo" type="Boolean" visibility="private"/>
       </Fields>
       <Constructors>
@@ -148,8 +146,9 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="Habitacion" package="" visibility="public" xPosition="309.0" yPosition="596.0">
+    <Class name="Habitacion" package="" visibility="public" xPosition="309.0" yPosition="575.0">
       <Fields>
+        <Field name="idAlojamiento" type="int" visibility="private"/>
         <Field name="nroHabitacion" type="int" visibility="private"/>
         <Field name="planta" type="int" visibility="private"/>
         <Field name="numerac" type="int" visibility="private"/>
@@ -161,16 +160,16 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <IsRelation name="is" source="Auto" target="Transporte"/>
-    <HasRelation name="contiene" source="Alojamiento" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <UseRelation name="." source="Paquete" target="Turista" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <UseRelation name="." source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <IsRelation name="is" source="Colectivo" target="Transporte"/>
-    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <UseRelation name="." source="Ciudad" target="Alojamiento" sourceCardinality="1..*" targetCardinality="0..*"/>
-    <HasRelation name="Conforma" source="Paquete" target="Regimen" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
     <HasRelation name="Conforma" source="Paquete" target="Transporte" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
-    <HasRelation name="Conforma" source="Paquete" target="Alojamiento" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="contiene" source="Alojamiento" target="Habitacion" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Conforma" source="Paquete" target="Regimen" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="Auto" target="Transporte"/>
     <IsRelation name="is" source="Avion" target="Transporte"/>
+    <IsRelation name="is" source="Colectivo" target="Transporte"/>
+    <UseRelation name="." source="Ciudad" target="Alojamiento" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <UseRelation name="." source="Paquete" target="Turista" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <HasRelation name="Conforma" source="Paquete" target="Alojamiento" type="Composition" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation name="." source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
+    <UseRelation name="" source="Ciudad" target="Paquete" sourceCardinality="1..*" targetCardinality="0..*"/>
   </ClassDiagramRelations>
 </ClassDiagram>

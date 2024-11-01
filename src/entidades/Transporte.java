@@ -95,7 +95,6 @@ public class Transporte {
         //return idTransporte + " - " + ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + " | "+ tipoTransporte +"-"+ nombreEmpresaTransporte +  " $" + precioPersona;
     }
 
-   
     public double calcularPrecio() {
        return this.precioPersona;
     }

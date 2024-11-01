@@ -2,6 +2,7 @@ package accesoADatos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.CallableStatement;  
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,26 +47,31 @@ public class CiudadData {
         }
     }
 
-    public void eliminarCiudad(int idCiudad) {
-       String sql = "DELETE FROM ciudades WHERE idCiudad=?";
+    public String eliminarCiudad(int idCiudad) {
+        
+                String resultado = "";
 
         try {
-          PreparedStatement ps = con.prepareStatement(sql);
-          ps.setInt(1, idCiudad);
 
-          int exito = ps.executeUpdate();
+            String sql = "{ CALL EliminarCiudad(?) }";
+            CallableStatement stmt = con.prepareCall(sql);
+            stmt.setInt(1, idCiudad);
 
-          if (exito == 1) {
-            JOptionPane.showMessageDialog(null, "¡Ciudad eliminada correctamente!");
-          } else {
-            JOptionPane.showMessageDialog(null, "No se encontró la ciudad con el ID especificado.");
-          }
+            ResultSet rs = stmt.executeQuery();
 
-          ps.close();
+            if (rs.next()) {
+                resultado = rs.getString("Resultado");
+            }
 
-          } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null, "Error al eliminar la ciudad: " + ex.getMessage());
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al intentar eliminar la ciudad: " + e.getMessage());
         }
+
+        return resultado;
+
     }
 
     public void modificarCiudad(Ciudad ciudad) {

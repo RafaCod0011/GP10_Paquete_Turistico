@@ -425,7 +425,9 @@ public FormTransportes() {
 
                 if (respuesta == JOptionPane.YES_OPTION) {
                     int transporteEliminar= Integer.parseInt(tbId.getText());
-                    tData.eliminarTransporte(transporteEliminar);
+                    String mensaje = tData.eliminarTransporte(transporteEliminar);
+                    JOptionPane.showMessageDialog(this, mensaje);
+                    cargarTabla();
                     Nuevo();
                 }
             }

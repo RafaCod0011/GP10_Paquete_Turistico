@@ -3,6 +3,7 @@ import entidades.*;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.CallableStatement; 
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -143,29 +144,54 @@ public Transporte buscarPorId(int idTransporte) {
     return transporte;
 }
  
-public void eliminarTransporte(int idTransporte) {
+public String eliminarTransporte(int idTransporte) {
 
-    String sql = "DELETE FROM transportes WHERE idTransporte=?";
+    String resultado = "";
+
+     try {
+
+         String sql = "{ CALL EliminarTransporte(?) }";
+         CallableStatement stmt = con.prepareCall(sql);
+         stmt.setInt(1, idTransporte);
+
+         ResultSet rs = stmt.executeQuery();
+
+         if (rs.next()) {
+             resultado = rs.getString("Resultado");
+         }
+
+         rs.close();
+         stmt.close();
+
+     } catch (SQLException e) {
+         System.out.println("Error al intentar eliminar el transporte: " + e.getMessage());
+     }
+
+     return resultado;
+
     
-    try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idTransporte);
-
-        int exito = ps.executeUpdate();
-        
-        if (exito == 1) {
-            JOptionPane.showMessageDialog(null, "Transporte eliminado correctamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el transporte a eliminar");
-        }
-        ps.close();
-        
-    } catch (SQLIntegrityConstraintViolationException ex) {
-            JOptionPane.showMessageDialog(null, "Error de integridad referencial");
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar el transporte");
-        ex.printStackTrace();
-    }
+    
+//    String sql = "DELETE FROM transportes WHERE idTransporte=?";
+//    
+//    try {
+//        PreparedStatement ps = con.prepareStatement(sql);
+//        ps.setInt(1, idTransporte);
+//
+//        int exito = ps.executeUpdate();
+//        
+//        if (exito == 1) {
+//            JOptionPane.showMessageDialog(null, "Transporte eliminado correctamente");
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No se encontró el transporte a eliminar");
+//        }
+//        ps.close();
+//        
+//    } catch (SQLIntegrityConstraintViolationException ex) {
+//            JOptionPane.showMessageDialog(null, "Error de integridad referencial");
+//    } catch (SQLException ex) {
+//        JOptionPane.showMessageDialog(null, "Error al eliminar el transporte");
+//        ex.printStackTrace();
+//    }
 }
     
 public List<Transporte> listarTransportes() {
