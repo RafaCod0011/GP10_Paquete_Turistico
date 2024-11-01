@@ -129,4 +129,9 @@ public class Alojamiento {
         this.habitaciones = habitaciones;
     }
 
+    @Override
+public String toString() {
+    return tipoAlojamiento + " - " + nombre + " - " + direccion + " - " + " $ " + precioNoche + " por noche";
+}
+    
 }

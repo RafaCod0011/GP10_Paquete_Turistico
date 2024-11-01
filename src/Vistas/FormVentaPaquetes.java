@@ -4,6 +4,7 @@ package Vistas;
 import accesoADatos.CiudadData;
 import accesoADatos.TransporteData;
 import accesoADatos.TuristaData;
+import accesoADatos.AlojamientoData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import entidades.*;
@@ -23,10 +24,13 @@ public Transporte transporte = new Transporte();
 public TuristaData tData = new TuristaData();
 public TransporteData tpData = new TransporteData();
 public CiudadData cData = new CiudadData();
+public AlojamientoData aloData= new AlojamientoData();
 
 public ArrayList<Turista> viajeros = new ArrayList<>();
 public ArrayList<Transporte> listadoT = new ArrayList<>();
 public ArrayList<Ciudad> listadoC = new ArrayList<>();
+public ArrayList<Alojamiento> listadoA= new ArrayList<>();
+
 boolean cargandoComboBox;
 
 //Variables para los cálculos de valores $$$
@@ -312,8 +316,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTransportes.setText("Confección de Presupuestos");
 
-        cbAlojamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         cbRegimen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setForeground(new java.awt.Color(51, 51, 255));
@@ -365,10 +367,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                         .addContainerGap()
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cbTransportes, 0, 428, Short.MAX_VALUE)
+                                    .addComponent(cbAlojamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(189, 189, 189)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,10 +393,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -618,6 +619,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         cbTransportes.updateUI();
         cbTransportes.setSelectedItem(null);
         cargandoComboBox = false;
+        cargarComboAlojamiento();
     }
     
     private void cargarCombos(){
@@ -696,11 +698,39 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         	modelo.removeRow(i);
         }
     }
+    
+    private void cargarComboAlojamiento() {
+        
+    cbAlojamiento.removeAllItems(); 
+    cargandoComboBox = true;
+    // Verificamos que haya una ciudad de destino seleccionada
+    if (cbDestino.getSelectedItem() != null) {
+        Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
+        
+        
+        listadoA = (ArrayList) aloData.listarPorCiudad(cDestino.getIdCiudad());
+        
+        for (Alojamiento alojamiento : listadoA) {
+            cbAlojamiento.addItem(alojamiento);
+        }
+    }
+    
+    if (cbAlojamiento.getItemCount() != 0) {
+        JOptionPane.showMessageDialog(this, "Tenemos " + cbAlojamiento.getItemCount() + " opciones de alojamiento en la ciudad seleccionada",
+                                      "Opciones disponibles", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(this, "Lamentablemente no disponemos de opciones de alojamiento en la ciudad seleccionada",
+                                      "Opciones disponibles", JOptionPane.ERROR_MESSAGE);
+    }
+    cbAlojamiento.updateUI(); 
+    cbAlojamiento.setSelectedItem(null); 
+    cargandoComboBox = false;
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAgregarTuristas1;
     private javax.swing.JButton btVerOpciones;
-    private javax.swing.JComboBox<String> cbAlojamiento;
+    private javax.swing.JComboBox<Alojamiento> cbAlojamiento;
     private javax.swing.JComboBox<Ciudad> cbDestino;
     private javax.swing.JComboBox<Ciudad> cbOrigen;
     private javax.swing.JComboBox<String> cbRegimen;
