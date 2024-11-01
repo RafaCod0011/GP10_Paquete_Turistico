@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import entidades.Ciudad;
 import entidades.Habitacion;
+import java.sql.CallableStatement;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -165,16 +166,30 @@ public class AlojamientoData {
         return listaAlojamientos;
     }
     
-    public void eliminarAlojamiento(int idAlojamiento){
-        String sql = "DELETE FROM alojamientos WHERE idAlojamiento = ?";
+    public String eliminarAlojamiento(int idAlojamiento){
+        
+        String resultado = "";
 
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idAlojamiento);
-            ps.executeUpdate();
-        }catch (SQLException e) {
-         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alojamientos");
-    }
+
+            String sql = "{ CALL EliminarAlojamiento(?) }";
+            CallableStatement stmt = con.prepareCall(sql);
+            stmt.setInt(1, idAlojamiento);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                resultado = rs.getString("Resultado");
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al intentar eliminar el Alojamiento: " + e.getMessage());
+        }
+
+     return resultado;
 
     }    
         

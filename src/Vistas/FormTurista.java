@@ -39,7 +39,6 @@ public class FormTurista extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jbGuardar1 = new javax.swing.JButton();
-        jlEmpresa4 = new javax.swing.JLabel();
         jbNuevo = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -65,7 +64,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
-        jbBuscar.setText("Buscar!");
+        jbBuscar.setText("Buscar");
         jbBuscar.setToolTipText("");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +79,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setText("Salir!");
+        jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
@@ -118,17 +117,12 @@ public class FormTurista extends javax.swing.JInternalFrame {
         lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTransportes.setText("Crear/Modificar Turista");
 
-        jbGuardar1.setText("Guardar!");
+        jbGuardar1.setText("Guardar");
         jbGuardar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbGuardar1ActionPerformed(evt);
             }
         });
-
-        jlEmpresa4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jlEmpresa4.setForeground(new java.awt.Color(71, 107, 250));
-        jlEmpresa4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jlEmpresa4.setText("Controles");
 
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -144,9 +138,6 @@ public class FormTurista extends javax.swing.JInternalFrame {
             .addGroup(jpGeneralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpGeneralLayout.createSequentialGroup()
-                        .addComponent(jlEmpresa4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jpGeneralLayout.createSequentialGroup()
                         .addComponent(lbTransportes)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -207,9 +198,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
                         .addComponent(jtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jlEmpresa4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -257,7 +246,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             int codigoBuscar = Integer.parseInt(respuesta);
             Turista encontrado = movimiento.buscarTurista(codigoBuscar);
             if (encontrado == null) {
-                JOptionPane.showMessageDialog(null, "No se ha encontrado un Turista con el DNI ingersado",
+                JOptionPane.showMessageDialog(null, "No se ha encontrado un Turista con el DNI ingresado",
                 "Corrobore el DNI ingresado", JOptionPane.ERROR_MESSAGE);
                 
             } else {
@@ -297,7 +286,9 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
                 if (respuesta == JOptionPane.YES_OPTION) {
                     int turistaEliminar = Integer.parseInt(tbId.getText());
-                    movimiento.eliminarTurista(turistaEliminar);
+                    String mensaje = movimiento.eliminarTurista(turistaEliminar);
+                    JOptionPane.showMessageDialog(this, mensaje);
+                    Nuevo();
                 }
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
@@ -373,7 +364,6 @@ public class FormTurista extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlEmpresa1;
     private javax.swing.JLabel jlEmpresa2;
     private javax.swing.JLabel jlEmpresa3;
-    private javax.swing.JLabel jlEmpresa4;
     private javax.swing.JLabel jlTuristaTitle;
     private javax.swing.JPanel jpGeneral;
     private javax.swing.JTextField jtDNI;

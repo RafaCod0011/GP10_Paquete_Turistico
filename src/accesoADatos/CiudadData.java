@@ -49,7 +49,7 @@ public class CiudadData {
 
     public String eliminarCiudad(int idCiudad) {
         
-                String resultado = "";
+        String resultado = "";
 
         try {
 

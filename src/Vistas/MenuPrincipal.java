@@ -78,7 +78,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jmPrincipal.add(jmTuristas);
 
-        jmCiudades.setText("Ciudades - Temporadas ");
+        jmCiudades.setText("Ciudades");
         jmCiudades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmCiudadesActionPerformed(evt);

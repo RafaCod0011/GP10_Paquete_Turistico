@@ -169,29 +169,6 @@ public String eliminarTransporte(int idTransporte) {
 
      return resultado;
 
-    
-    
-//    String sql = "DELETE FROM transportes WHERE idTransporte=?";
-//    
-//    try {
-//        PreparedStatement ps = con.prepareStatement(sql);
-//        ps.setInt(1, idTransporte);
-//
-//        int exito = ps.executeUpdate();
-//        
-//        if (exito == 1) {
-//            JOptionPane.showMessageDialog(null, "Transporte eliminado correctamente");
-//        } else {
-//            JOptionPane.showMessageDialog(null, "No se encontró el transporte a eliminar");
-//        }
-//        ps.close();
-//        
-//    } catch (SQLIntegrityConstraintViolationException ex) {
-//            JOptionPane.showMessageDialog(null, "Error de integridad referencial");
-//    } catch (SQLException ex) {
-//        JOptionPane.showMessageDialog(null, "Error al eliminar el transporte");
-//        ex.printStackTrace();
-//    }
 }
     
 public List<Transporte> listarTransportes() {

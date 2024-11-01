@@ -39,7 +39,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmCiudades">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ciudades - Temporadas "/>
+                <Property name="text" type="java.lang.String" value="Ciudades"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmCiudadesActionPerformed"/>

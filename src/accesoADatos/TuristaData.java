@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import entidades.Turista;
+import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -128,20 +129,30 @@ public class TuristaData {
     return turista;
 }
     
-    public void eliminarTurista(int id){
+    public String eliminarTurista(int id){
+        
+        String resultado = "";
 
-        String sql = "DELETE FROM turistas WHERE idTurista= ? ";
         try {
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.executeUpdate();
+            String sql = "{ CALL EliminarTurista(?) }";
+            CallableStatement stmt = con.prepareCall(sql);
+            stmt.setInt(1, id);
 
-            JOptionPane.showMessageDialog(null, "Se ha eliminado el turista ID: " + id);
-            ps.close();
-            
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                resultado = rs.getString("Resultado");
+            }
+
+            rs.close();
+            stmt.close();
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
-        }     
+            System.out.println("Error al intentar eliminar la ciudad: " + e.getMessage());
+        }
+
+        return resultado;
+
     }
 }
