@@ -336,6 +336,9 @@ public class FormCiudades extends javax.swing.JInternalFrame {
                 Cdata.eliminarCiudad(idCiudad);
                 Nuevo();
             }
+            cargarTabla();
+            Nuevo();
+            ciudad = null; 
         }
      } 
     }//GEN-LAST:event_JBEliminarActionPerformed
