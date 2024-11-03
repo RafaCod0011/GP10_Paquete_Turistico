@@ -20,8 +20,6 @@ public class Regimen {
     public Regimen() {
     }
     
-    
-
     public int getIdRegimen() {
         return idRegimen;
     }
@@ -48,7 +46,7 @@ public class Regimen {
 
     @Override
     public String toString() {
-        return "Regimen{" + "idRegimen=" + idRegimen + ", denominacion=" + denominacion + ", cargoExtra=" + cargoExtra + '}';
+        return denominacion + " - " + cargoExtra + " Extra";
     }
 
     

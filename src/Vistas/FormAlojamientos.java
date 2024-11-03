@@ -95,6 +95,8 @@ public Alojamiento nuevoAlojamiento= new Alojamiento();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
 
+        setClosable(true);
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(71, 107, 250));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

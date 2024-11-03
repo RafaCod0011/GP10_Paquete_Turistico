@@ -5,10 +5,13 @@ import accesoADatos.CiudadData;
 import accesoADatos.TransporteData;
 import accesoADatos.TuristaData;
 import accesoADatos.AlojamientoData;
+import accesoADatos.RegimenData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import entidades.*;
+import java.awt.Component;
 import java.util.ArrayList;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
@@ -25,13 +28,17 @@ public TuristaData tData = new TuristaData();
 public TransporteData tpData = new TransporteData();
 public CiudadData cData = new CiudadData();
 public AlojamientoData aloData= new AlojamientoData();
+public RegimenData rData= new RegimenData();
+
 
 public ArrayList<Turista> viajeros = new ArrayList<>();
 public ArrayList<Transporte> listadoT = new ArrayList<>();
 public ArrayList<Ciudad> listadoC = new ArrayList<>();
 public ArrayList<Alojamiento> listadoA= new ArrayList<>();
+public ArrayList<Regimen> listadoR = new ArrayList<>();
 
 boolean cargandoComboBox;
+boolean consultando;
 
 //Variables para los cálculos de valores $$$
 int contarMayores, contarMenores;
@@ -52,6 +59,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         initComponents();
         armarCabecera();
         cargarCombos();
+        bloquearPanel(panelOpciones);
         cbOrigen.setSelectedItem(null);
         cbDestino.setSelectedItem(null);
 
@@ -81,27 +89,33 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lTransMen = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         lTransTotal = new javax.swing.JLabel();
+        lAlojamientoTotal = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         panelDestino = new javax.swing.JPanel();
         cbOrigen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbDestino = new javax.swing.JComboBox<>();
-        btVerOpciones = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         lbTransportesRecorridos = new javax.swing.JLabel();
         lbTransportes = new javax.swing.JLabel();
-        cbAlojamiento = new javax.swing.JComboBox<>();
-        cbRegimen = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        cbTransportes = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
         tbAlojamiento = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         tbRegimen = new javax.swing.JTextField();
         tbTemporada = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
+        panelOpciones = new javax.swing.JPanel();
+        lbTransportes1 = new javax.swing.JLabel();
+        cbTransportes = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        cbAlojamientos = new javax.swing.JComboBox<>();
+        cbRegimen = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        btVerOpciones = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
 
@@ -132,7 +146,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
-        jPanelResultados.setBackground(new java.awt.Color(153, 204, 255));
+        jPanelResultados.setBackground(new java.awt.Color(121, 176, 213));
+        jPanelResultados.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle de valores de los Servicios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 10))); // NOI18N
 
         lMen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lMen.setText(".");
@@ -140,14 +155,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lMay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lMay.setText(".");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel1.setText("Viajeros Menores:");
 
         jLabel2.setText("Viajeros Mayores:");
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel15.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel15.setText("Valor transporte para Menores:");
 
         jLabel16.setText("Valor transporte para Mayores:");
@@ -162,10 +175,21 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(51, 51, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Total Transporte:");
+        jLabel17.setText("Valor Total del Transporte:");
 
+        lTransTotal.setForeground(new java.awt.Color(51, 51, 255));
         lTransTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lTransTotal.setText(".");
+
+        lAlojamientoTotal.setForeground(new java.awt.Color(0, 102, 102));
+        lAlojamientoTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lAlojamientoTotal.setText(".");
+
+        jLabel18.setBackground(new java.awt.Color(51, 51, 255));
+        jLabel18.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel18.setText("Valor del Alojamiento");
 
         javax.swing.GroupLayout jPanelResultadosLayout = new javax.swing.GroupLayout(jPanelResultados);
         jPanelResultados.setLayout(jPanelResultadosLayout);
@@ -178,21 +202,21 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     .addComponent(jLabel16)
                     .addComponent(jLabel15)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelResultadosLayout.createSequentialGroup()
-                        .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lMen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lMay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lTransMen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lTransMay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lTransTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lMen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lMay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lTransMen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lTransMay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                    .addComponent(lTransTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lAlojamientoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanelResultadosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lMay, lMen, lTransMay, lTransMen});
+        jPanelResultadosLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lAlojamientoTotal, lMay, lMen, lTransMay, lTransMen, lTransTotal});
 
         jPanelResultadosLayout.setVerticalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +243,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(lTransTotal))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(lAlojamientoTotal))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelResultadosLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lMay, lMen, lTransMay, lTransMen});
@@ -229,42 +257,38 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelGrupoTuristasLayout.setHorizontalGroup(
             panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGrupoTuristasLayout.createSequentialGroup()
+                .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
                         .addComponent(btAgregarTuristas1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tbEliminar))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelResultados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
+
+        panelGrupoTuristasLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btAgregarTuristas1, tbEliminar});
+
         panelGrupoTuristasLayout.setVerticalGroup(
             panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btAgregarTuristas1)
+                    .addComponent(btAgregarTuristas1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tbEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
             .addComponent(jPanelResultados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        panelGrupoTuristasLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btAgregarTuristas1, tbEliminar});
 
         jLabel4.setForeground(new java.awt.Color(51, 51, 255));
         jLabel4.setText("Origen:");
 
         jLabel3.setForeground(new java.awt.Color(51, 51, 255));
         jLabel3.setText(" Destino:");
-
-        btVerOpciones.setText("Ver Opciones Disponibles");
-        btVerOpciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btVerOpcionesActionPerformed(evt);
-            }
-        });
 
         jLabel7.setForeground(new java.awt.Color(51, 51, 255));
         jLabel7.setText("Fechas:");
@@ -273,28 +297,30 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelDestino.setLayout(panelDestinoLayout);
         panelDestinoLayout.setHorizontalGroup(
             panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDestinoLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addGroup(panelDestinoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addComponent(cbOrigen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDestinoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(24, 24, 24)
                         .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelDestinoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(122, 122, 122)
-                        .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(225, Short.MAX_VALUE))
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDestinoLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 893, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelDestinoLayout.setVerticalGroup(
             panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDestinoLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
@@ -303,8 +329,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btVerOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lbTransportesRecorridos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -316,23 +341,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTransportes.setText("Confección de Presupuestos");
 
-        cbRegimen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel6.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel6.setText("Alojamiento:");
-
-        jLabel5.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel5.setText("Transporte:");
-
-        cbTransportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbTransportesActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel8.setText("Régimen:");
-
         jLabel11.setForeground(new java.awt.Color(51, 51, 255));
         jLabel11.setText("Alojamiento");
 
@@ -342,59 +350,127 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel14.setForeground(new java.awt.Color(51, 51, 255));
         jLabel14.setText("Temporada Alta");
 
+        lbTransportes1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbTransportes1.setForeground(new java.awt.Color(102, 102, 102));
+        lbTransportes1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbTransportes1.setText("Seleccione los medios de Transporte y las opciones de alojamiento que existen para el Paquete:");
+
+        cbTransportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTransportesActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel5.setText("Transporte:");
+
+        jLabel6.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel6.setText("Alojamiento:");
+
+        cbAlojamientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlojamientosActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel8.setText("Régimen:");
+
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbTransportes1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelOpcionesLayout.createSequentialGroup()
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                                .addComponent(cbAlojamientos, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(93, Short.MAX_VALUE))
+        );
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbTransportes1)
+                .addGap(18, 18, 18)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbAlojamientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+
+        btVerOpciones.setText("Ver Opciones Disponibles");
+        btVerOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVerOpcionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(lbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbTransportesRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                .addComponent(lbTransportesRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbTransportes, 0, 428, Short.MAX_VALUE)
-                                    .addComponent(cbAlojamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(189, 189, 189)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(tbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(tbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(tbTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(489, 489, 489)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(tbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(tbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(28, 28, 28)
+                                    .addComponent(tbTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(149, 149, 149)
+                            .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
                             .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -407,21 +483,15 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     .addComponent(lbTransportes))
                 .addGap(18, 18, 18)
                 .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(29, 29, 29)
+                .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -436,7 +506,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(tbTemporada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
 
         pack();
@@ -444,12 +514,68 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
     private void btVerOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerOpcionesActionPerformed
    
-        cargarCombosFiltro();
         
-        
-        
+        //controlamos el enabled de los paneles, si están bloqueados significa que está consultando y quiere reconfigurar (turistas / destinos / fechas)
+        if (panelGrupoTuristas.isEnabled()) {
+            JOptionPane.showMessageDialog(this, contarMenores + " " + contarMayores);
+             //debemos controlar que:
+            //haya ingresado al menos un turista
+            //Tenga seleccionados origen y destino 
+            if ((contarMenores == 0 && contarMayores == 0) || cbOrigen.getSelectedIndex() == -1 || cbDestino.getSelectedIndex() == -1) {
+                JOptionPane.showMessageDialog(this, "Complete los datos solicitados por el sistema para poder ver las opciones disponibles", 
+                                              "No es posible realizar la consulta", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            cargarCombosFiltro();
+            bloquearPanel(panelGrupoTuristas);
+            bloquearPanel(panelDestino);
+            habilitarPanel(panelOpciones);
+            btVerOpciones.setText("Seleccionar viajeros y destinos");
+            
+            
+            panelGrupoTuristas.repaint();
+            panelDestino.repaint();
+            panelOpciones.repaint();
+            
+            //Cargamos el combo de Regimen
+            listadoR = (ArrayList) rData.listarRegimenes();
+            for (Regimen regimen : listadoR) {
+                cbRegimen.addItem(regimen);
+            }
+            cbRegimen.repaint();
+            cbRegimen.updateUI();
+            cbRegimen.setSelectedItem(null);
+
+        } else {
+            
+            JOptionPane.showMessageDialog(this, "No tomo como enabled el panel turistas");
+            habilitarPanel(panelGrupoTuristas);
+            habilitarPanel(panelDestino);
+            bloquearPanel(panelOpciones);
+            btVerOpciones.setText("Ver opciones disponibles");
+
+            panelGrupoTuristas.repaint();
+            panelDestino.repaint();
+            panelOpciones.repaint();
+            reiniciarResultados();
+        }
+
     }//GEN-LAST:event_btVerOpcionesActionPerformed
 
+    private void reiniciarResultados(){
+
+        lTransMen.setText(".");
+        lTransMay.setText(".");
+        lTransTotal.setText(".");
+        cbTransportes.removeAllItems();
+        cbAlojamientos.removeAllItems();
+        cbRegimen.removeAllItems();
+        
+   
+    }
+    
+    
     private void btAgregarTuristas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAgregarTuristas1ActionPerformed
  
         try {
@@ -458,17 +584,14 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 if (!doc.isEmpty()){
                     //primero deberia controla que el documento no exista en el arreglo
                     for (Turista viajero1 : viajeros) {
-                        JOptionPane.showMessageDialog(this, "documento del array: " + viajero1.getDocumento());
                         if (viajero1.getDocumento()==documento){
                             JOptionPane.showMessageDialog(this, "El documento ingresado ya se encuentra en la lista de viajeros");
                             return;
                         }
                     }
-                    JOptionPane.showMessageDialog(this, "ya controlé todos");       
                     //si no está en el arreglo, lo buscamos en la base de datos
                     viajero = tData.buscarTurista(documento);
                     if (viajero!=null){
-                        JOptionPane.showMessageDialog(this, "Está en tabla");    
                         //si recuerpero un turista, lo cargo en la tabla y en el arraylist
                         modelo.addRow(new Object[] {viajero.getIdTurista(),viajero.getDocumento(),viajero.getFullName(),viajero.getEdad()});   
                         viajeros.add(viajero);
@@ -496,7 +619,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                   JOptionPane.showMessageDialog(this, "Por favor, ingrese un número válido para la edad.", "Entrada Inválida", JOptionPane.ERROR_MESSAGE);
                               }
                           } while (!edadCorrecta);
-                        JOptionPane.showMessageDialog(this, "El pasajaero es " + apelNom + " y tiene " + edad + " años");
+
                         //Al nuevo turista ingresado, lo agrego a la base de datos, lo cargo en la tabla y al ArrayList
                         Turista viajero= new Turista(documento, apelNom, edad);
                         tData.guardarTurista(viajero);
@@ -579,7 +702,24 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         }    
         
     }//GEN-LAST:event_cbTransportesActionPerformed
+
+    private void cbAlojamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlojamientosActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_cbAlojamientosActionPerformed
     private void cargarCombosFiltro(){
+     
+       
+        cargarComboTransporte();
+        cargarComboAlojamientos();
+        
+    }
+    
+    private void cargarComboTransporte(){
         
         //Controlamos que haya seleccionado un origen y un destino, y traemos los transportes
         //que realicen ese recorrido
@@ -619,8 +759,40 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         cbTransportes.updateUI();
         cbTransportes.setSelectedItem(null);
         cargandoComboBox = false;
-        cargarComboAlojamiento();
+    
+    
     }
+        
+    private void cargarComboAlojamientos() {
+
+        cbAlojamientos.removeAllItems(); 
+        cargandoComboBox = true;
+        // Verificamos que haya una ciudad de destino seleccionada
+        if (cbDestino.getSelectedItem() != null) {
+            Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
+
+
+            listadoA = (ArrayList) aloData.listarPorCiudad(cDestino.getIdCiudad());
+
+            for (Alojamiento alojamiento : listadoA) {
+                cbAlojamientos.addItem(alojamiento);
+            }
+        }
+
+        if (cbAlojamientos.getItemCount() != 0) {
+            JOptionPane.showMessageDialog(this, "Tenemos " + cbAlojamientos.getItemCount() + " opciones de alojamiento en la ciudad seleccionada",
+                                          "Opciones disponibles", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Lamentablemente no disponemos de opciones de alojamiento en la ciudad seleccionada",
+                                          "Opciones disponibles", JOptionPane.ERROR_MESSAGE);
+        }
+        cbAlojamientos.updateUI(); 
+        cbAlojamientos.setSelectedItem(null); 
+        cargandoComboBox = false;
+
+    }
+
+
     
     private void cargarCombos(){
     
@@ -643,6 +815,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     } 
     
     private void calcularEdades(){
+        
         contarMayores = 0;
         contarMenores = 0;
         
@@ -656,6 +829,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 contarMenores++;
             }
         }
+        
         String mayores = String.valueOf(contarMayores);
         String menores = String.valueOf(contarMenores);
         lMay.setText(mayores);
@@ -699,41 +873,28 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         }
     }
     
-    private void cargarComboAlojamiento() {
-        
-    cbAlojamiento.removeAllItems(); 
-    cargandoComboBox = true;
-    // Verificamos que haya una ciudad de destino seleccionada
-    if (cbDestino.getSelectedItem() != null) {
-        Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
-        
-        
-        listadoA = (ArrayList) aloData.listarPorCiudad(cDestino.getIdCiudad());
-        
-        for (Alojamiento alojamiento : listadoA) {
-            cbAlojamiento.addItem(alojamiento);
-        }
-    }
+
     
-    if (cbAlojamiento.getItemCount() != 0) {
-        JOptionPane.showMessageDialog(this, "Tenemos " + cbAlojamiento.getItemCount() + " opciones de alojamiento en la ciudad seleccionada",
-                                      "Opciones disponibles", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, "Lamentablemente no disponemos de opciones de alojamiento en la ciudad seleccionada",
-                                      "Opciones disponibles", JOptionPane.ERROR_MESSAGE);
+public void bloquearPanel(JPanel panel) {
+    panel.setEnabled(false);  
+    for (Component component : panel.getComponents()) {
+        component.setEnabled(false);  
     }
-    cbAlojamiento.updateUI(); 
-    cbAlojamiento.setSelectedItem(null); 
-    cargandoComboBox = false;
 }
 
+public void habilitarPanel(JPanel panel) {
+    panel.setEnabled(true);  
+    for (Component component : panel.getComponents()) {
+        component.setEnabled(true);  
+    }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAgregarTuristas1;
     private javax.swing.JButton btVerOpciones;
-    private javax.swing.JComboBox<Alojamiento> cbAlojamiento;
+    private javax.swing.JComboBox<Alojamiento> cbAlojamientos;
     private javax.swing.JComboBox<Ciudad> cbDestino;
     private javax.swing.JComboBox<Ciudad> cbOrigen;
-    private javax.swing.JComboBox<String> cbRegimen;
+    private javax.swing.JComboBox<Regimen> cbRegimen;
     private javax.swing.JComboBox<Transporte> cbTransportes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -742,6 +903,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -751,15 +913,20 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanelResultados;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lAlojamientoTotal;
     private javax.swing.JLabel lMay;
     private javax.swing.JLabel lMen;
     private javax.swing.JLabel lTransMay;
     private javax.swing.JLabel lTransMen;
     private javax.swing.JLabel lTransTotal;
     private javax.swing.JLabel lbTransportes;
+    private javax.swing.JLabel lbTransportes1;
     private javax.swing.JLabel lbTransportesRecorridos;
     private javax.swing.JPanel panelDestino;
     private javax.swing.JPanel panelGrupoTuristas;
+    private javax.swing.JPanel panelOpciones;
     private javax.swing.JTable tTuristas;
     private javax.swing.JTextField tbAlojamiento;
     private javax.swing.JButton tbEliminar;
