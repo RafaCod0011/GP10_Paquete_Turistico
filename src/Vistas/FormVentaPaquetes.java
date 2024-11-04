@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import entidades.*;
 import java.awt.Component;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -38,11 +40,14 @@ public ArrayList<Alojamiento> listadoA= new ArrayList<>();
 public ArrayList<Regimen> listadoR = new ArrayList<>();
 
 boolean cargandoComboBox;
+boolean cargandoComboBoxA;
+boolean cargandoComboBoxR;
 boolean consultando;
 
 //Variables para los cálculos de valores $$$
 int contarMayores, contarMenores;
 double precioPersonaTransporte, transporteMayores, transporteMenores, transporteTotal;
+double precioEstadia;
 
 
 private DefaultTableModel modelo= new DefaultTableModel(){
@@ -91,6 +96,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lTransTotal = new javax.swing.JLabel();
         lAlojamientoTotal = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        lRegimen = new javax.swing.JLabel();
         panelDestino = new javax.swing.JPanel();
         cbOrigen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -191,19 +198,31 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel18.setText("Valor del Alojamiento");
 
+        jLabel19.setBackground(new java.awt.Color(51, 51, 255));
+        jLabel19.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel19.setText("Adicional por Régimen");
+
+        lRegimen.setForeground(new java.awt.Color(0, 102, 102));
+        lRegimen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lRegimen.setText(".");
+
         javax.swing.GroupLayout jPanelResultadosLayout = new javax.swing.GroupLayout(jPanelResultados);
         jPanelResultados.setLayout(jPanelResultadosLayout);
         jPanelResultadosLayout.setHorizontalGroup(
             jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelResultadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +231,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                         .addComponent(lTransMen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lTransMay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                     .addComponent(lTransTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lAlojamientoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lAlojamientoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -247,6 +267,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(lAlojamientoTotal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lRegimen)
+                    .addComponent(jLabel19))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -373,6 +397,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        cbRegimen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbRegimenActionPerformed(evt);
+            }
+        });
+
         jLabel8.setForeground(new java.awt.Color(51, 51, 255));
         jLabel8.setText("Régimen:");
 
@@ -395,9 +425,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                 .addGap(31, 31, 31)
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -409,12 +439,13 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     .addComponent(jLabel5)
                     .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbAlojamientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)))
+                        .addComponent(jLabel8))
+                    .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(cbAlojamientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
 
@@ -538,14 +569,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             panelDestino.repaint();
             panelOpciones.repaint();
             
-            //Cargamos el combo de Regimen
-            listadoR = (ArrayList) rData.listarRegimenes();
-            for (Regimen regimen : listadoR) {
-                cbRegimen.addItem(regimen);
-            }
-            cbRegimen.repaint();
-            cbRegimen.updateUI();
-            cbRegimen.setSelectedItem(null);
+
 
         } else {
             
@@ -704,18 +728,78 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     }//GEN-LAST:event_cbTransportesActionPerformed
 
     private void cbAlojamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlojamientosActionPerformed
-        // TODO add your handling code here:
+      
+        if (cargandoComboBoxA==false){
+            
+            Alojamiento alojamientoSeleccionado = (Alojamiento) cbAlojamientos.getSelectedItem();
+
+            if (alojamientoSeleccionado != null) {
+      
+                String cadena1 = "15/12/2024";
+                String cadena2 = "15/01/2025";
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate fechaInicio =  LocalDate.parse(cadena1, formatter);
+                LocalDate fechaFin  =  LocalDate.parse(cadena2, formatter);
+                
+                precioEstadia = aloData.precioTotalEstadia(alojamientoSeleccionado.getIdAlojamiento(), fechaInicio, fechaFin);
+ 
+                String totalEstadia = Double.toString(precioEstadia);
+                lAlojamientoTotal.setText(totalEstadia);
+                if (cbRegimen.getSelectedItem() !=null){
+                    JOptionPane.showMessageDialog(this, "Tiene regimen seleccionado");
+                    calcularRegimen();
+                }
+
+            }    
+        }    
         
         
         
         
         
     }//GEN-LAST:event_cbAlojamientosActionPerformed
+    private void cargarComboRegimen(){
+        //Cargamos el combo de Regimen
+        cargandoComboBoxR = true;
+        cbRegimen.removeAll();
+        listadoR = (ArrayList) rData.listarRegimenes();
+        for (Regimen regimen : listadoR) {
+            cbRegimen.addItem(regimen);
+        }
+        cbRegimen.repaint();
+        cbRegimen.updateUI();
+        cbRegimen.setSelectedItem(null);
+        cargandoComboBoxR = false;
+    }
+    private void cbRegimenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRegimenActionPerformed
+
+        if (cargandoComboBoxR == false){    
+            JOptionPane.showMessageDialog(this, "Selecciono regimen");
+            calcularRegimen();
+        }
+    }//GEN-LAST:event_cbRegimenActionPerformed
+    
+    private void calcularRegimen(){
+
+        if (cbAlojamientos.getSelectedItem()!=null){
+            Regimen regimenSeleccionado = (Regimen) cbRegimen.getSelectedItem();
+            double cargo = regimenSeleccionado.getCargoExtra();
+            precioEstadia =Double.parseDouble(lAlojamientoTotal.getText());
+            double adicionalCargo = (cargo * precioEstadia)/100;
+
+            JOptionPane.showMessageDialog(this, "Adicional " + adicionalCargo);
+            //lRegimen.getText();
+        }
+
+    }
+    
+    
     private void cargarCombosFiltro(){
      
        
         cargarComboTransporte();
         cargarComboAlojamientos();
+        cargarComboRegimen();
         
     }
     
@@ -766,7 +850,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private void cargarComboAlojamientos() {
 
         cbAlojamientos.removeAllItems(); 
-        cargandoComboBox = true;
+        cargandoComboBoxA = true;
         // Verificamos que haya una ciudad de destino seleccionada
         if (cbDestino.getSelectedItem() != null) {
             Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
@@ -788,7 +872,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         }
         cbAlojamientos.updateUI(); 
         cbAlojamientos.setSelectedItem(null); 
-        cargandoComboBox = false;
+        cargandoComboBoxA = false;
 
     }
 
@@ -904,6 +988,7 @@ public void habilitarPanel(JPanel panel) {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -918,6 +1003,7 @@ public void habilitarPanel(JPanel panel) {
     private javax.swing.JLabel lAlojamientoTotal;
     private javax.swing.JLabel lMay;
     private javax.swing.JLabel lMen;
+    private javax.swing.JLabel lRegimen;
     private javax.swing.JLabel lTransMay;
     private javax.swing.JLabel lTransMen;
     private javax.swing.JLabel lTransTotal;
