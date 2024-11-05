@@ -32,6 +32,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmTransportes = new javax.swing.JMenuItem();
         jmAlojamientos = new javax.swing.JMenuItem();
         jmRegimenes = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jmPaquetesVendidos = new javax.swing.JMenuItem();
+        jmTuristasPaquetes = new javax.swing.JMenuItem();
+        jmDestinosElegidos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmPresupuestos = new javax.swing.JMenuItem();
 
@@ -112,6 +116,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmPrincipal.add(jmRegimenes);
 
         jMenuBar1.add(jmPrincipal);
+
+        jMenu2.setText("Estadisticas");
+
+        jmPaquetesVendidos.setText("Paquetes Vendidos por Periodo");
+        jMenu2.add(jmPaquetesVendidos);
+
+        jmTuristasPaquetes.setText("Turistas por Paquetes");
+        jmTuristasPaquetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmTuristasPaquetesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmTuristasPaquetes);
+
+        jmDestinosElegidos.setText("Destinos mas elegidos");
+        jMenu2.add(jmDestinosElegidos);
+
+        jMenuBar1.add(jMenu2);
 
         jMenu1.setText("Paquetes Turisticos");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +265,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         regimenes.setLocation(x, y);
     }//GEN-LAST:event_jmRegimenesActionPerformed
 
+    private void jmTuristasPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTuristasPaquetesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmTuristasPaquetesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -281,6 +307,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -289,10 +316,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem jmAlojamientos;
     private javax.swing.JMenuItem jmCiudades;
+    private javax.swing.JMenuItem jmDestinosElegidos;
+    private javax.swing.JMenuItem jmPaquetesVendidos;
     private javax.swing.JMenuItem jmPresupuestos;
     private javax.swing.JMenu jmPrincipal;
     private javax.swing.JMenuItem jmRegimenes;
     private javax.swing.JMenuItem jmTransportes;
     private javax.swing.JMenuItem jmTuristas;
+    private javax.swing.JMenuItem jmTuristasPaquetes;
     // End of variables declaration//GEN-END:variables
 }
