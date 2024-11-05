@@ -165,6 +165,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         ciudades.setVisible(true);
         escritorio.add(ciudades);
         escritorio.moveToFront(ciudades);
+        int x = (escritorio.getWidth() - ciudades.getWidth()) / 2;
+        int y = (escritorio.getHeight() - ciudades.getHeight()) / 2;
+        ciudades.setLocation(x, y);
     }//GEN-LAST:event_jmCiudadesActionPerformed
 
     private void jmTransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTransportesActionPerformed
@@ -174,6 +177,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         transportes.setVisible(true);
         escritorio.add(transportes);
         escritorio.moveToFront(transportes);
+        int x = (escritorio.getWidth() - transportes.getWidth()) / 2;
+        int y = (escritorio.getHeight() - transportes.getHeight()) / 2;
+        transportes.setLocation(x, y);
     }//GEN-LAST:event_jmTransportesActionPerformed
 
 
@@ -184,6 +190,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         turista.setVisible(true);
         escritorio.add(turista);
         escritorio.moveToFront(turista);
+        int x = (escritorio.getWidth() - turista.getWidth()) / 2;
+        int y = (escritorio.getHeight() - turista.getHeight()) / 2;
+        turista.setLocation(x, y);
     }//GEN-LAST:event_jmTuristasActionPerformed
 
 
@@ -217,6 +226,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         paquetes.setVisible(true);
         escritorio.add(paquetes);
         escritorio.moveToFront(paquetes);
+        int x = (escritorio.getWidth() - paquetes.getWidth()) / 2;
+        int y = (escritorio.getHeight() - paquetes.getHeight()) / 2;
+        paquetes.setLocation(x, y);
     }//GEN-LAST:event_jmPresupuestosActionPerformed
 
     private void jmRegimenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRegimenesActionPerformed
@@ -226,6 +238,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         regimenes.setVisible(true);
         escritorio.add(regimenes);
         escritorio.moveToFront(regimenes);
+        int x = (escritorio.getWidth() - regimenes.getWidth()) / 2;
+        int y = (escritorio.getHeight() - regimenes.getHeight()) / 2;
+        regimenes.setLocation(x, y);
     }//GEN-LAST:event_jmRegimenesActionPerformed
 
     /**
