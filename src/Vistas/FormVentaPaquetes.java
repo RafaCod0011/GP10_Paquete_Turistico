@@ -136,6 +136,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
+        setIconifiable(true);
 
         tbEliminar.setText("Quitar de la lista");
         tbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -225,7 +226,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel20.setText("Valor por Temporada:");
 
-        jLabelPrecio.setForeground(new java.awt.Color(0, 0, 0));
         jLabelPrecio.setText("$0.0");
 
         javax.swing.GroupLayout jPanelResultadosLayout = new javax.swing.GroupLayout(jPanelResultados);
@@ -378,12 +378,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                         .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelDestinoLayout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabel9)))
+                    .addComponent(jLabel9))
                 .addGap(57, 57, 57)
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -570,8 +568,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                 .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(6, 6, 6)
-                                    .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(36, 36, 36))))))
+                                    .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

@@ -76,6 +76,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JSeparator();
 
         setClosable(true);
+        setIconifiable(true);
 
         TCiudades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

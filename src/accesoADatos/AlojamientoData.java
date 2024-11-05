@@ -193,14 +193,14 @@ public class AlojamientoData {
 
     }    
         
-    public List<Alojamiento> listarPorTipo(int tipoAlojamiento){
+    public List<Alojamiento> listarPorTipo(String tipoAlojamiento){
         
     List<Alojamiento> listaAlojamientos = new ArrayList<>();
    
     try {
-        String sql = "SELECT a.*, c.* FROM alojamiento a JOIN ciudad c ON a.ciudad = c.idCiudad WHERE a.tipoAlojamiento = ?";
+        String sql = "SELECT a.*, c.* FROM alojamientos a JOIN ciudades c ON a.idCiudad = c.idCiudad WHERE a.tipoAlojamiento = ?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, tipoAlojamiento); 
+        ps.setString(1, tipoAlojamiento); 
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -229,7 +229,7 @@ public class AlojamientoData {
             listaAlojamientos.add(alojamiento);
         }
     }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alumno " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Alojamiento " + ex.getMessage());
 
     
 }

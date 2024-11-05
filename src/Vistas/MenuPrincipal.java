@@ -2,6 +2,7 @@
 package Vistas;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 
 public class MenuPrincipal extends javax.swing.JFrame {
@@ -150,8 +151,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCiudadesActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+
+//        escritorio.removeAll();
+//        escritorio.repaint();
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormCiudades ciudades= new FormCiudades();
         ciudades.setVisible(true);
         escritorio.add(ciudades);
@@ -179,12 +188,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
 
     private void jmAlojamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlojamientosActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormAlojamientos alojamientos = new FormAlojamientos();
         alojamientos.setVisible(true);
         escritorio.add(alojamientos);
         escritorio.moveToFront(alojamientos);
+        int x = (escritorio.getWidth() - alojamientos.getWidth()) / 2;
+        int y = (escritorio.getHeight() - alojamientos.getHeight()) / 2;
+        alojamientos.setLocation(x, y);
     }//GEN-LAST:event_jmAlojamientosActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
