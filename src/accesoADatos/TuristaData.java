@@ -8,6 +8,8 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -154,5 +156,24 @@ public class TuristaData {
 
         return resultado;
 
+    }
+    
+    public List<Turista> listarTurista () {
+        List<Turista> turistas = new ArrayList<>();
+        String sql = "SELECT * FROM turistas";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Turista turista = new Turista (rs.getInt("idTurista"), rs.getString("fullName"),
+                        rs.getInt("edad"));
+                turistas.add(turista);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error de Base " + e.getMessage());
+        }
+        return turistas;
     }
 }

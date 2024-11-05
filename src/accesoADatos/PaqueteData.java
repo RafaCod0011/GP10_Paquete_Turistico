@@ -3,6 +3,7 @@ package accesoADatos;
 import entidades.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PaqueteData {
@@ -73,5 +74,23 @@ public class PaqueteData {
         }
 
         return resultado;
+    }
+    
+    public List<Paquete> listarPaquetes () {
+        List<Paquete> paquetes = new ArrayList<>();
+        String sql = "SELECT * FROM paquetes";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Paquete paquete = new Paquete (rs.getInt("idPaquete"));
+                paquetes.add(paquete);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error de Base " + e.getMessage());
+        }
+        return paquetes;
     }
 }

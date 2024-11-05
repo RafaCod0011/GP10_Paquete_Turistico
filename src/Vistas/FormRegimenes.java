@@ -48,7 +48,6 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         listadoR = (ArrayList<Regimen>)rData.listarRegimenes();
         modelo = new DefaultTableModel();
         
-        this.setTitle("Formulario Regimenes");
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

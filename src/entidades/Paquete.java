@@ -34,6 +34,12 @@ public class Paquete {
         this.montoTotal = montoTotal;
         this.paqueteActivo = paqueteActivo;
     }
+
+    public Paquete(int idPaquete) {
+        this.idPaquete = idPaquete;
+    }
+    
+    
       
     public Paquete() {
     }
