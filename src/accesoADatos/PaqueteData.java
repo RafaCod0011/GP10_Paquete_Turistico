@@ -19,7 +19,8 @@ public class PaqueteData {
     }
 
     public void agregarPaquete(Paquete paquete) {
-        String sql = "INSERT INTO paquetes (ciudadOrigen, ciudadDestino, fechaDesde, fechaHasta, transporte, alojamiento, regimen, traslado, precioPersona, montoTotal, paqueteActivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        String sql = "INSERT INTO paquetes (idCiudadOrigen, idCiudadDestino, fechaDesde, fechaHasta, idTransporte, idAlojamiento, idRegimen, traslado, montoTotal, paqueteActivo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -30,11 +31,11 @@ public class PaqueteData {
             ps.setInt(5, paquete.getTransporte().getIdTransporte()); 
             ps.setInt(6, paquete.getAlojamiento().getIdAlojamiento()); 
             ps.setInt(7, paquete.getRegimen().getIdRegimen()); 
-            ps.setFloat(8, paquete.getTraslado());
-            ps.setDouble(9, paquete.getPrecioPersona());
-            ps.setDouble(10, paquete.getMontoTotal());
-            ps.setBoolean(11, paquete.isPaqueteActivo());
+            ps.setDouble(8, paquete.getTraslado()); 
+            ps.setDouble(9, paquete.getMontoTotal()); 
+            ps.setBoolean(10, paquete.isPaqueteActivo());
 
+            // Ejecutar la consulta
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -46,9 +47,9 @@ public class PaqueteData {
             }
 
             ps.close();
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al agregar el paquete: " + ex.getMessage());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al agregar el paquete: " + e.getMessage());
         }
     }
 

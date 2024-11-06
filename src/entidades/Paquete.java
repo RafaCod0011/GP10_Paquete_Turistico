@@ -13,13 +13,12 @@ public class Paquete {
     private Transporte transporte;
     private Alojamiento alojamiento;
     private Regimen regimen;
-    private float traslado;
+    private double traslado;
     private ArrayList<Turista> grupoBase;
-    private double precioPersona;
     private double montoTotal;
     private boolean paqueteActivo;
 
-    public Paquete(int idPaquete, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaDesde, LocalDate fechaHasta, Transporte transporte, Alojamiento alojamiento, Regimen regimen, float traslado, ArrayList<Turista> grupoBase, double precioPersona, double montoTotal, boolean paqueteActivo) {
+    public Paquete(int idPaquete, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaDesde, LocalDate fechaHasta, Transporte transporte, Alojamiento alojamiento, Regimen regimen, double traslado, ArrayList<Turista> grupoBase, double montoTotal, boolean paqueteActivo) {
         this.idPaquete = idPaquete;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -30,10 +29,24 @@ public class Paquete {
         this.regimen = regimen;
         this.traslado = traslado;
         this.grupoBase = grupoBase;
-        this.precioPersona = precioPersona;
         this.montoTotal = montoTotal;
         this.paqueteActivo = paqueteActivo;
     }
+
+    public Paquete(Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaDesde, LocalDate fechaHasta, Transporte transporte, Alojamiento alojamiento, Regimen regimen, double traslado, double montoTotal, boolean paqueteActivo) {
+        this.ciudadOrigen = ciudadOrigen;
+        this.ciudadDestino = ciudadDestino;
+        this.fechaDesde = fechaDesde;
+        this.fechaHasta = fechaHasta;
+        this.transporte = transporte;
+        this.alojamiento = alojamiento;
+        this.regimen = regimen;
+        this.traslado = traslado;
+        this.montoTotal = montoTotal;
+        this.paqueteActivo = paqueteActivo;
+    }
+    
+    
 
     public Paquete(int idPaquete) {
         this.idPaquete = idPaquete;
@@ -108,11 +121,11 @@ public class Paquete {
         this.regimen = regimen;
     }
 
-    public float getTraslado() {
+    public double getTraslado() {
         return traslado;
     }
 
-    public void setTraslado(float traslado) {
+    public void setTraslado(double traslado) {
         this.traslado = traslado;
     }
 
@@ -122,14 +135,6 @@ public class Paquete {
 
     public void setGrupoBase(ArrayList<Turista> grupoBase) {
         this.grupoBase = grupoBase;
-    }
-
-    public double getPrecioPersona() {
-        return precioPersona;
-    }
-
-    public void setPrecioPersona(double precioPersona) {
-        this.precioPersona = precioPersona;
     }
 
     public double getMontoTotal() {
