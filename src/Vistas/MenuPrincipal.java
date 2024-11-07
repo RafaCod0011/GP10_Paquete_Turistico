@@ -266,7 +266,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmRegimenesActionPerformed
 
     private void jmTuristasPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTuristasPaquetesActionPerformed
-        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormTuristaPorPaquete formTuristaPaquete = new FormTuristaPorPaquete();
+        formTuristaPaquete.setVisible(true);
+        escritorio.add(formTuristaPaquete);
+        escritorio.moveToFront(formTuristaPaquete);
+        int x = (escritorio.getWidth() - formTuristaPaquete.getWidth()) / 2;
+        int y = (escritorio.getHeight() - formTuristaPaquete.getHeight()) / 2;
+        formTuristaPaquete.setLocation(x, y);
     }//GEN-LAST:event_jmTuristasPaquetesActionPerformed
 
     /**

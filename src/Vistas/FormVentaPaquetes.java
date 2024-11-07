@@ -377,6 +377,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
         panelResultados1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lTransMay, lTransMen});
 
+        btAgregarTuristas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/AgregarViajero.png"))); // NOI18N
         btAgregarTuristas1.setText("Agregar viajeros");
         btAgregarTuristas1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,6 +385,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        tbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/QuitarViajero.png"))); // NOI18N
         tbEliminar.setText("Quitar de la lista");
         tbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -663,8 +665,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        panelDestino.setBorder(null);
-
         jLabel4.setForeground(new java.awt.Color(51, 51, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Origen:");
@@ -847,6 +847,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        btVerOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/FechaDisponible.png"))); // NOI18N
         btVerOpciones.setText("Ver Opciones Disponibles");
         btVerOpciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -854,6 +855,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        btCalcular1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/CalcularPresupuesto.png"))); // NOI18N
         btCalcular1.setText("Calcular precio final del paquete");
         btCalcular1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -948,6 +950,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        btCalcular2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/CalcularPresupuesto.png"))); // NOI18N
         btCalcular2.setText("Calcular precio final del paquete");
         btCalcular2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1010,9 +1013,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

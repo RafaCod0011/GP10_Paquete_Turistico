@@ -81,9 +81,9 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelGeneral" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btVerOpciones" min="-2" pref="45" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="panelDestino" min="-2" pref="53" max="-2" attributes="0"/>
+                  <Component id="btVerOpciones" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="8" max="-2" attributes="0"/>
@@ -532,6 +532,9 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btAgregarTuristas1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Media/AgregarViajero.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Agregar viajeros"/>
               </Properties>
               <Events>
@@ -540,6 +543,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="tbEliminar">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Media/QuitarViajero.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Quitar de la lista"/>
               </Properties>
               <Events>
@@ -923,11 +929,6 @@
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="panelDestino">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -1255,6 +1256,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="btVerOpciones">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Media/FechaDisponible.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Ver Opciones Disponibles"/>
       </Properties>
       <Events>
@@ -1263,6 +1267,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btCalcular1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Media/CalcularPresupuesto.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Calcular precio final del paquete"/>
       </Properties>
       <Events>
@@ -1427,6 +1434,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="btCalcular2">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/Media/CalcularPresupuesto.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Calcular precio final del paquete"/>
       </Properties>
       <Events>
