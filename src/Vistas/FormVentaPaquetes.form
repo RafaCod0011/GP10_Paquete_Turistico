@@ -532,6 +532,9 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btAgregarTuristas1">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f5" green="f5" red="f5" type="rgb"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Media/AgregarViajero.png"/>
                 </Property>
@@ -543,6 +546,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="tbEliminar">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f5" green="f5" red="f5" type="rgb"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Media/QuitarViajero.png"/>
                 </Property>
@@ -1256,6 +1262,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="btVerOpciones">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f5" green="f5" red="f5" type="rgb"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Media/FechaDisponible.png"/>
         </Property>
@@ -1267,6 +1276,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="btCalcular1">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f5" green="f5" red="f5" type="rgb"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Media/CalcularPresupuesto.png"/>
         </Property>
@@ -1434,6 +1446,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="btCalcular2">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f5" green="f5" red="f5" type="rgb"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Media/CalcularPresupuesto.png"/>
         </Property>
@@ -1445,6 +1460,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="guardar">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f5" green="f5" red="f5" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
       <Events>

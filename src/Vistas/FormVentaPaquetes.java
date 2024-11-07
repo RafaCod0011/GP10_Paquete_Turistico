@@ -377,6 +377,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
         panelResultados1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lTransMay, lTransMen});
 
+        btAgregarTuristas1.setBackground(new java.awt.Color(245, 245, 245));
         btAgregarTuristas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/AgregarViajero.png"))); // NOI18N
         btAgregarTuristas1.setText("Agregar viajeros");
         btAgregarTuristas1.addActionListener(new java.awt.event.ActionListener() {
@@ -385,6 +386,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        tbEliminar.setBackground(new java.awt.Color(245, 245, 245));
         tbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/QuitarViajero.png"))); // NOI18N
         tbEliminar.setText("Quitar de la lista");
         tbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -847,6 +849,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
+        btVerOpciones.setBackground(new java.awt.Color(245, 245, 245));
         btVerOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/FechaDisponible.png"))); // NOI18N
         btVerOpciones.setText("Ver Opciones Disponibles");
         btVerOpciones.addActionListener(new java.awt.event.ActionListener() {
@@ -855,6 +858,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        btCalcular1.setBackground(new java.awt.Color(245, 245, 245));
         btCalcular1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/CalcularPresupuesto.png"))); // NOI18N
         btCalcular1.setText("Calcular precio final del paquete");
         btCalcular1.addActionListener(new java.awt.event.ActionListener() {
@@ -950,6 +954,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        btCalcular2.setBackground(new java.awt.Color(245, 245, 245));
         btCalcular2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/CalcularPresupuesto.png"))); // NOI18N
         btCalcular2.setText("Calcular precio final del paquete");
         btCalcular2.addActionListener(new java.awt.event.ActionListener() {
@@ -958,6 +963,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        guardar.setBackground(new java.awt.Color(245, 245, 245));
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

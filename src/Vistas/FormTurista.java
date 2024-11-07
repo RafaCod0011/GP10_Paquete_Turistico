@@ -65,6 +65,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
+        jbBuscar.setBackground(new java.awt.Color(245, 245, 245));
         jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/BuscarTurista.png"))); // NOI18N
         jbBuscar.setText("Buscar");
         jbBuscar.setToolTipText("");
@@ -74,6 +75,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
+        jbEliminar.setBackground(new java.awt.Color(245, 245, 245));
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/EliminarTurista.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -82,6 +84,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
+        jbSalir.setBackground(new java.awt.Color(245, 245, 245));
         jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +124,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
         lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTransportes.setText("Crear/Modificar Turista");
 
+        jbGuardar1.setBackground(new java.awt.Color(245, 245, 245));
         jbGuardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/ModificarTurista.png"))); // NOI18N
         jbGuardar1.setText("Guardar");
         jbGuardar1.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +133,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
+        jbNuevo.setBackground(new java.awt.Color(245, 245, 245));
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/NuevoTurista.png"))); // NOI18N
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {

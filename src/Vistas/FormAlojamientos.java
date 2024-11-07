@@ -124,6 +124,7 @@ public Alojamiento nuevoAlojamiento= new Alojamiento();
 
         Botones.setBackground(new java.awt.Color(204, 255, 255));
 
+        jbNuevo.setBackground(new java.awt.Color(245, 245, 245));
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/NuevoAlojamiento.png"))); // NOI18N
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +133,7 @@ public Alojamiento nuevoAlojamiento= new Alojamiento();
             }
         });
 
+        jbEliminar.setBackground(new java.awt.Color(245, 245, 245));
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/EliminarAlojamiento.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +142,7 @@ public Alojamiento nuevoAlojamiento= new Alojamiento();
             }
         });
 
+        jbGuardar.setBackground(new java.awt.Color(245, 245, 245));
         jbGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/GuardarAlojamiento.png"))); // NOI18N
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +151,7 @@ public Alojamiento nuevoAlojamiento= new Alojamiento();
             }
         });
 
+        jbSalir.setBackground(new java.awt.Color(245, 245, 245));
         jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {

@@ -89,6 +89,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtRegimenes);
 
+        jbEliminar.setBackground(new java.awt.Color(245, 245, 245));
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/EliminarRegimen.png"))); // NOI18N
         jbEliminar.setText("ELIMINAR");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +98,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
             }
         });
 
+        jbAgregar.setBackground(new java.awt.Color(245, 245, 245));
         jbAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/GuardarRegimen.png"))); // NOI18N
         jbAgregar.setText("AGREGAR");
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,6 +107,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
             }
         });
 
+        jbSalir.setBackground(new java.awt.Color(245, 245, 245));
         jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         jbSalir.setText("SALIR");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
