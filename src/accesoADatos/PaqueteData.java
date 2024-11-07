@@ -78,20 +78,50 @@ public class PaqueteData {
     }
     
     public List<Paquete> listarPaquetes () {
-        List<Paquete> paquetes = new ArrayList<>();
-        String sql = "SELECT * FROM paquetes";
         
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Paquete paquete = new Paquete (rs.getInt("idPaquete"));
-                paquetes.add(paquete);
+        List<Paquete> listaPaquetes = new ArrayList<>();
+        
+        try{
+        String sql = "SELECT * FROM paquetes ORDER BY idPaquete ASC";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+               ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                Paquete paquetes = new Paquete();
+                paquetes.setIdPaquete(rs.getInt("idPaquete"));
+                
+                listaPaquetes.add(paquetes); // Agregar el paquete a la lista
+
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error de Base " + e.getMessage());
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes " + ex.getMessage());
         }
-        return paquetes;
+        
+        return listaPaquetes;
+    }
+    
+    public List<Paquete> listarPaquetesDESC () {
+        
+        List<Paquete> listaPaquetes = new ArrayList<>();
+        
+        try{
+        String sql = "SELECT * FROM paquetes ORDER BY idPaquete DESC";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+               ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                Paquete paquetes = new Paquete();
+                paquetes.setIdPaquete(rs.getInt("idPaquete"));
+                
+                listaPaquetes.add(paquetes); // Agregar el paquete a la lista
+
+            }
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes " + ex.getMessage());
+        }
+        
+        return listaPaquetes;
     }
 }

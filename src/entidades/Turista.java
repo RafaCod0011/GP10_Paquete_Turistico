@@ -6,6 +6,7 @@ public class Turista {
     private int documento;
     private String fullName;
     private int edad;
+    private int cantidadPaquetes;  // nueva variable para la cant de paqutes x turista
 
     public Turista(int idTurista, int documento, String fullName, int edad) {
         this.idTurista = idTurista;
@@ -56,6 +57,14 @@ public class Turista {
         this.edad = edad;
     }
 
+    public int getCantidadPaquetes() { //trae cantidad de paquetes
+        return cantidadPaquetes;
+    }
+
+    public void setCantidadPaquetes(int cantidadPaquetes) { //setea cantidad de paquetes
+        this.cantidadPaquetes = cantidadPaquetes;
+    }
+    
     @Override
     public String toString() {
         return fullName + " - "  + documento + " - " + edad + " años";
@@ -81,6 +90,5 @@ public class Turista {
         final Turista other = (Turista) obj;
         return this.documento == other.documento;
     }
-
-
 }
+

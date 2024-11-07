@@ -1,5 +1,6 @@
 package accesoADatos;
 
+import entidades.Paquete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -158,22 +159,83 @@ public class TuristaData {
 
     }
     
-    public List<Turista> listarTurista () {
-        List<Turista> turistas = new ArrayList<>();
-        String sql = "SELECT * FROM turistas";
+    public List<Turista> listarTurista (){
         
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Turista turista = new Turista (rs.getInt("idTurista"), rs.getString("fullName"),
-                        rs.getInt("edad"));
-                turistas.add(turista);
+        List<Turista> listaTuristas = new ArrayList<>();
+        
+        try{
+        String sql = "SELECT * FROM turistas ORDER BY idTurista ASC, fullName ASC, edad ASC ";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+               ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                Turista turista = new Turista();
+                turista.setIdTurista(rs.getInt("idTurista"));
+                turista.setFullName(rs.getString("fullName"));
+                turista.setEdad(rs.getInt("edad"));
+                
+                listaTuristas.add(turista); // Agregar el turista a la lista
+
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error de Base " + e.getMessage());
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes " + ex.getMessage());
         }
-        return turistas;
+        
+        return listaTuristas;
     }
+    
+    public List<Turista> listarTuristaPaquete() {
+    List<Turista> listaTuristas = new ArrayList<>();
+    
+    try {
+        String sql = "SELECT t.idTurista, t.fullName, COUNT(pt.idPaquete) AS cantidadPaquetes " +
+                     "FROM turistas t " +
+                     "LEFT JOIN paquetesturistas pt ON t.idTurista = pt.idTurista " +
+                     "GROUP BY t.idTurista " +
+                     "ORDER BY t.idTurista ASC";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Turista turista = new Turista();
+            
+            turista.setIdTurista(rs.getInt("idTurista"));
+            turista.setFullName(rs.getString("fullName"));
+            turista.setCantidadPaquetes(rs.getInt("cantidadPaquetes")); // setea el conteo de paquetes
+            
+            listaTuristas.add(turista); // agregar turista a la lista
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista: " + ex.getMessage());
+    }
+    
+    return listaTuristas;
 }
+    
+    /*public List<Turista> listarTuristaDesc (){                                            HAY QUE REVISAR ESTE METODO
+    
+    List<Turista> listaTuristas = new ArrayList<>();
+    
+    try{
+    String sql = "SELECT * FROM turistas ORDER BY idTurista DESC, fullName DESC, edad DESC ";
+    
+    PreparedStatement ps = con.prepareStatement(sql);
+    ResultSet rs = ps.executeQuery();
+    
+    while (rs.next()) {
+    Turista turista = new Turista();
+    turista.setIdTurista(rs.getInt("idTurista"));
+    turista.setFullName(rs.getString("fullName"));
+    turista.setEdad(rs.getInt("edad"));
+    
+    listaTuristas.add(turista); // Agregar el turista a la lista
+    }
+    }catch (SQLException ex) {
+    JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes " + ex.getMessage());
+    }
+    
+    return listaTuristas;
+*/}
+

@@ -211,6 +211,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
 
     private void jmTuristasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTuristasActionPerformed
+                
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
+        
         escritorio.removeAll();
         escritorio.repaint();
         FormTurista turista= new FormTurista();
@@ -259,6 +266,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmPresupuestosActionPerformed
 
     private void jmRegimenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmRegimenesActionPerformed
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
+        
         escritorio.removeAll();
         escritorio.repaint();
         FormRegimenes regimenes = new FormRegimenes();
@@ -271,6 +285,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmRegimenesActionPerformed
 
     private void jmTuristasPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTuristasPaquetesActionPerformed
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
+        
         escritorio.removeAll();
         escritorio.repaint();
         FormTuristaPorPaquete formTuristaPaquete = new FormTuristaPorPaquete();
