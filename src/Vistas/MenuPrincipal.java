@@ -131,6 +131,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(jmTuristasPaquetes);
 
         jmDestinosElegidos.setText("Destinos mas elegidos");
+        jmDestinosElegidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmDestinosElegidosActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmDestinosElegidos);
 
         jMenuBar1.add(jMenu2);
@@ -276,6 +281,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
         int y = (escritorio.getHeight() - formTuristaPaquete.getHeight()) / 2;
         formTuristaPaquete.setLocation(x, y);
     }//GEN-LAST:event_jmTuristasPaquetesActionPerformed
+
+    private void jmDestinosElegidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDestinosElegidosActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormDestinosMasElegidos formDestinosMasElegidos = new FormDestinosMasElegidos();
+        formDestinosMasElegidos.setVisible(true);
+        escritorio.add(formDestinosMasElegidos);
+        escritorio.moveToFront(formDestinosMasElegidos);
+        int x = (escritorio.getWidth() - formDestinosMasElegidos.getWidth()) / 2;
+        int y = (escritorio.getHeight() - formDestinosMasElegidos.getHeight()) / 2;
+        formDestinosMasElegidos.setLocation(x, y);
+    }//GEN-LAST:event_jmDestinosElegidosActionPerformed
 
     /**
      * @param args the command line arguments

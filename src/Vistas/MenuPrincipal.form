@@ -93,6 +93,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Destinos mas elegidos"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmDestinosElegidosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
