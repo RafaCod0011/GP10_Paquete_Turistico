@@ -13,20 +13,16 @@ import javax.swing.table.DefaultTableModel;
 import entidades.*;
 import java.awt.Component;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
-import com.toedter.calendar.JDateChooser;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 import java.time.ZoneId;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import javax.swing.table.JTableHeader;
 
 public class FormVentaPaquetes extends javax.swing.JInternalFrame {
     
@@ -65,11 +61,12 @@ LocalDate fechaHoy = LocalDate.now();
 //Variables para los cálculos de valores $$$
 int contarMayores, contarMenores;
 double precioPersonaTransporte, transporteMayores, transporteMenores, transporteTotal;
-double precioEstadia, incrementoRegimen;
-double incrementoTemporada;
-double precioTemporada;
-double incrementoTraslados;
-double totalFinal;
+double precioPersonaTransporte1, transporteMayores1, transporteMenores1, transporteTotal1;
+double precioEstadia, incrementoRegimen,precioEstadia1, incrementoRegimen1;
+double incrementoTemporada,incrementoTemporada1;
+double precioTemporada,precioTemporada1;
+double incrementoTraslados,incrementoTraslados1;
+double totalFinal,totalFinal1;
 
 
 private DefaultTableModel modelo= new DefaultTableModel(){
@@ -131,6 +128,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         tbEliminar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tTuristas = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
         lConformacion = new javax.swing.JLabel();
         panelResultados2 = new javax.swing.JPanel();
         lPasaMen1 = new javax.swing.JLabel();
@@ -153,12 +151,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel28 = new javax.swing.JLabel();
         lTraslados1 = new javax.swing.JLabel();
         lTotal1 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
         panelDestino = new javax.swing.JPanel();
         cbOrigen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbDestino = new javax.swing.JComboBox<>();
-        jSeparator2 = new javax.swing.JSeparator();
         jcDesde = new com.toedter.calendar.JDateChooser();
         jcHasta = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
@@ -166,7 +164,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lbTransportesRecorridos = new javax.swing.JLabel();
         lbTransportes = new javax.swing.JLabel();
         panelOpciones = new javax.swing.JPanel();
-        guardar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         panelPresupuesto1 = new javax.swing.JPanel();
         lbTransportes1 = new javax.swing.JLabel();
@@ -189,6 +186,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         cbRegimen1 = new javax.swing.JComboBox<>();
         rbTraslados1 = new javax.swing.JRadioButton();
         btCalcular2 = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -406,6 +404,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         ));
         jScrollPane3.setViewportView(tTuristas);
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 1, 10)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Listado de Viajeros");
+
         javax.swing.GroupLayout panelGrupoTuristasLayout = new javax.swing.GroupLayout(panelGrupoTuristas);
         panelGrupoTuristas.setLayout(panelGrupoTuristasLayout);
         panelGrupoTuristasLayout.setHorizontalGroup(
@@ -413,12 +415,16 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelGrupoTuristasLayout.createSequentialGroup()
                         .addComponent(btAgregarTuristas1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tbEliminar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelGrupoTuristasLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btAgregarTuristas1, tbEliminar});
@@ -429,10 +435,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelGrupoTuristasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAgregarTuristas1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbEliminar))
+                    .addComponent(tbEliminar)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
 
         panelGrupoTuristasLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btAgregarTuristas1, tbEliminar});
@@ -626,30 +633,37 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelGeneralLayout.setHorizontalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addComponent(panelResultados1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lConformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelResultados2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelGeneralLayout.createSequentialGroup()
+                        .addComponent(panelResultados1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lConformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(panelResultados2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         panelGeneralLayout.setVerticalGroup(
             panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelResultados1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelGeneralLayout.createSequentialGroup()
-                        .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lConformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelGeneralLayout.createSequentialGroup()
-                .addComponent(panelResultados2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addGroup(panelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelResultados1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelGeneralLayout.createSequentialGroup()
+                                .addComponent(panelGrupoTuristas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lConformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(panelResultados2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        panelDestino.setBorder(null);
 
         jLabel4.setForeground(new java.awt.Color(51, 51, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -697,10 +711,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jcHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDestinoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         panelDestinoLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jcDesde, jcHasta});
@@ -708,8 +719,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelDestinoLayout.setVerticalGroup(
             panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDestinoLayout.createSequentialGroup()
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addContainerGap()
                 .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(panelDestinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -738,38 +748,25 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTransportes.setText("Confección de Presupuestos");
 
-        guardar.setText("Guardar");
-        guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 87, Short.MAX_VALUE)
         );
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
-                .addContainerGap(126, Short.MAX_VALUE)
-                .addComponent(guardar)
-                .addGap(31, 31, 31))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         panelPresupuesto1.setBackground(new java.awt.Color(121, 176, 213));
+        panelPresupuesto1.setForeground(new java.awt.Color(255, 255, 255));
 
         lbTransportes1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbTransportes1.setForeground(new java.awt.Color(102, 102, 102));
         lbTransportes1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTransportes1.setText("Seleccione medio de Transporte y alojamiento para el Paquete:");
+        lbTransportes1.setText("PRESUPUESTO 1 -Seleccione medio de Transporte y alojamiento para el Paquete:");
 
-        jLabel5.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel5.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Transporte:");
 
@@ -779,7 +776,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
-        jLabel6.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel6.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Alojamiento:");
 
@@ -789,7 +786,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
-        jLabel8.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel8.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel8.setText("Régimen:");
 
         cbRegimen.addActionListener(new java.awt.event.ActionListener() {
@@ -798,6 +795,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        rbTraslados.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         rbTraslados.setText("Traslados");
         rbTraslados.setBorder(null);
         rbTraslados.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -837,16 +835,16 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(panelPresupuesto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPresupuesto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(cbAlojamientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPresupuesto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbRegimen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(rbTraslados))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         btVerOpciones.setText("Ver Opciones Disponibles");
@@ -866,11 +864,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelPresupuesto2.setBackground(new java.awt.Color(121, 176, 213));
 
         lbTransportes2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbTransportes2.setForeground(new java.awt.Color(102, 102, 102));
         lbTransportes2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTransportes2.setText("Seleccione medio de Transporte y alojamiento para el Paquete:");
+        lbTransportes2.setText("PRESUPUESTO 2 - Seleccione medio de Transporte y alojamiento para el Paquete:");
 
-        jLabel7.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel7.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7.setText("Transporte:");
 
@@ -880,7 +877,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
-        jLabel11.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel11.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Alojamiento:");
 
@@ -890,7 +887,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
-        jLabel12.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel12.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel12.setText("Régimen:");
 
         cbRegimen1.addActionListener(new java.awt.event.ActionListener() {
@@ -899,6 +896,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        rbTraslados1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         rbTraslados1.setText("Traslados");
         rbTraslados1.setBorder(null);
         rbTraslados1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -938,16 +936,16 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(panelPresupuesto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cbTransportes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPresupuesto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(cbAlojamientos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelPresupuesto2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbRegimen1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(rbTraslados1))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         btCalcular2.setText("Calcular precio final del paquete");
@@ -957,16 +955,17 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             }
         });
 
+        guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(lbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbTransportesRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
@@ -975,22 +974,31 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btVerOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelPresupuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btCalcular1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelPresupuesto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btCalcular2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbTransportes, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbTransportesRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btCalcular1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelPresupuesto1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelPresupuesto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btCalcular2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -999,27 +1007,29 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTransportesRecorridos)
                     .addComponent(lbTransportes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btVerOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelPresupuesto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelPresupuesto1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btCalcular2)
-                            .addComponent(btCalcular1))))
-                .addGap(7, 7, 7))
+                    .addComponent(panelPresupuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelPresupuesto2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCalcular2)
+                    .addComponent(btCalcular1)
+                    .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btCalcular1, btCalcular2, guardar});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1106,12 +1116,36 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
     private void reiniciarResultados(){
 
+        //del presupuesto 1
         lTransMen.setText(".");
         lTransMay.setText(".");
         lTransTotal.setText(".");
+        lAlojamientoTotal.setText(".");
+        lRegimen.setText(".");
+        lSubtotal.setText(".");
+        lTemporada.setText(".");
+        lSubtotalPaquete.setText(".");
+        lTraslados.setText(".");
+        lTotal.setText(".");
         cbTransportes.removeAllItems();
         cbAlojamientos.removeAllItems();
         cbRegimen.removeAllItems();
+
+        //del presupuesto 2
+        lTransMen1.setText(".");
+        lTransMay1.setText(".");
+        lTransTotal1.setText(".");
+        lAlojamientoTotal1.setText(".");
+        lRegimen1.setText(".");
+        lSubtotal1.setText(".");
+        lTemporada1.setText(".");
+        lSubtotalPaquete1.setText(".");
+        lTraslados1.setText(".");
+        lTotal1.setText(".");
+        cbTransportes1.removeAllItems();
+        cbAlojamientos1.removeAllItems();
+        cbRegimen1.removeAllItems();
+
         
    
     }
@@ -1248,7 +1282,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             if (alojamientoSeleccionado != null) {
                 
                 precioEstadia = aloData.precioTotalEstadia(alojamientoSeleccionado.getIdAlojamiento(), fechaDesde, fechaHasta);
-//                String totalEstadia = Double.toString(precioEstadia);
                 lAlojamientoTotal.setText(String.format("$%.2f", precioEstadia));
                 if (cbRegimen.getSelectedItem() !=null){
                     calcularRegimen();
@@ -1263,13 +1296,18 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         //Cargamos el combo de Regimen
         cargandoComboBoxR = true;
         cbRegimen.removeAll();
+        cbRegimen1.removeAll();
         listadoR = (ArrayList) rData.listarRegimenes();
         for (Regimen regimen : listadoR) {
             cbRegimen.addItem(regimen);
+            cbRegimen1.addItem(regimen);
         }
         cbRegimen.repaint();
+        cbRegimen1.repaint();
         cbRegimen.updateUI();
+        cbRegimen1.updateUI();
         cbRegimen.setSelectedItem(null);
+        cbRegimen1.setSelectedItem(null);
         cargandoComboBoxR = false;
     }
     private void cbRegimenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRegimenActionPerformed
@@ -1288,16 +1326,22 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         if (cbAlojamientos.getSelectedItem()!=null){
             Regimen regimenSeleccionado = (Regimen) cbRegimen.getSelectedItem();
             double cargo = regimenSeleccionado.getCargoExtra();
-            
-            //precioEstadia =Double.parseDouble(lAlojamientoTotal.getText());
-            
             incrementoRegimen = (cargo * precioEstadia)/100;
-//            String adicional = Double.toString(incrementoRegimen);
             lRegimen.setText(String.format("$%.2f", incrementoRegimen));
-            
         }
 
     }
+    private void calcularRegimen1(){
+
+        if (cbAlojamientos1.getSelectedItem()!=null){
+            Regimen regimenSeleccionado1 = (Regimen) cbRegimen1.getSelectedItem();
+            double cargo1 = regimenSeleccionado1.getCargoExtra();
+            incrementoRegimen1 = (cargo1 * precioEstadia1)/100;
+            lRegimen1.setText(String.format("$%.2f", incrementoRegimen1));
+        }
+
+    }
+
     
     private void CalcularTotales(){
 
@@ -1336,6 +1380,44 @@ private DefaultTableModel modelo= new DefaultTableModel(){
       }    
        
     }
+
+    private void CalcularTotales1(){
+
+        if (panelPresupuesto2.isEnabled()) {    
+          // Subtotal: Transporte + Estadia + Regimen
+          double subtotal1 = transporteTotal1 + precioEstadia1 + incrementoRegimen1;
+          lSubtotal1.setText(String.format("$%.2f", subtotal1));
+
+          //Sacamos el incremento por temporada
+          double temporada1 = (subtotal1 * incrementoTemporada)- subtotal1;
+          lTemporada1.setText(String.format("$%.2f", temporada1));
+
+          //SUB TOTAL PAQUETE: Subtotal + Incremento por temporada
+          double total1  = subtotal1 + temporada1;
+          lSubtotalPaquete1.setText(String.format("$%.2f", total1));
+
+
+          if (rbTraslados1.isSelected()) {
+              incrementoTraslados1 = (total1 * 1) /100;
+              lTraslados1.setText(String.format("$%.2f", incrementoTraslados1));
+          }    
+
+          //TOTAL: Subtotal Paquete + traslados
+          totalFinal1  = total1 + incrementoTraslados1;
+          lTotal1.setText(String.format("$%.2f", totalFinal1));
+
+
+          bloquearPanel(panelPresupuesto2);
+          btCalcular2.setText("Definir nuevamente");
+          panelPresupuesto2.repaint();
+      }else{ 
+          habilitarPanel(panelPresupuesto2);
+          btCalcular2.setText("Calcular precio final del paquete");
+          panelPresupuesto2.repaint(); 
+
+      }    
+       
+    }
     
     private void btCalcular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcular1ActionPerformed
 
@@ -1345,46 +1427,134 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
 
-            if (cbTransportes.getSelectedItem()!=null || cbAlojamientos.getSelectedItem() !=null || cbRegimen.getSelectedItem()!=null  ) {  
+            String[] opciones = {"Paquete 1", "Paquete 2"};
+            int seleccion = JOptionPane.showOptionDialog(
+                null,
+                "Seleccione el paquete turistico elegido por el cliente",
+                "Confirmar y Grabar Presupuesto",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+            );
 
-                int respuesta = JOptionPane.showConfirmDialog(this
-                        ,"¿Está seguro/a?"
-                        ,"Grabar Presupuesto"
-                        ,JOptionPane.YES_NO_OPTION);
+            if (seleccion == 0) {
+                
+                    if (cbTransportes.getSelectedItem()!=null || cbAlojamientos.getSelectedItem() !=null || cbRegimen.getSelectedItem()!=null  ) {  
 
-                if (respuesta==JOptionPane.YES_OPTION){
+                        int respuesta = JOptionPane.showConfirmDialog(this
+                                ,"¿Está seguro/a?"
+                                ,"Grabar Presupuesto 1"
+                                ,JOptionPane.YES_NO_OPTION);
 
-                    CalcularTotales();
-                    paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes.getSelectedItem(),(Alojamiento) cbAlojamientos.getSelectedItem(), (Regimen) cbRegimen.getSelectedItem(), incrementoTraslados , totalFinal, isSelected);
-                    pData.agregarPaquete(paquete);
-                    ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
+                        if (respuesta==JOptionPane.YES_OPTION){
 
-                }
-            
-            
+                            CalcularTotales();
+                            paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes.getSelectedItem(),(Alojamiento) cbAlojamientos.getSelectedItem(), (Regimen) cbRegimen.getSelectedItem(), incrementoTraslados , totalFinal, isSelected);
+                            pData.agregarPaquete(paquete);
+                            ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
+
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Seleccione Transporte / Alojamiento y Régimen para poder grabar el presupuesto 1..", 
+                              "No es posible grabar", JOptionPane.ERROR_MESSAGE);
+                        
+                    }
+                
+            } else if (seleccion == 1) {
+                    if (cbTransportes1.getSelectedItem()!=null || cbAlojamientos1.getSelectedItem() !=null || cbRegimen1.getSelectedItem()!=null  ) {  
+
+                        int respuesta = JOptionPane.showConfirmDialog(this
+                                ,"¿Está seguro/a?"
+                                ,"Grabar Presupuesto 2"
+                                ,JOptionPane.YES_NO_OPTION);
+
+                        if (respuesta==JOptionPane.YES_OPTION){
+
+                            CalcularTotales1();
+                            paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes1.getSelectedItem(),(Alojamiento) cbAlojamientos1.getSelectedItem(), (Regimen) cbRegimen1.getSelectedItem(), incrementoTraslados1 , totalFinal1, isSelected);
+                            pData.agregarPaquete(paquete);
+                            ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
+
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Seleccione Transporte / Alojamiento y Régimen para poder grabar el presupuesto 2..", 
+                              "No es posible grabar", JOptionPane.ERROR_MESSAGE);
+
+                    }
+                
+                
+            } else {
+                
+                JOptionPane.showMessageDialog(null, "No has seleccionado ninguna opción");
+                
+                
+                
             }
-        
+
     }//GEN-LAST:event_guardarActionPerformed
 
     private void cbTransportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTransportes1ActionPerformed
-        // TODO add your handling code here:
+
+        if (cargandoComboBox==false){
+            Transporte transporteSeleccionado1 = (Transporte) cbTransportes1.getSelectedItem();
+
+            if (transporteSeleccionado1 != null) {
+                    // Verificar de qué tipo es el transporte seleccionado
+                 if (transporteSeleccionado1 instanceof Avion) {
+                     precioPersonaTransporte1 = transporteSeleccionado1.calcularPrecio();
+                     JOptionPane.showMessageDialog(this, "El transporte en AVIÓN tiene un cargo Adicional por IMPUESTOS","Información Importante", JOptionPane.INFORMATION_MESSAGE);
+                 } else if (transporteSeleccionado1 instanceof Colectivo) {
+                     precioPersonaTransporte1 = transporteSeleccionado1.calcularPrecio();
+                 } else if (transporteSeleccionado1 instanceof Auto) {
+                     precioPersonaTransporte1 = transporteSeleccionado1.calcularPrecio();
+                 }
+                 
+                transporteMayores1 = precioPersonaTransporte1 * contarMayores ;   
+                transporteMenores1 = (precioPersonaTransporte1 * contarMenores)/2 ;        
+                transporteTotal1 = transporteMayores1 + transporteMenores1;        
+                lTransMen1.setText(String.format("$%.2f", transporteMenores1));
+                lTransMay1.setText(String.format("$%.2f", transporteMayores1));
+                lTransTotal1.setText(String.format("$%.2f", transporteTotal1));
+            
+            }    
+        }    
+        
+
+
     }//GEN-LAST:event_cbTransportes1ActionPerformed
 
     private void cbAlojamientos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlojamientos1ActionPerformed
-        // TODO add your handling code here:
+
+        if (cargandoComboBoxA==false){
+            
+            Alojamiento alojamientoSeleccionado1 = (Alojamiento) cbAlojamientos1.getSelectedItem();
+
+            if (alojamientoSeleccionado1 != null) {
+                
+                precioEstadia1 = aloData.precioTotalEstadia(alojamientoSeleccionado1.getIdAlojamiento(), fechaDesde, fechaHasta);
+                lAlojamientoTotal1.setText(String.format("$%.2f", precioEstadia1));
+                if (cbRegimen1.getSelectedItem() !=null){
+                    calcularRegimen1();
+                }
+
+            }    
+        }    
+
     }//GEN-LAST:event_cbAlojamientos1ActionPerformed
 
     private void cbRegimen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRegimen1ActionPerformed
-        // TODO add your handling code here:
+        if (cargandoComboBoxR == false){    
+            calcularRegimen1();
+        }
     }//GEN-LAST:event_cbRegimen1ActionPerformed
 
     private void btCalcular2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCalcular2ActionPerformed
-        // TODO add your handling code here:
+        CalcularTotales1();
     }//GEN-LAST:event_btCalcular2ActionPerformed
     
 
-    
-    
     private void cargarCombosFiltro(){
      
        
@@ -1400,6 +1570,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         //que realicen ese recorrido
         
         cbTransportes.removeAllItems();
+        cbTransportes1.removeAllItems();
         cargandoComboBox = true;
         
         if (cbOrigen.getSelectedItem()!=null && cbDestino.getSelectedItem()!=null){
@@ -1416,6 +1587,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                              transporte.getNombreEmpresaTransporte(), 
                                              transporte.getPrecioPersona());
                     cbTransportes.addItem(avion);
+                    cbTransportes1.addItem(avion);
                 } else if ("Colectivo".equals(transporte.getTipoTransporte())) {
                     Colectivo colectivo = new Colectivo(transporte.getIdTransporte(), 
                                                          transporte.getCiudadOrigen(), 
@@ -1423,6 +1595,16 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                                          transporte.getNombreEmpresaTransporte(), 
                                                          transporte.getPrecioPersona());
                     cbTransportes.addItem(colectivo);
+                    cbTransportes1.addItem(colectivo);
+                  } else if ("Auto".equals(transporte.getTipoTransporte())) {
+                    Auto auto = new Auto(transporte.getIdTransporte(), 
+                                                         transporte.getCiudadOrigen(), 
+                                                         transporte.getCiudadDestino(), 
+                                                         transporte.getNombreEmpresaTransporte(), 
+                                                         transporte.getPrecioPersona());
+                    cbTransportes.addItem(auto);
+                    cbTransportes1.addItem(auto);                  
+
                 }
             }
         }    
@@ -1432,7 +1614,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             JOptionPane.showMessageDialog(this, "Lamentablemente no disponemos de opciones de transporte para realizar el viaje entre ciudades","Opciones disponbles", JOptionPane.ERROR_MESSAGE);
         }
         cbTransportes.updateUI();
+        cbTransportes1.updateUI();
         cbTransportes.setSelectedItem(null);
+        cbTransportes1.setSelectedItem(null);
         cargandoComboBox = false;
     
     
@@ -1441,6 +1625,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private void cargarComboAlojamientos() {
 
         cbAlojamientos.removeAllItems(); 
+        cbAlojamientos1.removeAllItems(); 
+        
         cargandoComboBoxA = true;
         // Verificamos que haya una ciudad de destino seleccionada
         if (cbDestino.getSelectedItem() != null) {
@@ -1451,6 +1637,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
             for (Alojamiento alojamiento : listadoA) {
                 cbAlojamientos.addItem(alojamiento);
+                cbAlojamientos1.addItem(alojamiento);
+                
             }
         }
 
@@ -1462,8 +1650,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                                           "Opciones disponibles", JOptionPane.ERROR_MESSAGE);
         }
         cbAlojamientos.updateUI(); 
+        cbAlojamientos1.updateUI(); 
         cbAlojamientos.setSelectedItem(null); 
+        cbAlojamientos1.setSelectedItem(null); 
         cargandoComboBoxA = false;
+        
 
     }
 
@@ -1492,11 +1683,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 contarMenores++;
             }
         }
-        
-//        String mayores = String.valueOf(contarMayores);
-//        String menores = String.valueOf(contarMenores);
-//        lMay.setText(mayores);
-//        lMen.setText(menores);
     
     }
     
@@ -1525,6 +1711,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         
         tTuristas.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         tTuristas.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tTuristas.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        
+        JTableHeader header = tTuristas.getTableHeader();
+        DefaultTableCellRenderer rendererCentrado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        rendererCentrado.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        header.setDefaultRenderer(rendererCentrado);
         
     }
 
@@ -1564,14 +1756,17 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         // Verificación de los rangos de fecha
         if ((mes == 12 && dia >= 15) || (mes == 1) || (mes == 2 && dia <= 28) || 
             (mes == 7)) {
-            lTempo.setText("Adicional Temp. ALTA:");
+            lTempo.setText("Adicional Temporada ALTA:");
+            lTempo1.setText("Adicional Temporada ALTA:");
             return 1.30; // TEMPORADA ALTA (del 15/12 al 28/02 y todo julio)
         } else if ((mes == 9 && dia >= 21) || (mes == 10) || (mes == 11) ||  
                    (mes == 12 && dia <= 14) || (mes == 4 && dia >= 13 && dia <= 19)) {
-            lTempo.setText("Adicional Temp. MEDIA:");
+            lTempo.setText("Adicional Temporada MEDIA:");
+            lTempo1.setText("Adicional Temporada MEDIA:");
             return 1.15; // TEMPORADA MEDIA (primavera y semana santa (2025))
         } else {
             lTempo.setText("Temporada Baja:");
+            lTempo1.setText("Temporada Baja:");
             return 1.00; // TEMPORADA BAJA
         }
     }
@@ -1591,6 +1786,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private javax.swing.JComboBox<Transporte> cbTransportes;
     private javax.swing.JComboBox<Transporte> cbTransportes1;
     private javax.swing.JButton guardar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
