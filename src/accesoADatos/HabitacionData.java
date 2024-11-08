@@ -22,14 +22,14 @@ public class HabitacionData {
 }
     
     
-    public void agregarHabitacion(Habitacion habitacion, int idAlojamiento) {
-    String sql = "INSERT INTO habitaciones (planta, numHab, cupo, estado, idAlojamiento) VALUES (?, ?, ?, ?, ?)";
+    public void agregarHabitacion(Habitacion habitacion) {
+    String sql = "INSERT INTO habitaciones (planta, nroHabitacion, cupo, estado, idAlojamiento) VALUES (?, ?, ?, ?, ?)";
     try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
         ps.setInt(1, habitacion.getPlanta());
         ps.setInt(2, habitacion.getNumerac());
         ps.setInt(3, habitacion.getCupo());
         ps.setBoolean(4, habitacion.isEstado());
-        ps.setInt(5, idAlojamiento);  
+        ps.setInt(5, habitacion.getIdAlojamiento()); // Usar el idAlojamiento de la propia habitación
 
         ps.executeUpdate();
         ResultSet rs = ps.getGeneratedKeys();
@@ -43,6 +43,23 @@ public class HabitacionData {
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + ex.getMessage());
     }
+}
+    
+    public boolean existeHabitacionEnPlanta(int idAlojamiento, int planta, int numeroHabitacion) {
+    String sql = "SELECT COUNT(*) FROM habitaciones WHERE idAlojamiento = ? AND planta = ? AND nroHabitacion = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, idAlojamiento);
+        ps.setInt(2, planta);
+        ps.setInt(3, numeroHabitacion);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0; 
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al verificar habitación en la base de datos: " + ex.getMessage());
+    }
+    return false; 
 }
     
     

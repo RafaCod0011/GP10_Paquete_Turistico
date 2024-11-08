@@ -8,6 +8,7 @@ import accesoADatos.AlojamientoData;
 import accesoADatos.PaqueteData;
 import accesoADatos.PaqueteTuristaData;
 import accesoADatos.RegimenData;
+import accesoADatos.HabitacionData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import entidades.*;
@@ -40,6 +41,7 @@ public AlojamientoData aloData= new AlojamientoData();
 public RegimenData rData= new RegimenData();
 public PaqueteData pData = new PaqueteData();
 public PaqueteTuristaData ptData = new PaqueteTuristaData();
+public HabitacionData hData = new HabitacionData();
 
 
 
@@ -1419,7 +1421,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     }//GEN-LAST:event_btCalcular1ActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-
+            
             String[] opciones = {"Paquete 1", "Paquete 2"};
             int seleccion = JOptionPane.showOptionDialog(
                 null,
@@ -1446,6 +1448,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                             CalcularTotales();
                             paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes.getSelectedItem(),(Alojamiento) cbAlojamientos.getSelectedItem(), (Regimen) cbRegimen.getSelectedItem(), incrementoTraslados , totalFinal, isSelected);
                             pData.agregarPaquete(paquete);
+                            
+                            if ("Hostel".equalsIgnoreCase(paquete.getAlojamiento().getTipoAlojamiento())) {
+                                 agregarHabitaciones(paquete.getAlojamiento());
+                                }
+                            
                             ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
 
                         }
@@ -1468,6 +1475,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                             CalcularTotales1();
                             paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes1.getSelectedItem(),(Alojamiento) cbAlojamientos1.getSelectedItem(), (Regimen) cbRegimen1.getSelectedItem(), incrementoTraslados1 , totalFinal1, isSelected);
                             pData.agregarPaquete(paquete);
+                            
+                            if ("Hostel".equalsIgnoreCase(paquete.getAlojamiento().getTipoAlojamiento())) {
+                                 agregarHabitaciones(paquete.getAlojamiento());
+                                }
+                            
                             ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
 
                         }
@@ -1486,8 +1498,52 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 
             }
 
+    
+            
+            
     }//GEN-LAST:event_guardarActionPerformed
+    
+   
+    private void agregarHabitaciones(Alojamiento alojamiento){
+    
+        boolean habitacionAgregada = false;
 
+        while (!habitacionAgregada) {
+        String planta;
+        while (true) { 
+            planta = JOptionPane.showInputDialog(this, "Ingrese la planta de la habitación:");
+            if (planta != null && !planta.trim().isEmpty()) {
+                break; 
+            } else {
+                JOptionPane.showMessageDialog(this, "La planta es obligatoria. Por favor, ingrésela.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        String nroHabitacion = JOptionPane.showInputDialog(this, "Ingrese el número de la habitación:");
+        String capacidad = JOptionPane.showInputDialog(this, "Ingrese la capacidad de la habitación:");
+        String estado = JOptionPane.showInputDialog(this, "Ingrese el estado de la habitación (1 para activo, 0 para inactivo):");
+
+        try {
+            int plantaInt = Integer.parseInt(planta);
+            int nroHabitacionInt = Integer.parseInt(nroHabitacion);
+            int capacidadInt = Integer.parseInt(capacidad);
+            boolean estadoActivo = "1".equals(estado);
+
+            
+            if (hData.existeHabitacionEnPlanta(alojamiento.getIdAlojamiento(), plantaInt, nroHabitacionInt)) {
+                JOptionPane.showMessageDialog(this, "Ya existe una habitación con ese número en la planta especificada. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                
+                Habitacion habitacion = new Habitacion(alojamiento.getIdAlojamiento(),0, plantaInt, nroHabitacionInt, capacidadInt, estadoActivo);
+                hData.agregarHabitacion(habitacion);
+                habitacionAgregada = true; 
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error en el formato de los datos. Por favor, ingrese valores válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    }
+    
     private void cbTransportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTransportes1ActionPerformed
 
         if (cargandoComboBox==false){
