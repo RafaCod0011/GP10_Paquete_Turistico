@@ -85,7 +85,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         initComponents();
         armarCabecera();
         cargarCombos();
-        bloquearPanel(panelOpciones);
+        //bloquearPanel(panelOpciones);
         cbOrigen.setSelectedItem(null);
         cbDestino.setSelectedItem(null);
         
@@ -163,7 +163,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel10 = new javax.swing.JLabel();
         lbTransportesRecorridos = new javax.swing.JLabel();
         lbTransportes = new javax.swing.JLabel();
-        panelOpciones = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         panelPresupuesto1 = new javax.swing.JPanel();
         lbTransportes1 = new javax.swing.JLabel();
@@ -195,9 +194,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelResultados1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PRESUPUESTO 1 - Detalle de valores de los Servicios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 10))); // NOI18N
 
         lPasaMen.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        lPasaMen.setText("Pasajes para Menores:");
+        lPasaMen.setText("Pasajes para menores:");
 
-        lPasaMay.setText("¨Pasajes para mayores:");
+        lPasaMay.setText("Pasajes para mayores:");
 
         lTransMay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lTransMay.setText(".");
@@ -208,7 +207,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel17.setBackground(new java.awt.Color(51, 51, 255));
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel17.setText("Valor Total del Transporte:");
+        jLabel17.setText("Valor total del transporte");
 
         lTransTotal.setForeground(new java.awt.Color(51, 51, 255));
         lTransTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -228,7 +227,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel19.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(0, 102, 102));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel19.setText("Adicional por Régimen:");
+        jLabel19.setText("Adicional por régimen:");
 
         lRegimen.setForeground(new java.awt.Color(0, 102, 102));
         lRegimen.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -237,7 +236,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel20.setBackground(new java.awt.Color(51, 51, 255));
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel20.setText("Sub-total Servicios:");
+        jLabel20.setText("Sub-total servicios:");
 
         lSubtotal.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         lSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -247,7 +246,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lTempo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lTempo.setForeground(new java.awt.Color(0, 102, 102));
         lTempo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lTempo.setText("Adic. Temporada:");
+        lTempo.setText("Adic. temporada:");
 
         lTemporada.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lTemporada.setText(".");
@@ -442,8 +441,8 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     .addComponent(tbEliminar)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
         );
 
         panelGrupoTuristasLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btAgregarTuristas1, tbEliminar});
@@ -455,9 +454,9 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         panelResultados2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PRESUPUESTO 2 - Detalle de valores de los Servicios", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 10))); // NOI18N
 
         lPasaMen1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        lPasaMen1.setText("Pasajes para Menores:");
+        lPasaMen1.setText("Pasajes para menores:");
 
-        lPasaMay1.setText("¨Pasajes para mayores:");
+        lPasaMay1.setText("Pasajes para mayores:");
 
         lTransMay1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lTransMay1.setText(".");
@@ -468,7 +467,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel18.setBackground(new java.awt.Color(51, 51, 255));
         jLabel18.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel18.setText("Valor Total del Transporte:");
+        jLabel18.setText("Valor total del transporte:");
 
         lTransTotal1.setForeground(new java.awt.Color(51, 51, 255));
         lTransTotal1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -488,7 +487,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel21.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 102, 102));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel21.setText("Adicional por Régimen:");
+        jLabel21.setText("Adicional por régimen:");
 
         lRegimen1.setForeground(new java.awt.Color(0, 102, 102));
         lRegimen1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -497,7 +496,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         jLabel25.setBackground(new java.awt.Color(51, 51, 255));
         jLabel25.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel25.setText("Sub-total Servicios:");
+        jLabel25.setText("Sub-total servicios:");
 
         lSubtotal1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         lSubtotal1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -507,7 +506,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lTempo1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         lTempo1.setForeground(new java.awt.Color(0, 102, 102));
         lTempo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lTempo1.setText("Adic. Temporada:");
+        lTempo1.setText("Adic. temporada:");
 
         lTemporada1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lTemporada1.setText(".");
@@ -750,23 +749,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTransportes.setText("Confección de Presupuestos");
 
-        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
-        panelOpciones.setLayout(panelOpcionesLayout);
-        panelOpcionesLayout.setHorizontalGroup(
-            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 87, Short.MAX_VALUE)
-        );
-        panelOpcionesLayout.setVerticalGroup(
-            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
         panelPresupuesto1.setBackground(new java.awt.Color(121, 176, 213));
         panelPresupuesto1.setForeground(new java.awt.Color(255, 255, 255));
 
         lbTransportes1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbTransportes1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTransportes1.setText("PRESUPUESTO 1 -Seleccione medio de Transporte y alojamiento para el Paquete:");
+        lbTransportes1.setText("PRESUPUESTO 1 -Seleccione medio de transporte y alojamiento para el Paquete:");
 
         jLabel5.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -871,7 +859,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
         lbTransportes2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbTransportes2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTransportes2.setText("PRESUPUESTO 2 - Seleccione medio de Transporte y alojamiento para el Paquete:");
+        lbTransportes2.setText("PRESUPUESTO 2 - Seleccione medio de transporte y alojamiento para el Paquete:");
 
         jLabel7.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1000,9 +988,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                             .addComponent(btCalcular1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelPresupuesto1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelPresupuesto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1027,9 +1013,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelPresupuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelPresupuesto2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(panelPresupuesto2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCalcular2)
@@ -1097,13 +1081,13 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             
             bloquearPanel(panelGrupoTuristas);
             bloquearPanel(panelDestino);
-            habilitarPanel(panelOpciones);
+            //habilitarPanel(panelOpciones);
             btVerOpciones.setText("Seleccionar viajeros y destinos");
             
             
             panelGrupoTuristas.repaint();
             panelDestino.repaint();
-            panelOpciones.repaint();
+            //panelOpciones.repaint();
             
 
 
@@ -1111,12 +1095,12 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             
             habilitarPanel(panelGrupoTuristas);
             habilitarPanel(panelDestino);
-            bloquearPanel(panelOpciones);
+            //bloquearPanel(panelOpciones);
             btVerOpciones.setText("Ver opciones disponibles");
 
             panelGrupoTuristas.repaint();
             panelDestino.repaint();
-            panelOpciones.repaint();
+            //panelOpciones.repaint();
             reiniciarResultados();
         }
 
@@ -1859,7 +1843,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
     private javax.swing.JPanel panelDestino;
     private javax.swing.JPanel panelGeneral;
     private javax.swing.JPanel panelGrupoTuristas;
-    private javax.swing.JPanel panelOpciones;
     private javax.swing.JPanel panelPresupuesto1;
     private javax.swing.JPanel panelPresupuesto2;
     private javax.swing.JPanel panelResultados1;

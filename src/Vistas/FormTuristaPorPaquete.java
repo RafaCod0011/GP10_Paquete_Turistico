@@ -66,15 +66,14 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         rbTodos = new javax.swing.JRadioButton();
         jbSalir = new javax.swing.JButton();
 
-        lbFormTP.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbFormTP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbFormTP.setForeground(new java.awt.Color(51, 51, 255));
         lbFormTP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbFormTP.setText("Formulario Turista por Paquete");
+        lbFormTP.setText("Cantidad de Paquetes por Turista");
 
-        lbEstadisticaTP.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbEstadisticaTP.setForeground(new java.awt.Color(51, 51, 255));
+        lbEstadisticaTP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbEstadisticaTP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbEstadisticaTP.setText("Estadistica Turistas en Paquetes");
+        lbEstadisticaTP.setText("Estadísticas");
 
         tTuristaPaquete.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,21 +121,21 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(lbFormTP)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbEstadisticaTP)
-                .addGap(15, 15, 15))
+                .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(33, 33, 33)
-                            .addComponent(rbTodos)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(rbOrdenDescendente))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                             .addGap(24, 24, 24)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(rbTodos)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbOrdenDescendente)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -156,7 +155,7 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

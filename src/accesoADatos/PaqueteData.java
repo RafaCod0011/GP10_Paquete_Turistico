@@ -170,17 +170,12 @@ public class PaqueteData {
                 paquete.setMontoTotal(rs.getDouble("p.montoTotal"));
                 paquete.setPaqueteActivo(rs.getBoolean("p.paqueteActivo"));
 
-                Ciudad ciudadOrigen = new Ciudad();
-                ciudadOrigen.setIdCiudad(rs.getInt("co.idCiudad"));
-                ciudadOrigen.setNombre(rs.getString("co.nombre"));
-                ciudadOrigen.setDestinoActivo(rs.getBoolean("co.destinoActivo"));
-                paquete.setCiudadOrigen(ciudadOrigen);
 
-                Ciudad ciudadDestino = new Ciudad();
-                ciudadDestino.setIdCiudad(rs.getInt("cd.idCiudad"));
-                ciudadDestino.setNombre(rs.getString("cd.nombre"));
-                ciudadDestino.setDestinoActivo(rs.getBoolean("cd.destinoActivo"));
+                Ciudad ciudadOrigen = ciudadData.buscarCiudad(rs.getInt("p.idCiudadOrigen"));
+                Ciudad ciudadDestino = ciudadData.buscarCiudad(rs.getInt("p.idCiudadDestino"));
+                paquete.setCiudadOrigen(ciudadOrigen);
                 paquete.setCiudadDestino(ciudadDestino);
+                
 
                 Transporte transporte = new Transporte();
                 transporte.setIdTransporte(rs.getInt("t.idTransporte"));
@@ -189,17 +184,19 @@ public class PaqueteData {
                 transporte.setPrecioPersona(rs.getDouble("t.precioPersona"));
                 paquete.setTransporte(transporte);
 
-                Alojamiento alojamiento = new Alojamiento();
-                alojamiento.setIdAlojamiento(rs.getInt("a.idAlojamiento"));
-                alojamiento.setTipoAlojamiento(rs.getString("a.TipoAlojamiento"));
-                alojamiento.setNombre(rs.getString("a.nombre"));
-                alojamiento.setDireccion(rs.getString("a.direccion"));
-                alojamiento.setPrecioNoche(rs.getDouble("a.precioNoche"));
-                alojamiento.setActivo(rs.getBoolean("a.activo"));
-                alojamiento.setCapacidad(rs.getInt("a.capacidad"));
-                alojamiento.setCamas(rs.getInt("a.camas"));
-                alojamiento.setBanios(rs.getInt("a.banios"));
+                Alojamiento alojamiento = alojamientoData.buscarAlojamientoPorId(rs.getInt("a.idAlojamiento"));
                 paquete.setAlojamiento(alojamiento);
+                
+//                alojamiento.setIdAlojamiento(rs.getInt("a.idAlojamiento"));
+//                alojamiento.setTipoAlojamiento(rs.getString("a.TipoAlojamiento"));
+//                alojamiento.setNombre(rs.getString("a.nombre"));
+//                alojamiento.setDireccion(rs.getString("a.direccion"));
+//                alojamiento.setPrecioNoche(rs.getDouble("a.precioNoche"));
+//                alojamiento.setActivo(rs.getBoolean("a.activo"));
+//                alojamiento.setCapacidad(rs.getInt("a.capacidad"));
+//                alojamiento.setCamas(rs.getInt("a.camas"));
+//                alojamiento.setBanios(rs.getInt("a.banios"));
+//                paquete.setAlojamiento(alojamiento);
 
                 Regimen regimen = new Regimen();
                 regimen.setIdRegimen(rs.getInt("r.idRegimen"));

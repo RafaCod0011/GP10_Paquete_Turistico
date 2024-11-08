@@ -92,8 +92,8 @@ public class Transporte {
     @Override
     public String toString() {
         return ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + "  |  "+ tipoTransporte +" - "+ nombreEmpresaTransporte +  " $" + precioPersona;
-        //return idTransporte + " - " + ciudadOrigen.getNombre() + " / " + ciudadDestino.getNombre() + " | "+ tipoTransporte +"-"+ nombreEmpresaTransporte +  " $" + precioPersona;
     }
+    
 
     public double calcularPrecio() {
        return this.precioPersona;

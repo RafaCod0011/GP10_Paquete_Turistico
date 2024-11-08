@@ -6,11 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 import entidades.*;
 
 
 public class PaqueteTuristaData {
-        private Connection con = null;
+    
+    private Connection con = null;
+    TuristaData tData = new TuristaData();    
 
     public PaqueteTuristaData() {
         con = Conexion.getConexion();
@@ -43,4 +46,29 @@ public class PaqueteTuristaData {
             }
         }    
     }
+    
+    public ArrayList<Turista> buscarTuristasEnPaquete(int id) {
+        
+        
+        ArrayList<Turista> turistas = new ArrayList<>();
+        String sql = "SELECT idTurista FROM paquetesturistas WHERE idPaquete = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Turista turista = new Turista();
+                //turista.setIdTurista(rs.getInt("idTurista"));
+                turista = tData.buscarTuristaPorId(rs.getInt("idTurista"));
+                turistas.add(turista);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar turistas en el paquete: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return turistas;
+        
+    }
+    
 }

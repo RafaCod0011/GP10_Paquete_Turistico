@@ -108,29 +108,59 @@ public class TuristaData {
         return turista;
     }
     
-    public Turista buscarTuristaPorEdad(int documento, int edad) {
-    Turista turista = null;
-    String sql = "SELECT documento, fullName, edad FROM turistas WHERE documento=? AND edad=?";
-    PreparedStatement ps = null;
-
-    try {
-        ps = con.prepareStatement(sql);
-        ps.setInt(1, documento);
-        ps.setInt(2, edad);
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            turista = new Turista();
-            turista.setDocumento(rs.getInt("documento"));
-            turista.setFullName(rs.getString("fullName"));
-            turista.setEdad(rs.getInt("edad"));
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
+        public Turista buscarTuristaPorId(int id){
+        
+        Turista turista = null;
+        String sql= "SELECT documento,fullName,edad, idTurista FROM turistas WHERE idTurista=?";
+        PreparedStatement ps = null;
+        
+        try{
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                
+                turista=new Turista();
+                turista.setIdTurista(rs.getInt("idTurista"));
+                turista.setDocumento(rs.getInt("documento"));
+                turista.setFullName(rs.getString("fullName"));
+                turista.setEdad(rs.getInt("edad"));
+                
+                
+            }
+            
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
+        
     }
-
-    return turista;
-}
+        return turista;
+    }
+    
+//    public Turista buscarTuristaPorEdad(int documento, int edad) {
+//    Turista turista = null;
+//    String sql = "SELECT documento, fullName, edad FROM turistas WHERE documento=? AND edad=?";
+//    PreparedStatement ps = null;
+//
+//    try {
+//        ps = con.prepareStatement(sql);
+//        ps.setInt(1, documento);
+//        ps.setInt(2, edad);
+//        ResultSet rs = ps.executeQuery();
+//
+//        if (rs.next()) {
+//            turista = new Turista();
+//            turista.setDocumento(rs.getInt("documento"));
+//            turista.setFullName(rs.getString("fullName"));
+//            turista.setEdad(rs.getInt("edad"));
+//        }
+//    } catch (SQLException ex) {
+//        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
+//    }
+//
+//    return turista;
+//}
     
     public String eliminarTurista(int id){
         
