@@ -38,6 +38,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmDestinosElegidos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmPresupuestos = new javax.swing.JMenuItem();
+        jmModificar = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -154,6 +155,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmPresupuestos);
+
+        jmModificar.setText("Modificar Presupuesto");
+        jmModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModificarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmModificar);
 
         jMenuBar1.add(jMenu1);
 
@@ -315,6 +324,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
         formDestinosMasElegidos.setLocation(x, y);
     }//GEN-LAST:event_jmDestinosElegidosActionPerformed
 
+    private void jmModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModificarActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormModificarPaquete formModificar = new FormModificarPaquete();
+        formModificar.setVisible(true);
+        escritorio.add(formModificar);
+        escritorio.moveToFront(this);
+        int x = (escritorio.getWidth() - formModificar.getWidth()) / 2;
+        int y = (escritorio.getHeight() - formModificar.getHeight()) / 2;
+        formModificar.setLocation(x, y);
+        
+    }//GEN-LAST:event_jmModificarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -363,6 +385,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmAlojamientos;
     private javax.swing.JMenuItem jmCiudades;
     private javax.swing.JMenuItem jmDestinosElegidos;
+    private javax.swing.JMenuItem jmModificar;
     private javax.swing.JMenuItem jmPaquetesVendidos;
     private javax.swing.JMenuItem jmPresupuestos;
     private javax.swing.JMenu jmPrincipal;
