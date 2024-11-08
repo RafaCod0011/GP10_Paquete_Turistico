@@ -1529,15 +1529,10 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             int capacidadInt = Integer.parseInt(capacidad);
             boolean estadoActivo = "1".equals(estado);
 
-            
-            if (hData.existeHabitacionEnPlanta(alojamiento.getIdAlojamiento(), plantaInt, nroHabitacionInt)) {
-                JOptionPane.showMessageDialog(this, "Ya existe una habitación con ese número en la planta especificada. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                
                 Habitacion habitacion = new Habitacion(alojamiento.getIdAlojamiento(),0, plantaInt, nroHabitacionInt, capacidadInt, estadoActivo);
                 hData.agregarHabitacion(habitacion);
                 habitacionAgregada = true; 
-            }
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error en el formato de los datos. Por favor, ingrese valores válidos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
