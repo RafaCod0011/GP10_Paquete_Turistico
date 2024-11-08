@@ -7,6 +7,7 @@ import entidades.Ciudad;
 import entidades.Paquete;
 import entidades.Turista;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -46,9 +47,7 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
 
         armarCabecera();
-        cargaTablaTurista();
-        cargaTablaPaquete();
-        cargaTablaCiudad();
+        cargaTablaDatos();
 
                // Configuración del selector de filas
         ListSelectionModel modeloS = JtCiudades.getSelectionModel();
@@ -132,13 +131,13 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                     .addComponent(JDestinosMasElegidos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -152,25 +151,37 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
         }
     }
     
-    private void cargaTablaCiudad(){
+    private void cargaTablaDatos() {
         limpiarTabla();
-        listadoC = (ArrayList) Cdata.listarCiudades();
-    }
-    
-    private void cargaTablaTurista(){
-        limpiarTabla();    
-        listadoT = (ArrayList) Tdata.listarTurista();
-        for (Turista m: listadoT) {
-                modelo.addRow(new Object[] {m.getIdTurista(),m.getFullName(),m.getEdad()});
-        } 
-    }
-    
-    private void cargaTablaPaquete(){
-        limpiarTabla();    
-        listadoP = (ArrayList) Pdata.listarPaquetes();
-        for (Paquete m: listadoP) {
-                modelo.addRow(new Object[] {m.getIdPaquete()});
-        } 
+        listadoC = (ArrayList<Ciudad>) Cdata.listarCiudades();
+        listadoP = (ArrayList<Paquete>) Pdata.listarPaquetes();
+
+        for (Ciudad ciudad : listadoC) {
+            
+            List<Paquete> paquetesEnCiudad = listadoP.stream()
+                .filter(p -> p.getCiudadDestino().getIdCiudad() == ciudad.getIdCiudad())
+                .toList();
+
+            int cantidadPaquetes = paquetesEnCiudad.size();
+
+            int cantidadPasajeros = paquetesEnCiudad.stream()
+                .mapToInt(p -> Pdata.calcularCantidadTuristasxPaquete(p.getIdPaquete()))
+                .sum();
+
+            String fechaMasBuscada = paquetesEnCiudad.stream()
+                .map(p -> p.getFechaDesde() != null ? p.getFechaDesde().toString() : null)
+                .filter(f -> f != null)
+                .max(String::compareTo)
+                .orElse("N/A");
+
+            modelo.addRow(new Object[]{
+                ciudad.getIdCiudad(),
+                ciudad.getNombre(),
+                cantidadPasajeros,
+                fechaMasBuscada,
+                cantidadPaquetes
+            });
+        }
     }
     
     private void armarCabecera(){
@@ -179,7 +190,7 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
         modelo.addColumn("Nombre del destino");
         modelo.addColumn("Cantidad de Pasajeros");
         modelo.addColumn("fechas mas buscadas");
-        modelo.addColumn("Cantidad de pasajeros");
+        modelo.addColumn("Cantidad de Paquetes");
         
         JtCiudades.setModel(modelo);
         
