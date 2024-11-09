@@ -199,14 +199,14 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
     limpiarTabla();
     List<Turista> listadoT = tData.listarTuristaPaquete();
     for (Turista m : listadoT) {
-        modelo.addRow(new Object[] { m.getCantidadPaquetes(), m.getIdTurista(), m.getFullName() }); // trae cant paquetes, idTurista y nombreTurista
+        modelo.addRow(new Object[] { m.getCantidadPaquetes(), m.getDocumento(), m.getFullName() }); // trae cant paquetes, idTurista y nombreTurista
     }
     }
    
     
     private void armarCabecera(){
     modelo.addColumn("Cantidad de Paquetes Comprados");
-    modelo.addColumn("ID Turista");
+    modelo.addColumn("DNI Turista");
     modelo.addColumn("Nombre");
 
     tTuristaPaquete.setModel(modelo);
@@ -215,7 +215,7 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
     
     // Ancho de las columnas
     columnModel.getColumn(0).setPreferredWidth(1);   // "Cant paquetes"
-    columnModel.getColumn(1).setPreferredWidth(1);   // "idTurista"
+    columnModel.getColumn(1).setPreferredWidth(1);   // "dniTurista"
     columnModel.getColumn(2).setPreferredWidth(150); // "FullName"
 
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

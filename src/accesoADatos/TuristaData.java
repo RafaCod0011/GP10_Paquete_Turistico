@@ -52,36 +52,34 @@ public class TuristaData {
             
         }
     
-    public void modificarTurista(Turista turista){
-          
-        String sql= "UPDATE turistas SET documento=?, fullName=?, edad=? " + 
-                "WHERE idTurista=?";
-        
-        try{
-            
-             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-             ps.setInt(1, turista.getDocumento());
-             ps.setString(2, turista.getFullName());
-             ps.setInt(3, turista.getEdad());
-             ps.setInt(4, turista.getIdTurista());
-             
-             
-            int exito = ps.executeUpdate();
-            
-            if (exito == 1){
-                JOptionPane.showMessageDialog(null,"Turista modificado correctamente");
-            }
+    public void modificarTurista(Turista turista) {
+        String sql = "UPDATE turistas SET documento=?, fullName=?, edad=? WHERE idTurista=?";
 
-        }catch (SQLIntegrityConstraintViolationException ex) {
-            JOptionPane.showMessageDialog(null, "El DNI ya existe.");
-        }catch (SQLException ex) {
-            ex.printStackTrace(); 
-            JOptionPane.showMessageDialog(null,"Error al acceder a la tabla Turista");}}
+            try {
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, turista.getDocumento());
+                ps.setString(2, turista.getFullName());
+                ps.setInt(3, turista.getEdad());
+                ps.setInt(4, turista.getIdTurista());
+
+                int exito = ps.executeUpdate();
+
+                if (exito == 1) {
+                    JOptionPane.showMessageDialog(null, "Turista modificado correctamente");
+                }
+
+            } catch (SQLIntegrityConstraintViolationException ex) {
+                JOptionPane.showMessageDialog(null, "El DNI ya existe.");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista");
+            }
+    }
     
     public Turista buscarTurista(int documento){
         
         Turista turista = null;
-        String sql= "SELECT documento,fullName,edad, idTurista FROM turistas WHERE documento=?";
+        String sql= "SELECT documento ,fullName ,edad, idTurista FROM turistas WHERE documento=?";
         PreparedStatement ps = null;
         
         try{
@@ -97,8 +95,6 @@ public class TuristaData {
                 turista.setDocumento(rs.getInt("documento"));
                 turista.setFullName(rs.getString("fullName"));
                 turista.setEdad(rs.getInt("edad"));
-                
-                
             }
             
         }catch (SQLException ex) {
@@ -162,39 +158,13 @@ public class TuristaData {
 //    return turista;
 //}
     
-    public String eliminarTurista(int id){
-        
-        String resultado = "";
-
-        try {
-
-            String sql = "{ CALL EliminarTurista(?) }";
-            CallableStatement stmt = con.prepareCall(sql);
-            stmt.setInt(1, id);
-
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                resultado = rs.getString("Resultado");
-            }
-
-            rs.close();
-            stmt.close();
-
-        } catch (SQLException e) {
-            System.out.println("Error al intentar eliminar la ciudad: " + e.getMessage());
-        }
-
-        return resultado;
-
-    }
     
     public List<Turista> listarTurista (){
         
         List<Turista> listaTuristas = new ArrayList<>();
         
         try{
-        String sql = "SELECT * FROM turistas ORDER BY idTurista ASC, fullName ASC, edad ASC ";
+        String sql = "SELECT * FROM turistas ORDER BY idTurista ASC, documento ASC, fullName ASC, edad ASC ";
         
         PreparedStatement ps = con.prepareStatement(sql);
                ResultSet rs = ps.executeQuery();
@@ -202,6 +172,7 @@ public class TuristaData {
                 while (rs.next()) {
                 Turista turista = new Turista();
                 turista.setIdTurista(rs.getInt("idTurista"));
+                turista.setDocumento(rs.getInt("documento"));
                 turista.setFullName(rs.getString("fullName"));
                 turista.setEdad(rs.getInt("edad"));
                 
@@ -219,10 +190,13 @@ public class TuristaData {
     List<Turista> listaTuristas = new ArrayList<>();
     
     try {
-        String sql = "SELECT t.idTurista, t.fullName, COUNT(pt.idPaquete) AS cantidadPaquetes " +
+
+        // Modificar la consulta para seleccionar el dni del turista
+        String sql = "SELECT t.documento, t.fullName, COUNT(pt.idPaquete) AS cantidadPaquetes " +
                      "FROM turistas t " +
                      "LEFT JOIN paquetesturistas pt ON t.idTurista = pt.idTurista " +
                      "GROUP BY t.idTurista " +
+                     "HAVING cantidadPaquetes > 0 " + // Filtra solo turistas con al menos un paquete
                      "ORDER BY t.idTurista ASC";
         
         PreparedStatement ps = con.prepareStatement(sql);
@@ -231,11 +205,12 @@ public class TuristaData {
         while (rs.next()) {
             Turista turista = new Turista();
             
-            turista.setIdTurista(rs.getInt("idTurista"));
+            // Establecer el documento (dni) del turista en lugar del idTurista
+            turista.setDocumento(rs.getInt("documento"));
             turista.setFullName(rs.getString("fullName"));
-            turista.setCantidadPaquetes(rs.getInt("cantidadPaquetes")); // setea el conteo de paquetes
+            turista.setCantidadPaquetes(rs.getInt("cantidadPaquetes"));
             
-            listaTuristas.add(turista); // agregar turista a la lista
+            listaTuristas.add(turista); // Agregar el turista a la lista
         }
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista: " + ex.getMessage());
@@ -243,6 +218,29 @@ public class TuristaData {
     
     return listaTuristas;
 }
+    
+        public void eliminarTurista(int idTurista){
+        
+       String sql = "DELETE FROM turistas WHERE idTurista=?";
+
+        try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idTurista);
+
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "¡Turista eliminado correctamente!");
+        }else {
+            JOptionPane.showMessageDialog(null, "No se encontró el Turista con el ID especificado.");
+        }
+
+        ps.close();
+
+      }catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar el Regimen: " + ex.getMessage());
+       }
+    }
     
     /*public List<Turista> listarTuristaDesc (){                                            HAY QUE REVISAR ESTE METODO
     
