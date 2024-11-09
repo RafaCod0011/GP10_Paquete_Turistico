@@ -2,10 +2,9 @@ package Vistas;
 
 import accesoADatos.CiudadData;
 import accesoADatos.PaqueteData;
-import accesoADatos.TuristaData;
 import entidades.Ciudad;
+import entidades.CiudadVisitada;
 import entidades.Paquete;
-import entidades.Turista;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ListSelectionModel;
@@ -17,39 +16,25 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
-    public CiudadData Cdata;
-    public TuristaData Tdata;
-    public PaqueteData Pdata;
-    public ArrayList<Turista> listadoT;
-    public ArrayList<Ciudad> listadoC;
-    public ArrayList<Paquete> listadoP;
+    public CiudadData cData;
+    public PaqueteData pData;
+    public ArrayList<Paquete> listadoPaquetes;
+    public ArrayList<Ciudad> listadoCiudades;
     
-    private DefaultTableModel modelo= new DefaultTableModel(){
-
+    public DefaultTableModel modelo;
     
-    @Override
-    public boolean isCellEditable(int f, int c){
-        
-        return false;
-       }
-    };
-    
-    public FormDestinosMasElegidos() {
+    public FormDestinosMasElegidos(){
         initComponents();
-        armarCabecera();
-        this.setTitle("Formulario Turista Por Paquete");
-        Cdata = new CiudadData(); 
-        Tdata = new TuristaData();
-        Pdata = new PaqueteData();
-        listadoT = (ArrayList<Turista>) Tdata.listarTurista();
-        listadoP = (ArrayList<Paquete>) Pdata.listarPaquetes();
-        listadoC = (ArrayList<Ciudad>) Cdata.listarCiudades();
+        this.setTitle("Formulario destinos más elegidos");
+        cData = new CiudadData();
+        pData = new PaqueteData();
+        listadoPaquetes = (ArrayList<Paquete>) pData.listarPaquetes();
+        listadoCiudades = (ArrayList<Ciudad>) cData.listarCiudades();
         modelo = new DefaultTableModel();
-
+        
         armarCabecera();
-        cargaTablaDatos();
-
-               // Configuración del selector de filas
+        cargaTabla();
+        
         ListSelectionModel modeloS = JtCiudades.getSelectionModel();
         modeloS.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -57,21 +42,11 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
                 if (!e.getValueIsAdjusting()) {
                     int filaSeleccionada = JtCiudades.getSelectedRow();
                     if (filaSeleccionada != -1) {
+                    }
                 }
             }
-        }
-    });
-        
-        Tdata = new TuristaData();
-        Pdata = new PaqueteData();
-        Cdata = new CiudadData();
-        listadoT = (ArrayList<Turista>)Tdata.listarTurista();
-        listadoP = (ArrayList<Paquete>)Pdata.listarPaquetes();
-        listadoC = (ArrayList<Ciudad>)Cdata.listarCiudades();
-        modelo = new DefaultTableModel();
-        
+        });
     }
-    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -143,72 +118,83 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void limpiarTabla(){
-
-        int indice= modelo.getRowCount()-1;
-        for (int i = indice; i>=0; i--) {
-        	modelo.removeRow(i);
+    private void limpiarTabla() {
+        int indice = modelo.getRowCount() - 1;
+        for (int i = indice; i >= 0; i--) {
+            modelo.removeRow(i);
         }
     }
-    
-    private void cargaTablaDatos() {
-        limpiarTabla();
-        listadoC = (ArrayList<Ciudad>) Cdata.listarCiudades();
-        listadoP = (ArrayList<Paquete>) Pdata.listarPaquetes();
 
+    private void cargaTabla() {
+        limpiarTabla();
+        List<Ciudad> listadoC = cData.listarCiudades();
+        List<Paquete> listadoP = pData.listarPaquetes();
+        PaqueteData pData = new PaqueteData();
+
+        // Lista para almacenar la información de cada ciudad y la cantidad de turistas
+        List<CiudadVisitada> ciudadesVisitadas = new ArrayList<>();
+
+        // Contar turistas y paquetes para cada ciudad
         for (Ciudad ciudad : listadoC) {
-            
-            List<Paquete> paquetesEnCiudad = listadoP.stream()
-                .filter(p -> p.getCiudadDestino().getIdCiudad() == ciudad.getIdCiudad())
+            int idCiudad = ciudad.getIdCiudad();
+            String nombreCiudad = ciudad.getNombre();
+
+            // Filtrar paquetes con destino a la ciudad actual y manejar paquetes con destino nulo
+            List<Paquete> paquetesCiudad = listadoP.stream()
+                .filter(p -> p.getCiudadDestino() != null && p.getCiudadDestino().getIdCiudad() == idCiudad)
                 .toList();
 
-            int cantidadPaquetes = paquetesEnCiudad.size();
+            int cantidadPaquetes = paquetesCiudad.size();
 
-            int cantidadPasajeros = paquetesEnCiudad.stream()
-                .mapToInt(p -> Pdata.calcularCantidadTuristasxPaquete(p.getIdPaquete()))
+            // Calcular el total de turistas que visitaron esta ciudad
+            int totalTuristas = paquetesCiudad.stream()
+                .mapToInt(p -> pData.calcularCantidadTuristasxPaquete(p.getIdPaquete()))
                 .sum();
 
-            String fechaMasBuscada = paquetesEnCiudad.stream()
-                .map(p -> p.getFechaDesde() != null ? p.getFechaDesde().toString() : null)
-                .filter(f -> f != null)
-                .max(String::compareTo)
-                .orElse("N/A");
+            // Solo agregar si la ciudad ha sido visitada
+            if (totalTuristas > 0) {
+                ciudadesVisitadas.add(new CiudadVisitada(idCiudad, nombreCiudad, totalTuristas, cantidadPaquetes));
+            }
+        }
 
+        // Ordenar las ciudades de mayor a menor cantidad de turistas
+        ciudadesVisitadas.sort((c1, c2) -> Integer.compare(c2.getTotalTuristas(), c1.getTotalTuristas()));
+
+        // Cargar los datos en la tabla
+        for (CiudadVisitada ciudadVisitada : ciudadesVisitadas) {
             modelo.addRow(new Object[]{
-                ciudad.getIdCiudad(),
-                ciudad.getNombre(),
-                cantidadPasajeros,
-                fechaMasBuscada,
-                cantidadPaquetes
+                ciudadVisitada.getIdCiudad(),
+                ciudadVisitada.getNombreCiudad(),
+                ciudadVisitada.getTotalTuristas(),
+                ciudadVisitada.getCantidadPaquetes()
             });
         }
     }
-    
-    private void armarCabecera(){
-        
+
+
+    private void armarCabecera() {
         modelo.addColumn("ID Ciudad");
-        modelo.addColumn("Nombre del destino");
-        modelo.addColumn("Cantidad de Pasajeros");
-        modelo.addColumn("fechas mas buscadas");
+        modelo.addColumn("Nombre de la Ciudad");
+        modelo.addColumn("Total de Turistas");
         modelo.addColumn("Cantidad de Paquetes");
-        
+
         JtCiudades.setModel(modelo);
+
+        TableColumnModel columnModel = JtCiudades.getColumnModel();
         
-        TableColumnModel ColumnModel = JtCiudades.getColumnModel();
-        
-        ColumnModel.getColumn(0).setPreferredWidth(100); //id
-        ColumnModel.getColumn(1).setPreferredWidth(80);  //Nombre del destino
-        ColumnModel.getColumn(2).setPreferredWidth(80);  //Cantidad de pasajeros
-        ColumnModel.getColumn(3).setPreferredWidth(80);  //Fechas mas buscadas
-        ColumnModel.getColumn(4).setPreferredWidth(80);  //Cantidad de paquetes
-        
+        columnModel.getColumn(0).setPreferredWidth(50); // ID Ciudad
+        columnModel.getColumn(1).setPreferredWidth(200); // Nombre de la Ciudad
+        columnModel.getColumn(2).setPreferredWidth(150); // Total de Turistas
+        columnModel.getColumn(3).setPreferredWidth(150); // Cantidad de Paquetes
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Aplicar el renderizador a la segunda columna ID (índice 0)
         JtCiudades.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        JtCiudades.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        JtCiudades.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        JtCiudades.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
     }
-            
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JDestinosMasElegidos;
     private javax.swing.JTable JtCiudades;

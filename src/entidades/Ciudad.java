@@ -43,7 +43,7 @@ public class Ciudad {
         return destinoActivo;
     }
 
-    public void setDestinoActivo(Boolean destinoActivo) {
+    public void setDestinoActivo(Boolean destinoActivo) {   
         this.destinoActivo = destinoActivo;
     }
 
