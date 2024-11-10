@@ -54,7 +54,7 @@
                           <Component id="btCalcular1" max="32767" attributes="0"/>
                           <Component id="panelPresupuesto1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Component id="guardar" min="-2" pref="95" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -82,9 +82,9 @@
                   <Component id="panelDestino" min="-2" pref="53" max="-2" attributes="0"/>
                   <Component id="btVerOpciones" pref="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="8" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelPresupuesto1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="panelPresupuesto2" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -113,9 +113,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="panelGrupoTuristas" max="32767" attributes="0"/>
-                              <Component id="lConformacion" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="lConformacion" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="294" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="18" max="32767" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
                           <Component id="panelResultados2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
@@ -141,7 +144,7 @@
                       </Group>
                       <Component id="panelResultados2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="8" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>

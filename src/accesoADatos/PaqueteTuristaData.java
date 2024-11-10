@@ -35,8 +35,7 @@ public class PaqueteTuristaData {
 
             ps.executeBatch(); 
             con.commit(); 
-
-            JOptionPane.showMessageDialog(null, "Todos los turistas han sido guardados en el paquete con éxito.");
+                        
         } catch (SQLException e) {
             try {
                 con.rollback(); 

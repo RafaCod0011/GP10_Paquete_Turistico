@@ -43,7 +43,7 @@ public class PaqueteData {
                 if (rs.next()) {
                     paquete.setIdPaquete(rs.getInt(1)); 
                 }
-                JOptionPane.showMessageDialog(null, "¡Paquete agregado correctamente!");
+                JOptionPane.showMessageDialog(null, "¡El paquete se ha guardado correctamente - N° de Identificación: " + paquete.getIdPaquete());
             }
 
             ps.close();

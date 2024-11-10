@@ -19,7 +19,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.time.ZoneId;
-import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import javax.swing.table.JTableHeader;
@@ -51,7 +50,6 @@ public ArrayList<Regimen> listadoR = new ArrayList<>();
 boolean cargandoComboBox;
 boolean cargandoComboBoxA;
 boolean cargandoComboBoxR;
-boolean consultando;
 LocalDate fechaDesde, fechaHasta;
 LocalDate fechaHoy = LocalDate.now();
 
@@ -60,7 +58,6 @@ int contarMayores, contarMenores;
 double precioPersonaTransporte, transporteMayores, transporteMenores, transporteTotal;
 double precioEstadia, incrementoRegimen;
 double incrementoTemporada;
-double precioTemporada;
 double incrementoTraslados;
 double totalFinal;
 
@@ -82,13 +79,28 @@ double totalFinal;
         initComponents();
         armarCabecera();
         cargarCombos();
-        bloquearPanel(panelDestino);
+
         bloquearPanel(panelGrupoTuristas);
+        bloquearPanel(panelDestino);
         bloquearPanel(panelPresupuesto1);
-        
+        btVerOpciones.setEnabled(false);
+        btCalcular1.setEnabled(false);
+        btGuardar.setEnabled(false);
         
         incrementoTraslados = 0;
         
+//        SwingUtilities.invokeLater(() -> {
+//            bloquearPanel(panelGrupoTuristas);
+//        });
+        
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//        @Override
+//        public void windowOpened(java.awt.event.WindowEvent e) {
+//            bloquearPanel(panelGrupoTuristas);
+//        }
+//        
+//
+//    });
         
     }
 
@@ -130,7 +142,7 @@ double totalFinal;
         rbTraslados = new javax.swing.JRadioButton();
         btVerOpciones = new javax.swing.JButton();
         btCalcular1 = new javax.swing.JButton();
-        guardar = new javax.swing.JButton();
+        btGuardar = new javax.swing.JButton();
         txID = new javax.swing.JTextField();
         jbBuscar = new javax.swing.JButton();
         panelResultados1 = new javax.swing.JPanel();
@@ -440,11 +452,11 @@ double totalFinal;
             }
         });
 
-        guardar.setBackground(new java.awt.Color(245, 245, 245));
-        guardar.setText("Guardar");
-        guardar.addActionListener(new java.awt.event.ActionListener() {
+        btGuardar.setBackground(new java.awt.Color(245, 245, 245));
+        btGuardar.setText("Guardar");
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarActionPerformed(evt);
+                btGuardarActionPerformed(evt);
             }
         });
 
@@ -677,7 +689,7 @@ double totalFinal;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(45, 45, 45)
-                                        .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(12, 12, 12)
                                         .addComponent(btCalcular1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -712,7 +724,7 @@ double totalFinal;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btCalcular1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelPresupuesto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -872,8 +884,6 @@ double totalFinal;
     }//GEN-LAST:event_cbRegimenActionPerformed
 
     private void btVerOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVerOpcionesActionPerformed
-
-       
             
         //controlamos el enabled de los paneles, si están bloqueados significa que está consultando y quiere reconfigurar (turistas / destinos / fechas)
         if (panelGrupoTuristas.isEnabled()) {
@@ -913,15 +923,13 @@ double totalFinal;
             }
 
             incrementoTemporada = calcularTarifa(fechaDesde); //Guardamos el incremento por Temporada para usarlo al final
-            //String conformacion = "Total de Viajeros :" + (contarMayores + contarMenores)+ " -  Días : " + ChronoUnit.DAYS.between(fechaDesde, fechaHasta) ;
+
             lPasaMen.setText("pasajes para Menores ("+contarMenores + "):");
             
             lPasaMay.setText("pasajes para Mayores ("+contarMayores + "):");
             
             lAloja.setText("Alojamiento ("+ChronoUnit.DAYS.between(fechaDesde, fechaHasta) +") días");
             
-            //lConformacion.setText(conformacion);
-
             cargarCombosFiltro();
 
             bloquearPanel(panelGrupoTuristas);
@@ -940,6 +948,8 @@ double totalFinal;
             panelGrupoTuristas.repaint();
             panelDestino.repaint();
             reiniciarResultados();
+            bloquearPanel(panelPresupuesto1);
+            
         }
     }//GEN-LAST:event_btVerOpcionesActionPerformed
 
@@ -1037,71 +1047,31 @@ double totalFinal;
         CalcularTotales();
     }//GEN-LAST:event_btCalcular1ActionPerformed
 
-    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
 
-//        String[] opciones = {"Paquete 1", "Paquete 2"};
-//        int seleccion = JOptionPane.showOptionDialog(
-//            null,
-//            "Seleccione el paquete turistico elegido por el cliente",
-//            "Confirmar y Grabar Presupuesto",
-//            JOptionPane.DEFAULT_OPTION,
-//            JOptionPane.INFORMATION_MESSAGE,
-//            null,
-//            opciones,
-//            opciones[0]
-//        );
-//
-//        if (seleccion == 0) {
-//
-//            if (cbTransportes.getSelectedItem()!=null || cbAlojamientos.getSelectedItem() !=null || cbRegimen.getSelectedItem()!=null  ) {
-//
-//                int respuesta = JOptionPane.showConfirmDialog(this
-//                    ,"¿Está seguro/a?"
-//                    ,"Grabar Presupuesto 1"
-//                    ,JOptionPane.YES_NO_OPTION);
-//
-//                if (respuesta==JOptionPane.YES_OPTION){
-//
-//                    CalcularTotales();
-//                    paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes.getSelectedItem(),(Alojamiento) cbAlojamientos.getSelectedItem(), (Regimen) cbRegimen.getSelectedItem(), incrementoTraslados , totalFinal, isSelected);
-//                    pData.agregarPaquete(paquete);
-//                    ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
-//
-//                }
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Seleccione Transporte / Alojamiento y Régimen para poder grabar el presupuesto 1..",
-//                    "No es posible grabar", JOptionPane.ERROR_MESSAGE);
-//
-//            }
-//
-//        } else if (seleccion == 1) {
-//            if (cbTransportes1.getSelectedItem()!=null || cbAlojamientos1.getSelectedItem() !=null || cbRegimen1.getSelectedItem()!=null  ) {
-//
-//                int respuesta = JOptionPane.showConfirmDialog(this
-//                    ,"¿Está seguro/a?"
-//                    ,"Grabar Presupuesto 2"
-//                    ,JOptionPane.YES_NO_OPTION);
-//
-//                if (respuesta==JOptionPane.YES_OPTION){
-//
-//                    CalcularTotales1();
-//                    paquete = new Paquete((Ciudad) cbOrigen.getSelectedItem(),(Ciudad) cbDestino.getSelectedItem(), fechaDesde, fechaHasta, (Transporte) cbTransportes1.getSelectedItem(),(Alojamiento) cbAlojamientos1.getSelectedItem(), (Regimen) cbRegimen1.getSelectedItem(), incrementoTraslados1 , totalFinal1, isSelected);
-//                    pData.agregarPaquete(paquete);
-//                    ptData.guardarTuristasEnPaquete(paquete.getIdPaquete(), viajeros);
-//
-//                }
-//            }else{
-//                JOptionPane.showMessageDialog(this, "Seleccione Transporte / Alojamiento y Régimen para poder grabar el presupuesto 2..",
-//                    "No es posible grabar", JOptionPane.ERROR_MESSAGE);
-//
-//            }
-//
-//        } else {
-//
-//            JOptionPane.showMessageDialog(null, "No has seleccionado ninguna opción");
-//
-//        }
-    }//GEN-LAST:event_guardarActionPerformed
+        
+        Transporte trans = (Transporte) cbTransportes.getSelectedItem();
+        Alojamiento aloja  = (Alojamiento) cbAlojamientos.getSelectedItem();
+        JOptionPane.showMessageDialog(this, "ID TRANSPORTE"  + paquete.getTransporte().getIdTransporte()+  " ID ALOJAMIENTO: " + paquete.getAlojamiento().getIdAlojamiento());
+        if (trans.getIdTransporte() != paquete.getTransporte().getIdTransporte() || aloja.getIdAlojamiento()!= paquete.getAlojamiento().getIdAlojamiento()) {
+            int respuesta = JOptionPane.showConfirmDialog(this
+                ,"Atención, el cambio de transporte o alojamiento tienen una penalidad de 10% de recargo por pasajero. ¿Está seguro/a?"
+                ,"Grabar Modificación del Presupuesto - con cambios en transporte ó alojamiento"
+                ,JOptionPane.YES_NO_OPTION);
+
+            if (respuesta==JOptionPane.YES_OPTION){
+                
+                double porcentaje = totalFinal/10;
+                double totalIncrementoPenalidad = porcentaje * (contarMayores+ contarMenores);
+                JOptionPane.showMessageDialog(this, "Penalidad " + totalIncrementoPenalidad,
+                    "Fechas Inválidas", JOptionPane.ERROR_MESSAGE);
+                return;
+                
+                
+            }
+        }    
+
+    }//GEN-LAST:event_btGuardarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         
@@ -1115,9 +1085,7 @@ double totalFinal;
             
             String idText = txID.getText();
             int idPaquete = Integer.parseInt(idText);
-
-            
-            Paquete paquete = pData.buscarPaquete(idPaquete);
+            paquete = pData.buscarPaquete(idPaquete);
 
             if (paquete != null) {
                 //Recuperamos los datos del paquete
@@ -1138,8 +1106,6 @@ double totalFinal;
                 }
                 calcularEdades();
                 cargarCombosFiltro();
-                JOptionPane.showMessageDialog(this, "Transporte de tabla " + paquete.getTransporte().getNombreEmpresaTransporte());
-                JOptionPane.showMessageDialog(this, "Alojamiento de tabla " + paquete.getAlojamiento().getNombre());
 
                 //Seleccionar el transporte en el combo
                 for (int i = 0; i < cbTransportes.getItemCount(); i++) {
@@ -1171,7 +1137,7 @@ double totalFinal;
                 }
 
                 incrementoTemporada = calcularTarifa(fechaDesde); //Guardamos el incremento por Temporada para usarlo al final
-                //String conformacion = "Total de Viajeros :" + (contarMayores + contarMenores)+ " -  Días : " + ChronoUnit.DAYS.between(fechaDesde, fechaHasta) ;
+
                 lPasaMen.setText("pasajes para Menores ("+contarMenores + "):");
                 lPasaMay.setText("pasajes para Mayores ("+contarMayores + "):");
                 lAloja.setText("Alojamiento ("+ChronoUnit.DAYS.between(fechaDesde, fechaHasta) +") días");
@@ -1180,12 +1146,17 @@ double totalFinal;
 
                 bloquearPanel(panelGrupoTuristas);
                 bloquearPanel(panelDestino);
-                //habilitarPanel(panelOpciones);
-                btVerOpciones.setText("Seleccionar viajeros y destinos");
-
                 panelGrupoTuristas.repaint();
                 panelDestino.repaint();
-                //panelOpciones.repaint();
+                
+                btVerOpciones.setText("Seleccionar viajeros y destinos");
+                btVerOpciones.setEnabled(true);
+
+                habilitarPanel(panelPresupuesto1);
+                panelPresupuesto1.repaint();
+                btCalcular1.setEnabled(true);
+                btGuardar.setEnabled(true);
+                
 
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró el paquete con ID: " + idPaquete);
@@ -1398,13 +1369,13 @@ double totalFinal;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAgregarTuristas1;
     private javax.swing.JButton btCalcular1;
+    private javax.swing.JButton btGuardar;
     private javax.swing.JButton btVerOpciones;
     private javax.swing.JComboBox<Alojamiento> cbAlojamientos;
     private javax.swing.JComboBox<Ciudad> cbDestino;
     private javax.swing.JComboBox<Ciudad> cbOrigen;
     private javax.swing.JComboBox<Regimen> cbRegimen;
     private javax.swing.JComboBox<Transporte> cbTransportes;
-    private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
