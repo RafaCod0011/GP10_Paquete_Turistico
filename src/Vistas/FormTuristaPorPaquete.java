@@ -196,13 +196,12 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
     }
 
     private void cargaTabla() {
-    limpiarTabla();
-    List<Turista> listadoT = tData.listarTuristaPaquete();
-    for (Turista m : listadoT) {
-        modelo.addRow(new Object[] { m.getCantidadPaquetes(), m.getDocumento(), m.getFullName() }); // trae cant paquetes, idTurista y nombreTurista
-    }
-    }
-   
+        limpiarTabla();
+        List<Turista> listadoT = tData.listarTuristaPaquete();
+        for (Turista m : listadoT) {
+            modelo.addRow(new Object[] { m.getCantidadPaquetes(), m.getDocumento(), m.getFullName() }); // trae cant paquetes, idTurista y nombreTurista
+        }
+        }
     
     private void armarCabecera(){
     modelo.addColumn("Cantidad de Paquetes Comprados");

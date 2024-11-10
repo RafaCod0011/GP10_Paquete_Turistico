@@ -7,6 +7,8 @@ public class Ciudad {
     private int idCiudad;
     private String nombre;
     private Boolean destinoActivo;
+    private int totalTuristas;
+    private int totalPaquetes;
 
     public Ciudad(int idCiudad, String nombre, Boolean destinoActivo) {
         this.idCiudad = idCiudad;
@@ -47,6 +49,24 @@ public class Ciudad {
         this.destinoActivo = destinoActivo;
     }
 
+    // Getter y Setter para totalTuristas
+    public int getTotalTuristas() {
+        return totalTuristas;
+    }
+
+    public void setTotalTuristas(int totalTuristas) {
+        this.totalTuristas = totalTuristas;
+    }
+
+    // Getter y Setter para totalPaquetes
+    public int getTotalPaquetes() {
+        return totalPaquetes;
+    }
+
+    public void setTotalPaquetes(int totalPaquetes) {
+        this.totalPaquetes = totalPaquetes;
+    }
+    
     @Override
     public String toString() {
         return nombre;
@@ -69,7 +89,4 @@ public class Ciudad {
     public int hashCode() {
         return Objects.hash(nombre);  
     }
-
-
-
 }

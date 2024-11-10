@@ -191,12 +191,12 @@ public class TuristaData {
     
     try {
 
-        // Modificar la consulta para seleccionar el dni del turista
+        // consulta 
         String sql = "SELECT t.documento, t.fullName, COUNT(pt.idPaquete) AS cantidadPaquetes " +
                      "FROM turistas t " +
                      "LEFT JOIN paquetesturistas pt ON t.idTurista = pt.idTurista " +
                      "GROUP BY t.idTurista " +
-                     "HAVING cantidadPaquetes > 0 " + // Filtra solo turistas con al menos un paquete
+                     "HAVING cantidadPaquetes > 0 " + // filtra solo turistas que tienen al menos 1 paquete
                      "ORDER BY t.idTurista ASC";
         
         PreparedStatement ps = con.prepareStatement(sql);
@@ -205,7 +205,7 @@ public class TuristaData {
         while (rs.next()) {
             Turista turista = new Turista();
             
-            // Establecer el documento (dni) del turista en lugar del idTurista
+            // establece el dni del turista en vez del id
             turista.setDocumento(rs.getInt("documento"));
             turista.setFullName(rs.getString("fullName"));
             turista.setCantidadPaquetes(rs.getInt("cantidadPaquetes"));

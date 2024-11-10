@@ -125,67 +125,29 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
         }
     }
 
-    private void cargaTabla() {
+   private void cargaTabla() {
         limpiarTabla();
         List<Ciudad> listadoC = cData.listarCiudades();
-        List<Paquete> listadoP = pData.listarPaquetes();
-        PaqueteData pData = new PaqueteData();
-
-        // Lista para almacenar la información de cada ciudad y la cantidad de turistas
-        List<CiudadVisitada> ciudadesVisitadas = new ArrayList<>();
-
-        // Contar turistas y paquetes para cada ciudad
-        for (Ciudad ciudad : listadoC) {
-            int idCiudad = ciudad.getIdCiudad();
-            String nombreCiudad = ciudad.getNombre();
-
-            // Filtrar paquetes con destino a la ciudad actual y manejar paquetes con destino nulo
-            List<Paquete> paquetesCiudad = listadoP.stream()
-                .filter(p -> p.getCiudadDestino() != null && p.getCiudadDestino().getIdCiudad() == idCiudad)
-                .toList();
-
-            int cantidadPaquetes = paquetesCiudad.size();
-
-            // Calcular el total de turistas que visitaron esta ciudad
-            int totalTuristas = paquetesCiudad.stream()
-                .mapToInt(p -> pData.calcularCantidadTuristasxPaquete(p.getIdPaquete()))
-                .sum();
-
-            // Solo agregar si la ciudad ha sido visitada
-            if (totalTuristas > 0) {
-                ciudadesVisitadas.add(new CiudadVisitada(idCiudad, nombreCiudad, totalTuristas, cantidadPaquetes));
-            }
-        }
-
-        // Ordenar las ciudades de mayor a menor cantidad de turistas
-        ciudadesVisitadas.sort((c1, c2) -> Integer.compare(c2.getTotalTuristas(), c1.getTotalTuristas()));
-
-        // Cargar los datos en la tabla
-        for (CiudadVisitada ciudadVisitada : ciudadesVisitadas) {
-            modelo.addRow(new Object[]{
-                ciudadVisitada.getIdCiudad(),
-                ciudadVisitada.getNombreCiudad(),
-                ciudadVisitada.getTotalTuristas(),
-                ciudadVisitada.getCantidadPaquetes()
-            });
+        for (Ciudad m : listadoC) {
+            modelo.addRow(new Object[] { m.getIdCiudad(), m.getNombre(), m.getTotalTuristas(), m.getTotalPaquetes()}); // trae id ciudad, nombre ciudad, total turistas, total paquetes
         }
     }
 
 
     private void armarCabecera() {
         modelo.addColumn("ID Ciudad");
-        modelo.addColumn("Nombre de la Ciudad");
-        modelo.addColumn("Total de Turistas");
-        modelo.addColumn("Cantidad de Paquetes");
+        modelo.addColumn("Nombre Ciudad Destino");
+        modelo.addColumn("Turistas que visitaron el Destino");
+        modelo.addColumn("Paquetes con el mismo Destino");
 
         JtCiudades.setModel(modelo);
 
         TableColumnModel columnModel = JtCiudades.getColumnModel();
         
         columnModel.getColumn(0).setPreferredWidth(50); // ID Ciudad
-        columnModel.getColumn(1).setPreferredWidth(200); // Nombre de la Ciudad
-        columnModel.getColumn(2).setPreferredWidth(150); // Total de Turistas
-        columnModel.getColumn(3).setPreferredWidth(150); // Cantidad de Paquetes
+        columnModel.getColumn(1).setPreferredWidth(150); // Nombre de la Ciudad
+        columnModel.getColumn(2).setPreferredWidth(180); // Total de Turistas
+        columnModel.getColumn(3).setPreferredWidth(180); // Cantidad de Paquetes
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
