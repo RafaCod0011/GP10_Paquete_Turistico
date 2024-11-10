@@ -80,6 +80,23 @@ public class Habitacion {
         this.estado = estado;
     }
 
+    public int getIdHabitacion() {
+        return idHabitacion;
+    }
+
+    public void setIdHabitacion(int idHabitacion) {
+        this.idHabitacion = idHabitacion;
+    }
+
+    public int getNumHab() {
+        return numHab;
+    }
+
+    public void setNumHab(int numHab) {
+        this.numHab = numHab;
+    }
+
+    
     @Override
     public String toString() {
         return "Habitacion{" + "idHabitacion=" + idHabitacion + ", planta=" + planta + ", numHab=" + numHab + ", cupo=" + cupo + ", estado=" + estado + '}';

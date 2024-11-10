@@ -1522,40 +1522,29 @@ private final DefaultTableModel modelo= new DefaultTableModel(){
     }//GEN-LAST:event_guardarActionPerformed
     
    
-    private void agregarHabitaciones(Alojamiento alojamiento){
+    private void agregarHabitaciones(Alojamiento alojamiento) {
     
         boolean habitacionAgregada = false;
+        int cantidadTuristas = contarMayores + contarMenores;
 
-        while (!habitacionAgregada) {
-        String planta;
-        while (true) { 
-            planta = JOptionPane.showInputDialog(this, "Ingrese la planta de la habitación:");
-            if (planta != null && !planta.trim().isEmpty()) {
-                break; 
-            } else {
-                JOptionPane.showMessageDialog(this, "La planta es obligatoria. Por favor, ingrésela.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
-        String nroHabitacion = JOptionPane.showInputDialog(this, "Ingrese el número de la habitación:");
-        String capacidad = JOptionPane.showInputDialog(this, "Ingrese la capacidad de la habitación:");
-        String estado = JOptionPane.showInputDialog(this, "Ingrese el estado de la habitación (1 para activo, 0 para inactivo):");
+    while (!habitacionAgregada) {
+        int planta = (int) (Math.random() * 4) + 1; 
+        int nroHabitacion = (int) (Math.random() * 10) + 1; 
+        boolean estadoActivo = true; 
+        int capacidad = cantidadTuristas; 
 
         try {
-            int plantaInt = Integer.parseInt(planta);
-            int nroHabitacionInt = Integer.parseInt(nroHabitacion);
-            int capacidadInt = Integer.parseInt(capacidad);
-            boolean estadoActivo = "1".equals(estado);
-
-                Habitacion habitacion = new Habitacion(alojamiento.getIdAlojamiento(),0, plantaInt, nroHabitacionInt, capacidadInt, estadoActivo);
-                hData.agregarHabitacion(habitacion);
-                habitacionAgregada = true; 
-            
+            Habitacion habitacion = new Habitacion(alojamiento.getIdAlojamiento(), 0, planta, nroHabitacion, capacidad, estadoActivo);
+            hData.agregarHabitacion(habitacion);
+            habitacionAgregada = true;
+            JOptionPane.showMessageDialog(this, "Usted a sido asignadoa a la habitacion: planta " + planta + 
+                                                              " numero de habitacion " + nroHabitacion);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Error en el formato de los datos. Por favor, ingrese valores válidos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    }
+}
+
     
     private void cbTransportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTransportes1ActionPerformed
 
