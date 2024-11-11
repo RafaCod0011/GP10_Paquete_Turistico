@@ -41,6 +41,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmPresupuestos = new javax.swing.JMenuItem();
         jmModificar = new javax.swing.JMenuItem();
+        jmEliminar = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -173,6 +174,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jmModificar);
+
+        jmEliminar.setText("Eliminar Paquete");
+        jmEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmEliminarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmEliminar);
 
         jMenuBar1.add(jMenu1);
 
@@ -347,6 +356,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmModificarActionPerformed
 
+
     private void jmUltimos2MesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUltimos2MesesActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
@@ -360,6 +370,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
          
     }//GEN-LAST:event_jmUltimos2MesesActionPerformed
 
+
+
+    private void jmEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEliminarActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormEliminarPaquete formEliminar = new FormEliminarPaquete();
+        formEliminar.setVisible(true);
+        escritorio.add(formEliminar);
+        escritorio.moveToFront(this);
+        int x = (escritorio.getWidth() - formEliminar.getWidth()) / 2;
+        int y = (escritorio.getHeight() - formEliminar.getHeight()) / 2;
+        formEliminar.setLocation(x, y);
+    }//GEN-LAST:event_jmEliminarActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
 
 
     public static void main(String args[]) {
@@ -406,6 +433,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmAlojamientos;
     private javax.swing.JMenuItem jmCiudades;
     private javax.swing.JMenuItem jmDestinosElegidos;
+    private javax.swing.JMenuItem jmEliminar;
     private javax.swing.JMenuItem jmModificar;
     private javax.swing.JMenuItem jmPaquetesVendidos;
     private javax.swing.JMenuItem jmPresupuestos;

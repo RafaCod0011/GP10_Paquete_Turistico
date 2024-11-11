@@ -3,7 +3,9 @@ package accesoADatos;
 import entidades.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class PaqueteData {
@@ -14,6 +16,7 @@ public class PaqueteData {
     private AlojamientoData alojamientoData = new AlojamientoData();
     private RegimenData regimenData = new RegimenData();
     private PaqueteTuristaData ptData = new PaqueteTuristaData();
+    private HabitacionData habitacionData = new HabitacionData();
 
     public PaqueteData() {
         con = (Connection) Conexion.getConexion();
@@ -365,5 +368,71 @@ public class PaqueteData {
 
             return listaPaquetes;
         }
+
+
+
+    public List<Paquete> listarPaquetesConDetalles() {
+    List<Paquete> listaPaquetes = new ArrayList<>();
+    Map<Integer, Paquete> mapaPaquetes = new HashMap<>();
+
+    try {
+        String sql = "SELECT p.*, co.*, cd.*, t.*, a.*, h.* " +
+                     "FROM paquetes p " +
+                     "JOIN ciudades co ON p.idCiudadOrigen = co.idCiudad " +
+                     "JOIN ciudades cd ON p.idCiudadDestino = cd.idCiudad " +
+                     "JOIN transportes t ON p.idTransporte = t.idTransporte " +
+                     "JOIN alojamientos a ON p.idAlojamiento = a.idAlojamiento " +
+                     "LEFT JOIN habitaciones h ON a.idAlojamiento = h.idAlojamiento " +
+                     "ORDER BY p.idPaquete ASC";
+
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idPaquete = rs.getInt("p.idPaquete");
+            Paquete paquete = mapaPaquetes.get(idPaquete);
+
+            if (paquete == null) {
+                paquete = new Paquete();
+                paquete.setIdPaquete(idPaquete);
+                paquete.setFechaDesde(rs.getDate("p.fechaDesde").toLocalDate());
+                paquete.setFechaHasta(rs.getDate("p.fechaHasta").toLocalDate());
+                
+                Ciudad ciudadDestino = ciudadData.buscarCiudad(rs.getInt("p.idCiudadDestino"));
+                paquete.setCiudadDestino(ciudadDestino); 
+               
+                Transporte transporte = transporteData.buscarPorId(rs.getInt("p.idTransporte"));
+                paquete.setTransporte(transporte);
+
+                Alojamiento alojamiento = alojamientoData.buscarAlojamientoPorId(rs.getInt("p.idAlojamiento"));
+                paquete.setAlojamiento(alojamiento);  
+
+                listaPaquetes.add(paquete);
+                mapaPaquetes.put(idPaquete, paquete);
+            }
+
+            // Habitaciones
+            if ("Hostel".equalsIgnoreCase(paquete.getAlojamiento().getTipoAlojamiento())) {
+                List<Habitacion> habitaciones = paquete.getAlojamiento().getHabitaciones();
+                if (habitaciones == null) {
+                    habitaciones = new ArrayList<>();
+                    paquete.getAlojamiento().setHabitaciones(habitaciones);
+                }
+                Habitacion habitacion = new Habitacion();
+                habitacion.setPlanta(rs.getInt("h.planta"));
+                habitacion.setNroHabitacion(rs.getInt("h.nroHabitacion"));
+                habitaciones.add(habitacion);
+            }
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
+    }
+
+    return listaPaquetes;
+}
+
+
+
+
 
 }

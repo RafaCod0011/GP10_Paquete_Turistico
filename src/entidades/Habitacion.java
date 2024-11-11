@@ -31,7 +31,11 @@ public class Habitacion {
         this.cupo = cupo;
         this.estado = estado;
     }
-
+    
+    public Habitacion(){
+        
+    }
+    
     public int getIdAlojamiento() {
         return idAlojamiento;
     }

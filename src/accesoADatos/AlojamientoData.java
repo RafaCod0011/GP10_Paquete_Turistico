@@ -155,7 +155,7 @@ public class AlojamientoData {
                 alojamiento.setCapacidad(rs.getInt("capacidad"));
                 alojamiento.setCamas(rs.getInt("camas"));
                 alojamiento.setBanios(rs.getInt("banios"));
-                // Falta habitaciones.
+                
 
                 listaAlojamientos.add(alojamiento);
             }
