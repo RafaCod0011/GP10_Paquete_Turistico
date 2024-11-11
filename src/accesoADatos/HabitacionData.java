@@ -36,7 +36,7 @@ public class HabitacionData {
 
         if (rs.next()) {
             habitacion.setNroHabitacion(rs.getInt(1));
-            JOptionPane.showMessageDialog(null, "¡Habitación creada correctamente!");
+            //JOptionPane.showMessageDialog(null, "¡Habitación creada correctamente!");
         }
 
         ps.close();

@@ -69,5 +69,28 @@ public class PaqueteTuristaData {
         return turistas;
         
     }
+    public void eliminarTuristasEnPaquete(int idPaquete) {
+        String sql = "DELETE FROM paquetesTuristas WHERE idPaquete = ?";
+
+        try {
+            con.setAutoCommit(false); 
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idPaquete);
+
+            ps.executeUpdate();
+            con.commit(); 
+
+       } catch (SQLException e) {
+            try {
+                con.rollback(); //En caso de encontrarse algun error, se vuelve atras la operación
+                JOptionPane.showMessageDialog(null, "Error al eliminar turistas del paquete.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Error al intentar revertir la operación: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    
     
 }

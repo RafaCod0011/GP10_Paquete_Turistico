@@ -1,6 +1,7 @@
 
 package Vistas;
 
+import java.text.Normalizer.Form;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 
@@ -36,6 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmPaquetesVendidos = new javax.swing.JMenuItem();
         jmTuristasPaquetes = new javax.swing.JMenuItem();
         jmDestinosElegidos = new javax.swing.JMenuItem();
+        jmUltimos2Meses = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jmPresupuestos = new javax.swing.JMenuItem();
         jmModificar = new javax.swing.JMenuItem();
@@ -138,6 +140,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jmDestinosElegidos);
+
+        jmUltimos2Meses.setText("Ultimos 2 meses");
+        jmUltimos2Meses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUltimos2MesesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmUltimos2Meses);
 
         jMenuBar1.add(jMenu2);
 
@@ -337,9 +347,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmModificarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jmUltimos2MesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUltimos2MesesActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        FormPaquetesUltimosMeses formUltimos = new FormPaquetesUltimosMeses();
+        formUltimos.setVisible(true);
+        escritorio.add(formUltimos);
+        escritorio.moveToFront(this);
+        int x = (escritorio.getWidth() - formUltimos.getWidth()) / 2;
+        int y = (escritorio.getHeight() - formUltimos.getHeight()) / 2;
+        formUltimos.setLocation(x, y);
+         
+    }//GEN-LAST:event_jmUltimos2MesesActionPerformed
+
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -393,5 +414,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmTransportes;
     private javax.swing.JMenuItem jmTuristas;
     private javax.swing.JMenuItem jmTuristasPaquetes;
+    private javax.swing.JMenuItem jmUltimos2Meses;
     // End of variables declaration//GEN-END:variables
 }

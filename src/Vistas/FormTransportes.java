@@ -20,6 +20,7 @@ import javax.swing.table.TableColumnModel;
 
 
 public class FormTransportes extends javax.swing.JInternalFrame {
+    
 public TransporteData tData = new TransporteData();
 public CiudadData cData = new CiudadData();
 public Transporte trans = new Transporte();
