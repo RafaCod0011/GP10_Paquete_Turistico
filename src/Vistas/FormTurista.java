@@ -81,6 +81,9 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        setClosable(true);
+        setIconifiable(true);
+
         lbControles.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbControles.setText("Controles");
 
@@ -319,6 +322,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
                     Nuevo();
                 }
             }
+            Nuevo();
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -357,6 +361,8 @@ public class FormTurista extends javax.swing.JInternalFrame {
                         
                         encontrado = null;
                     }
+                    cargarTabla();
+                    Nuevo();
 
                 } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",

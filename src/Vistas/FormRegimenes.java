@@ -69,6 +69,9 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         tfDenominacion = new javax.swing.JTextField();
         tfCargoExtra = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+
         jlListRegimenes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlListRegimenes.setForeground(new java.awt.Color(51, 51, 255));
         jlListRegimenes.setText("Lista de Regimenes");
@@ -252,6 +255,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                     Nuevo();
                 }
             }
+            Nuevo();
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -275,7 +279,9 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                     Regimen regimenNuevo = new Regimen(denominacion ,cargoExtra);
                     movimiento.agregarRegimenes(regimenNuevo);
                 }
-
+                Nuevo();
+                
+                
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
                     "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
