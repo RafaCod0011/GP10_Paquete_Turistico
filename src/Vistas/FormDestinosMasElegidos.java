@@ -127,11 +127,12 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
 
    private void cargaTabla() {
         limpiarTabla();
-        List<Ciudad> listadoC = cData.listarCiudades();
-        for (Ciudad m : listadoC) {
-            modelo.addRow(new Object[] { m.getIdCiudad(), m.getNombre(), m.getTotalTuristas(), m.getTotalPaquetes()}); // trae id ciudad, nombre ciudad, total turistas, total paquetes
+        List<Ciudad> listadoC = cData.listarCiudadesMasElegidas();
+        for (Ciudad c : listadoC) {
+            modelo.addRow(new Object[] { c.getIdCiudad(), c.getNombre(),c.getTotalTuristas(),c.getTotalPaquetes() });
+            
         }
-    }
+   }
 
 
     private void armarCabecera() {

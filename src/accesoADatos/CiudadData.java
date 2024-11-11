@@ -215,8 +215,39 @@ public class CiudadData {
 
     return ciudades;
     }
+    
+    public List<Ciudad> listarCiudadesMasElegidas() {
+       List<Ciudad> ciudades = new ArrayList<>();
+            String sql = "SELECT c.idCiudad AS idCiudadDestino, c.nombre AS nombreCiudadDestino, " +
+                 "COUNT(DISTINCT pt.idTurista) AS totalTuristas, " +
+                 "COUNT(DISTINCT p.idPaquete) AS totalPaquetes " +
+                 "FROM ciudades c " +
+                 "JOIN paquetes p ON c.idCiudad = p.idCiudadDestino " +
+                 "LEFT JOIN paquetesturistas pt ON p.idPaquete = pt.idPaquete " +
+                 "GROUP BY c.idCiudad, c.nombre " +
+                 "ORDER BY c.nombre ASC";
 
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
 
+        while (rs.next()) {
+            Ciudad ciudad = new Ciudad();
+            ciudad.setIdCiudad(rs.getInt("idCiudadDestino"));
+            ciudad.setNombre(rs.getString("nombreCiudadDestino"));
+            ciudad.setTotalTuristas(rs.getInt("totalTuristas"));
+            ciudad.setTotalPaquetes(rs.getInt("totalPaquetes"));
+            ciudades.add(ciudad);
+        }
 
+        rs.close();
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al listar las ciudades con estadísticas: " + ex.getMessage());
+    }
+    return ciudades;
+    }
+    
 }
 
