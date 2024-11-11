@@ -62,8 +62,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tTuristaPaquete = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
-        rbOrdenDescendente = new javax.swing.JRadioButton();
-        rbTodos = new javax.swing.JRadioButton();
         jbSalir = new javax.swing.JButton();
 
         lbFormTP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -88,20 +86,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tTuristaPaquete);
 
-        rbOrdenDescendente.setText("Orden Descendente");
-        rbOrdenDescendente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbOrdenDescendenteActionPerformed(evt);
-            }
-        });
-
-        rbTodos.setText("Todos");
-        rbTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbTodosActionPerformed(evt);
-            }
-        });
-
         jbSalir.setBackground(new java.awt.Color(245, 245, 245));
         jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         jbSalir.setText("Salir");
@@ -125,17 +109,11 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
                 .addComponent(lbEstadisticaTP)
                 .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(rbTodos)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbOrdenDescendente)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -147,11 +125,7 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
                     .addComponent(lbEstadisticaTP))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbOrdenDescendente)
-                    .addComponent(rbTodos))
-                .addGap(18, 18, 18)
+                .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,16 +145,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
-        rbOrdenDescendente.setSelected(false);
-        cargaTabla();
-    }//GEN-LAST:event_rbTodosActionPerformed
-
-    private void rbOrdenDescendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbOrdenDescendenteActionPerformed
-        rbTodos.setSelected(false); // HAY QUE REVISAR ESTE METODO
-        cargaTabla();
-    }//GEN-LAST:event_rbOrdenDescendenteActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
@@ -230,8 +194,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel lbEstadisticaTP;
     private javax.swing.JLabel lbFormTP;
-    private javax.swing.JRadioButton rbOrdenDescendente;
-    private javax.swing.JRadioButton rbTodos;
     private javax.swing.JTable tTuristaPaquete;
     // End of variables declaration//GEN-END:variables
 
