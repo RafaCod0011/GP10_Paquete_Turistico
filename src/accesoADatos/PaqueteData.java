@@ -13,6 +13,7 @@ public class PaqueteData {
     private TransporteData transporteData = new TransporteData();
     private AlojamientoData alojamientoData = new AlojamientoData();
     private RegimenData regimenData = new RegimenData();
+    private PaqueteTuristaData ptData = new PaqueteTuristaData();
 
     public PaqueteData() {
         con = (Connection) Conexion.getConexion();
@@ -177,35 +178,33 @@ public class PaqueteData {
                 paquete.setCiudadDestino(ciudadDestino);
                 
 
-                Transporte transporte = new Transporte();
-                transporte.setIdTransporte(rs.getInt("t.idTransporte"));
-                transporte.setNombreEmpresaTransporte(rs.getString("t.nombreEmpresaTransporte"));
-                transporte.setTipoTransporte(rs.getString("t.tipoTransporte"));
-                transporte.setPrecioPersona(rs.getDouble("t.precioPersona"));
+                Transporte transporte = transporteData.buscarPorId(rs.getInt("t.idTransporte"));
                 paquete.setTransporte(transporte);
+
+//                Transporte transporte = new Transporte();
+//                transporte.setIdTransporte(rs.getInt("t.idTransporte"));
+//                transporte.setNombreEmpresaTransporte(rs.getString("t.nombreEmpresaTransporte"));
+//                transporte.setTipoTransporte(rs.getString("t.tipoTransporte"));
+//                transporte.setPrecioPersona(rs.getDouble("t.precioPersona"));
+//                paquete.setTransporte(transporte);
 
                 Alojamiento alojamiento = alojamientoData.buscarAlojamientoPorId(rs.getInt("a.idAlojamiento"));
                 paquete.setAlojamiento(alojamiento);
                 
-//                alojamiento.setIdAlojamiento(rs.getInt("a.idAlojamiento"));
-//                alojamiento.setTipoAlojamiento(rs.getString("a.TipoAlojamiento"));
-//                alojamiento.setNombre(rs.getString("a.nombre"));
-//                alojamiento.setDireccion(rs.getString("a.direccion"));
-//                alojamiento.setPrecioNoche(rs.getDouble("a.precioNoche"));
-//                alojamiento.setActivo(rs.getBoolean("a.activo"));
-//                alojamiento.setCapacidad(rs.getInt("a.capacidad"));
-//                alojamiento.setCamas(rs.getInt("a.camas"));
-//                alojamiento.setBanios(rs.getInt("a.banios"));
-//                paquete.setAlojamiento(alojamiento);
-
-                Regimen regimen = new Regimen();
-                regimen.setIdRegimen(rs.getInt("r.idRegimen"));
-                regimen.setDenominacion(rs.getString("r.denominacion"));
-                regimen.setCargoExtra(rs.getDouble("r.cargoExtra"));
+                Regimen regimen = regimenData.buscarRegimenes(rs.getInt("r.idRegimen"));
                 paquete.setRegimen(regimen);
+                
+//                Regimen regimen = new Regimen();
+//                regimen.setIdRegimen(rs.getInt("r.idRegimen"));
+//                regimen.setDenominacion(rs.getString("r.denominacion"));
+//                regimen.setCargoExtra(rs.getDouble("r.cargoExtra"));
+//                paquete.setRegimen(regimen);
 
                 
-                paquete.setGrupoBase(new ArrayList<>());
+                ArrayList<Turista>grupo = ptData.buscarTuristasEnPaquete(rs.getInt("p.idPaquete"));
+                paquete.setGrupoBase(grupo);
+                
+                
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquete " + ex.getMessage());
@@ -213,7 +212,41 @@ public class PaqueteData {
 
         return paquete;
     }
-    
+     
+    public void modificarPaquete(Paquete paquete) {
+        
+        String sql = "UPDATE paquetes SET idCiudadOrigen = ?, idCiudadDestino = ?, fechaDesde = ?, fechaHasta = ?, idTransporte = ?, idAlojamiento = ?, idRegimen = ?, traslado = ?, montoTotal = ?, paqueteActivo = ? WHERE idPaquete = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, paquete.getCiudadOrigen().getIdCiudad());
+            ps.setInt(2, paquete.getCiudadDestino().getIdCiudad());
+            ps.setDate(3, Date.valueOf(paquete.getFechaDesde()));
+            ps.setDate(4, Date.valueOf(paquete.getFechaHasta()));
+            ps.setInt(5, paquete.getTransporte().getIdTransporte());
+            ps.setInt(6, paquete.getAlojamiento().getIdAlojamiento());
+            ps.setInt(7, paquete.getRegimen().getIdRegimen());
+            ps.setDouble(8, paquete.getTraslado());
+            ps.setDouble(9, paquete.getMontoTotal());
+            ps.setBoolean(10, paquete.isPaqueteActivo());
+            ps.setInt(11, paquete.getIdPaquete()); 
+
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "¡El paquete se ha modificado correctamente!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró un paquete con el ID proporcionado.");
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al modificar el paquete: " + e.getMessage());
+        }
+    }
+
+     
     
     private int obtenerIdPaquetePorDniTurista(int dni){
          
@@ -234,7 +267,7 @@ public class PaqueteData {
         return -1; // Retorna -1 si no se encuentra un paquete
     }
     
-    public void modificarPaquete(Paquete paquete) {
+    public void modificarPaquete2(Paquete paquete) {
         
     String sql = "UPDATE paquetes SET idCiudadOrigen = ?, idCiudadDestino = ?, fechaDesde = ?, fechaHasta = ?, " +
                  "idTransporte = ?, idAlojamiento = ?, idRegimen = ?, traslado = ?, montoTotal = ?, paqueteActivo = ? " +

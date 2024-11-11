@@ -1527,22 +1527,22 @@ private final DefaultTableModel modelo= new DefaultTableModel(){
         boolean habitacionAgregada = false;
         int cantidadTuristas = contarMayores + contarMenores;
 
-    while (!habitacionAgregada) {
-        int planta = (int) (Math.random() * 4) + 1; 
-        int nroHabitacion = (int) (Math.random() * 10) + 1; 
-        boolean estadoActivo = true; 
-        int capacidad = cantidadTuristas; 
+        while (!habitacionAgregada) {
+            int planta = (int) (Math.random() * 4) + 1; 
+            int nroHabitacion = (int) (Math.random() * 10) + 1; 
+            boolean estadoActivo = true; 
+            int capacidad = cantidadTuristas; 
 
-        try {
-            Habitacion habitacion = new Habitacion(alojamiento.getIdAlojamiento(), 0, planta, nroHabitacion, capacidad, estadoActivo);
-            hData.agregarHabitacion(habitacion);
-            habitacionAgregada = true;
-            JOptionPane.showMessageDialog(this, "Usted a sido asignadoa a la habitacion: planta " + planta + 
-                                                              " numero de habitacion " + nroHabitacion);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error en el formato de los datos. Por favor, ingrese valores válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                Habitacion habitacion = new Habitacion(alojamiento.getIdAlojamiento(), 0, planta, nroHabitacion, capacidad, estadoActivo);
+                hData.agregarHabitacion(habitacion);
+                habitacionAgregada = true;
+                JOptionPane.showMessageDialog(this, "Usted a sido asignado/a la planta " + planta + 
+                                                                  " numero de habitacion " + nroHabitacion);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Error en el formato de los datos. Por favor, ingrese valores válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }
 }
 
     
@@ -1672,11 +1672,7 @@ private final DefaultTableModel modelo= new DefaultTableModel(){
                 }
             }
         }    
-//        if (cbTransportes.getItemCount()!=0){
-//            JOptionPane.showMessageDialog(this, "Tenemos " + cbTransportes.getItemCount() + " opciones de transporte para realizar el viaje entre ciudades","Opciones disponbles", JOptionPane.INFORMATION_MESSAGE);
-//        }else{
-//            JOptionPane.showMessageDialog(this, "Lamentablemente no disponemos de opciones de transporte para realizar el viaje entre ciudades","Opciones disponbles", JOptionPane.ERROR_MESSAGE);
-//        }
+
         cbTransportes.updateUI();
         cbTransportes1.updateUI();
         cbTransportes.setSelectedItem(null);
@@ -1706,13 +1702,6 @@ private final DefaultTableModel modelo= new DefaultTableModel(){
             }
         }
 
-//        if (cbAlojamientos.getItemCount() != 0) {
-//            JOptionPane.showMessageDialog(this, "Tenemos " + cbAlojamientos.getItemCount() + " opciones de alojamiento en la ciudad seleccionada",
-//                                          "Opciones disponibles", JOptionPane.INFORMATION_MESSAGE);
-//        } else {
-//            JOptionPane.showMessageDialog(this, "Lamentablemente no disponemos de opciones de alojamiento en la ciudad seleccionada",
-//                                          "Opciones disponibles", JOptionPane.ERROR_MESSAGE);
-//        }
         cbAlojamientos.updateUI(); 
         cbAlojamientos1.updateUI(); 
         cbAlojamientos.setSelectedItem(null); 

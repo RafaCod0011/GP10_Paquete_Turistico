@@ -32,11 +32,7 @@ public class Main {
        
        ArrayList<Turista> grupoBase = new ArrayList<>();
        
-       Paquete paquete = new Paquete(2, ciudadOrigen, ciudadDestino, LocalDate.of(2024, 11, 7), LocalDate.of(2024, 11, 24), transporte, alojamiento, regimen, 0, grupoBase, 20000, true);
-       
-       paq.modificarPaquete(paquete);
-       
-       System.out.println("Monto Total con Penalización: " + paquete.getMontoTotal());
+  
        
        
 

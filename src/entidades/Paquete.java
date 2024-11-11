@@ -17,8 +17,9 @@ public class Paquete {
     private ArrayList<Turista> grupoBase;
     private double montoTotal;
     private boolean paqueteActivo;
+    
 
-    public Paquete(int idPaquete, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaDesde, LocalDate fechaHasta, Transporte transporte, Alojamiento alojamiento, Regimen regimen, double traslado, ArrayList<Turista> grupoBase, double montoTotal, boolean paqueteActivo) {
+    public Paquete(int idPaquete, Ciudad ciudadOrigen, Ciudad ciudadDestino, LocalDate fechaDesde, LocalDate fechaHasta, Transporte transporte, Alojamiento alojamiento, Regimen regimen, double traslado,  double montoTotal, boolean paqueteActivo) {
         this.idPaquete = idPaquete;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -28,7 +29,6 @@ public class Paquete {
         this.alojamiento = alojamiento;
         this.regimen = regimen;
         this.traslado = traslado;
-        this.grupoBase = grupoBase;
         this.montoTotal = montoTotal;
         this.paqueteActivo = paqueteActivo;
     }
