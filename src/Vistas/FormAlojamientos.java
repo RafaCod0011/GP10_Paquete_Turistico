@@ -43,6 +43,7 @@ public Alojamiento nuevoAlojamiento= new Alojamiento();
         initComponents();
         cargarComboCiudades();
         armarCabecera();
+        rbTodos.setSelected(true);
         cargarTabla();
         cbTipo.setSelectedItem(null);
         cbCiudad.setSelectedItem(null);
@@ -561,6 +562,10 @@ private void guardarAlojamiento() {
            
            tbId.setText(String.valueOf(nuevoAlojamiento.getIdAlojamiento()));
            
+           cargarTabla();
+           Nuevo();
+           nuevoAlojamiento = null;
+           
            }else{
                
            int idAlojamiento = Integer.parseInt(tbId.getText());
@@ -636,11 +641,11 @@ private void armarCabecera(){
         modelo.addColumn("Nombre");
         modelo.addColumn("Direccion");
         modelo.addColumn("Ciudad");
-        modelo.addColumn("Precio");
         modelo.addColumn("Activo");
         modelo.addColumn("Capacidad");
         modelo.addColumn("Camas");
         modelo.addColumn("Baños");
+        modelo.addColumn("Precio");
         
         
         jtAlojamientos.setModel(modelo);
@@ -653,11 +658,12 @@ private void armarCabecera(){
         columnModel.getColumn(2).setPreferredWidth(80);  // "Nombre"
         columnModel.getColumn(3).setPreferredWidth(80);   // "Direccion"
         columnModel.getColumn(4).setPreferredWidth(50);  // "Ciudad"
-        columnModel.getColumn(5).setPreferredWidth(10);  // "Precio"
-        columnModel.getColumn(6).setPreferredWidth(10); //"Activo"
-        columnModel.getColumn(7).setPreferredWidth(40); // "Capacidad"
-        columnModel.getColumn(8).setPreferredWidth(10); // "Camas"
-        columnModel.getColumn(9).setPreferredWidth(10); // "Baños"
+        
+        columnModel.getColumn(5).setPreferredWidth(10); //"Activo"
+        columnModel.getColumn(6).setPreferredWidth(40); // "Capacidad"
+        columnModel.getColumn(7).setPreferredWidth(10); // "Camas"
+        columnModel.getColumn(8).setPreferredWidth(10); // "Baños"
+        columnModel.getColumn(9).setPreferredWidth(10);  // "Precio"
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -688,11 +694,12 @@ private void cargarTabla(){
             a.getNombre(),
             a.getDireccion(),
             a.getCiudad(),
-            a.getPrecioNoche(),
+            
             a.isActivo(),
             a.getCapacidad(),
             a.getCamas(),
-            a.getBanios()
+            a.getBanios(),
+           a.getPrecioNoche()
         });
     }
     
@@ -713,19 +720,21 @@ private void leerTabla(){
     txDireccion.setText(direccion);
     cbCiudad.setSelectedItem(jtAlojamientos.getValueAt(filaSeleccionada, 4));
     
-    double precio= (double) jtAlojamientos.getValueAt(filaSeleccionada, 5);
+    
+    double precio= (double) jtAlojamientos.getValueAt(filaSeleccionada, 9);
+    txPrecio.setText(String.valueOf(precio));
     txPrecio.setText(String.valueOf(precio));
     
-    boolean disponible = (boolean) jtAlojamientos.getValueAt(filaSeleccionada, 6);
+    boolean disponible = (boolean) jtAlojamientos.getValueAt(filaSeleccionada, 5);
     rbActivo.setSelected(disponible);
     
-    int capacidad = (int) jtAlojamientos.getValueAt(filaSeleccionada, 7);
+    int capacidad = (int) jtAlojamientos.getValueAt(filaSeleccionada, 6);
     txCapacidad.setText(String.valueOf(capacidad));
     
-    int camas = (int) jtAlojamientos.getValueAt(filaSeleccionada, 8);
+    int camas = (int) jtAlojamientos.getValueAt(filaSeleccionada, 7);
     txCamas.setText(String.valueOf(camas));
     
-    int banos = (int) jtAlojamientos.getValueAt(filaSeleccionada, 9);
+    int banos = (int) jtAlojamientos.getValueAt(filaSeleccionada, 8);
     txBaños.setText(String.valueOf(banos));
     
 }
