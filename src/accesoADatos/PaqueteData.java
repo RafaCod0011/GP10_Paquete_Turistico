@@ -358,68 +358,97 @@ public class PaqueteData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
         }
             return listaPaquetes;
-        }
+    }
 
+
+    public List<Paquete> listarPaquetesXTurista(int idTurista) {
+
+        List<Paquete> listaPaquetes = new ArrayList<>();
+
+        String sql = "SELECT p.idPaquete, p.idCiudadDestino, p.fechaDesde, p.fechaHasta, p.montoTotal FROM paquetes p " 
+                     + "JOIN paquetesturistas t ON (p.idPaquete = t.idPaquete) WHERE t.idTurista = ?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idTurista);  
+            ResultSet rs = ps.executeQuery(); 
+
+            while (rs.next()) {
+                Paquete paquete = new Paquete();
+                paquete.setIdPaquete(rs.getInt("idPaquete"));
+                Ciudad ciudadDestino = ciudadData.buscarCiudad(rs.getInt("idCiudadDestino"));
+                paquete.setCiudadDestino(ciudadDestino);   
+                paquete.setFechaDesde(rs.getDate("fechaDesde").toLocalDate());
+                paquete.setFechaHasta(rs.getDate("fechaHasta").toLocalDate());
+                paquete.setMontoTotal(rs.getDouble("montoTotal"));
+
+                listaPaquetes.add(paquete);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
+        }
+        return listaPaquetes;
+    }
 
 
     public List<Paquete> listarPaquetesConDetalles() {
-    List<Paquete> listaPaquetes = new ArrayList<>();
-    Map<Integer, Paquete> mapaPaquetes = new HashMap<>();
+        List<Paquete> listaPaquetes = new ArrayList<>();
+        Map<Integer, Paquete> mapaPaquetes = new HashMap<>();
 
-    try {
-        String sql = "SELECT p.*, co.*, cd.*, t.*, a.*, h.* " +
-                     "FROM paquetes p " +
-                     "JOIN ciudades co ON p.idCiudadOrigen = co.idCiudad " +
-                     "JOIN ciudades cd ON p.idCiudadDestino = cd.idCiudad " +
-                     "JOIN transportes t ON p.idTransporte = t.idTransporte " +
-                     "JOIN alojamientos a ON p.idAlojamiento = a.idAlojamiento " +
-                     "LEFT JOIN habitaciones h ON a.idAlojamiento = h.idAlojamiento " +
-                     "ORDER BY p.idPaquete ASC";
+        try {
+            String sql = "SELECT p.*, co.*, cd.*, t.*, a.*, h.* " +
+                         "FROM paquetes p " +
+                         "JOIN ciudades co ON p.idCiudadOrigen = co.idCiudad " +
+                         "JOIN ciudades cd ON p.idCiudadDestino = cd.idCiudad " +
+                         "JOIN transportes t ON p.idTransporte = t.idTransporte " +
+                         "JOIN alojamientos a ON p.idAlojamiento = a.idAlojamiento " +
+                         "LEFT JOIN habitaciones h ON a.idAlojamiento = h.idAlojamiento " +
+                         "ORDER BY p.idPaquete ASC";
 
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            int idPaquete = rs.getInt("p.idPaquete");
-            Paquete paquete = mapaPaquetes.get(idPaquete);
+            while (rs.next()) {
+                int idPaquete = rs.getInt("p.idPaquete");
+                Paquete paquete = mapaPaquetes.get(idPaquete);
 
-            if (paquete == null) {
-                paquete = new Paquete();
-                paquete.setIdPaquete(idPaquete);
-                paquete.setFechaDesde(rs.getDate("p.fechaDesde").toLocalDate());
-                paquete.setFechaHasta(rs.getDate("p.fechaHasta").toLocalDate());
-                
-                Ciudad ciudadDestino = ciudadData.buscarCiudad(rs.getInt("p.idCiudadDestino"));
-                paquete.setCiudadDestino(ciudadDestino); 
-               
-                Transporte transporte = transporteData.buscarPorId(rs.getInt("p.idTransporte"));
-                paquete.setTransporte(transporte);
+                if (paquete == null) {
+                    paquete = new Paquete();
+                    paquete.setIdPaquete(idPaquete);
+                    paquete.setFechaDesde(rs.getDate("p.fechaDesde").toLocalDate());
+                    paquete.setFechaHasta(rs.getDate("p.fechaHasta").toLocalDate());
 
-                Alojamiento alojamiento = alojamientoData.buscarAlojamientoPorId(rs.getInt("p.idAlojamiento"));
-                paquete.setAlojamiento(alojamiento);  
+                    Ciudad ciudadDestino = ciudadData.buscarCiudad(rs.getInt("p.idCiudadDestino"));
+                    paquete.setCiudadDestino(ciudadDestino); 
 
-                listaPaquetes.add(paquete);
-                mapaPaquetes.put(idPaquete, paquete);
-            }
+                    Transporte transporte = transporteData.buscarPorId(rs.getInt("p.idTransporte"));
+                    paquete.setTransporte(transporte);
 
-            // Habitaciones
-            if ("Hostel".equalsIgnoreCase(paquete.getAlojamiento().getTipoAlojamiento())) {
-                List<Habitacion> habitaciones = paquete.getAlojamiento().getHabitaciones();
-                if (habitaciones == null) {
-                    habitaciones = new ArrayList<>();
-                    paquete.getAlojamiento().setHabitaciones(habitaciones);
+                    Alojamiento alojamiento = alojamientoData.buscarAlojamientoPorId(rs.getInt("p.idAlojamiento"));
+                    paquete.setAlojamiento(alojamiento);  
+
+                    listaPaquetes.add(paquete);
+                    mapaPaquetes.put(idPaquete, paquete);
                 }
-                Habitacion habitacion = new Habitacion();
-                habitacion.setPlanta(rs.getInt("h.planta"));
-                habitacion.setNroHabitacion(rs.getInt("h.nroHabitacion"));
-                habitaciones.add(habitacion);
-            }
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
-    }
 
-    return listaPaquetes;
+                // Habitaciones
+                if ("Hostel".equalsIgnoreCase(paquete.getAlojamiento().getTipoAlojamiento())) {
+                    List<Habitacion> habitaciones = paquete.getAlojamiento().getHabitaciones();
+                    if (habitaciones == null) {
+                        habitaciones = new ArrayList<>();
+                        paquete.getAlojamiento().setHabitaciones(habitaciones);
+                    }
+                    Habitacion habitacion = new Habitacion();
+                    habitacion.setPlanta(rs.getInt("h.planta"));
+                    habitacion.setNroHabitacion(rs.getInt("h.nroHabitacion"));
+                    habitaciones.add(habitacion);
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
+        }
+
+        return listaPaquetes;
 }
 
 

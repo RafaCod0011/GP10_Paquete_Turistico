@@ -1,7 +1,10 @@
 package Vistas;
 
+import accesoADatos.PaqueteData;
 import accesoADatos.TuristaData;
+import entidades.Paquete;
 import entidades.Turista;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -10,19 +13,30 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
-/**
- *
- * @author Santino
- */
 public class FormTurista extends javax.swing.JInternalFrame {
     
-    private TuristaData tData;
-    Turista encontrado = new Turista();
+    public TuristaData tData;
+    public PaqueteData pData;
     public ArrayList<Turista> listado = new ArrayList();
+    public ArrayList<Paquete> paquetes = new ArrayList();
+    public int id;
+    
+    Turista encontrado = new Turista();
+    
 
-     private DefaultTableModel modelo= new DefaultTableModel(){
+    private DefaultTableModel modelo= new DefaultTableModel(){
+
+    
+        @Override
+        public boolean isCellEditable(int f, int c){
+
+            return false;
+        }
+    };
+    private DefaultTableModel modelo2= new DefaultTableModel(){
 
     
         @Override
@@ -33,9 +47,11 @@ public class FormTurista extends javax.swing.JInternalFrame {
     };
     
     public FormTurista() {
+        
         initComponents();
         this.setTitle("Formulario Turista");
         tData = new TuristaData();
+        pData = new PaqueteData();
         armarCabecera();
         cargarTabla();
         
@@ -60,9 +76,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
         jComboBox1 = new javax.swing.JComboBox<>();
         jpGeneral = new javax.swing.JPanel();
-        lbTransportes = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jlTuristaTitle1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tTurista = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -73,27 +87,24 @@ public class FormTurista extends javax.swing.JInternalFrame {
         jtEdad = new javax.swing.JTextField();
         jlEmpresa2 = new javax.swing.JLabel();
         jtDNI = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        lbTransportes1 = new javax.swing.JLabel();
+        lbTransportesRecorridos = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jbNuevo = new javax.swing.JButton();
         jbGuardar1 = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tPaquetes = new javax.swing.JTable();
+        lbTransportes2 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setClosable(true);
         setIconifiable(true);
-
-        lbTransportes.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbTransportes.setForeground(new java.awt.Color(51, 51, 255));
-        lbTransportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbTransportes.setText("Crear/Modificar Turista");
-
-        jlTuristaTitle1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jlTuristaTitle1.setText("Turista");
 
         tTurista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,8 +118,6 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tTurista);
-
-        jPanel1.setBackground(new java.awt.Color(0, 204, 255));
 
         tbId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tbId.setForeground(new java.awt.Color(51, 51, 255));
@@ -137,6 +146,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
         jlEmpresa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlEmpresa1.setText("Edad:");
 
+        jtEdad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtEdad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtEdadActionPerformed(evt);
@@ -148,6 +158,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
         jlEmpresa2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlEmpresa2.setText("Documento:");
 
+        jtDNI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtDNIActionPerformed(evt);
@@ -158,13 +169,13 @@ public class FormTurista extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE)
                 .addComponent(tbId, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jtFullName)
-                    .addComponent(jlEmpresa3, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                    .addComponent(jlEmpresa3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jtDNI)
@@ -172,8 +183,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jtEdad)
-                    .addComponent(jlEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jlEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,81 +205,14 @@ public class FormTurista extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        jPanel3.setBackground(new java.awt.Color(51, 153, 0));
+        lbTransportes1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbTransportes1.setForeground(new java.awt.Color(51, 51, 255));
+        lbTransportes1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbTransportes1.setText("Turistas Registrados");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-        );
-
-        javax.swing.GroupLayout jpGeneralLayout = new javax.swing.GroupLayout(jpGeneral);
-        jpGeneral.setLayout(jpGeneralLayout);
-        jpGeneralLayout.setHorizontalGroup(
-            jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpGeneralLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lbTransportes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlTuristaTitle1)
-                .addGap(19, 19, 19))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createSequentialGroup()
-                .addComponent(jSeparator1)
-                .addGap(356, 356, 356))
-            .addGroup(jpGeneralLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jpGeneralLayout.setVerticalGroup(
-            jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpGeneralLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbTransportes)
-                    .addComponent(jlTuristaTitle1))
-                .addGap(12, 12, 12)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        jPanel2.setBackground(new java.awt.Color(0, 153, 102));
+        lbTransportesRecorridos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbTransportesRecorridos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbTransportesRecorridos.setText("Turistas");
 
         jbNuevo.setBackground(new java.awt.Color(245, 245, 245));
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/NuevoTurista.png"))); // NOI18N
@@ -334,23 +277,111 @@ public class FormTurista extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        tPaquetes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tPaquetes);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+        );
+
+        lbTransportes2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lbTransportes2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTransportes2.setText("Paquetes asociados al turistas seleccionado");
+
+        javax.swing.GroupLayout jpGeneralLayout = new javax.swing.GroupLayout(jpGeneral);
+        jpGeneral.setLayout(jpGeneralLayout);
+        jpGeneralLayout.setHorizontalGroup(
+            jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator2)
+            .addComponent(jSeparator3)
+            .addGroup(jpGeneralLayout.createSequentialGroup()
+                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpGeneralLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbTransportes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGeneralLayout.createSequentialGroup()
+                                .addComponent(lbTransportes1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbTransportesRecorridos, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))
+                            .addComponent(jSeparator1)))
+                    .addGroup(jpGeneralLayout.createSequentialGroup()
+                        .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpGeneralLayout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jpGeneralLayout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jpGeneralLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+        jpGeneralLayout.setVerticalGroup(
+            jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpGeneralLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jpGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbTransportesRecorridos)
+                    .addComponent(lbTransportes1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(lbTransportes2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(89, 89, 89))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jpGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -452,7 +483,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
     if (filaSeleccionada != -1) {
         
         //ID
-            int id = (int) tTurista.getValueAt(filaSeleccionada, 0);
+            id = (int) tTurista.getValueAt(filaSeleccionada, 0);
             String code = String.valueOf(id);
             tbId.setText(code);
             
@@ -469,6 +500,9 @@ public class FormTurista extends javax.swing.JInternalFrame {
             int edad = (int) tTurista.getValueAt(filaSeleccionada, 3);
             String anios = String.valueOf(edad);
             jtEdad.setText(anios);
+            
+        cargarTablaPaquetes();
+            
     }
 }
     
@@ -477,35 +511,87 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
         modelo.addColumn("ID");
         modelo.addColumn("Documento");
-        modelo.addColumn("Nombre Completo");
+        modelo.addColumn("Apellido y Nombres");
         modelo.addColumn("Edad");
-        
         tTurista.setModel(modelo);
-        
         TableColumnModel columnModel = tTurista.getColumnModel();
-
-        
         columnModel.getColumn(0).setPreferredWidth(10);   // "ID"
-        columnModel.getColumn(1).setPreferredWidth(80);  // "Documento"
-        columnModel.getColumn(2).setPreferredWidth(80);  // "Nombre"
-        columnModel.getColumn(3).setPreferredWidth(30);   // "Edad"
+        columnModel.getColumn(1).setPreferredWidth(20);  // "Documento"
+        columnModel.getColumn(2).setPreferredWidth(100);  // "Nombre"
+        columnModel.getColumn(3).setPreferredWidth(20);   // "Edad"
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
+        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
         
+        
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         tTurista.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tTurista.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tTurista.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+
+        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+        tTurista.getColumnModel().getColumn(2).setCellRenderer(leftRenderer);
+        
+        JTableHeader header = tTurista.getTableHeader();
+        DefaultTableCellRenderer rendererCentrado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        rendererCentrado.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        header.setDefaultRenderer(rendererCentrado);
+        
+                
+        modelo2.addColumn("ID");
+        modelo2.addColumn("Destino");
+        modelo2.addColumn("Desde");
+        modelo2.addColumn("Días");
+        modelo2.addColumn("Monto");
+        tPaquetes.setModel(modelo2);
+        TableColumnModel columnModel2 = tPaquetes.getColumnModel();
+        columnModel2.getColumn(0).setPreferredWidth(10);   // "ID"
+        columnModel2.getColumn(1).setPreferredWidth(80);  // "Destino"
+        columnModel2.getColumn(2).setPreferredWidth(30);  // "Desde"
+        columnModel2.getColumn(3).setPreferredWidth(30);   // "Días"
+        columnModel2.getColumn(4).setPreferredWidth(40);   // "Monto"
+        
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        tPaquetes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        tPaquetes.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tPaquetes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tPaquetes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);    
+   
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        tPaquetes.getColumnModel().getColumn(4).setCellRenderer(rightRenderer); 
+        
+        JTableHeader header2 = tPaquetes.getTableHeader();
+        DefaultTableCellRenderer rendererCentrado2 = (DefaultTableCellRenderer) header2.getDefaultRenderer();
+        rendererCentrado2.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        header2.setDefaultRenderer(rendererCentrado2);
+        
     }
     
     private void cargarTabla(){
         
-         limpiarTabla();
+        limpiarTabla();
         listado = (ArrayList) tData.listarTurista();
         for (Turista t : listado) {
             modelo.addRow(new Object[] {t.getIdTurista(),t.getDocumento(),t.getFullName(), t.getEdad()});
         }
      }
     
+    private void cargarTablaPaquetes(){
+        
+        limpiarTablaPaquetes();
+        paquetes = (ArrayList) pData.listarPaquetesXTurista(id);
+        for (Paquete p : paquetes) {
+            long cantidadDeDias = p.getFechaDesde().until(p.getFechaHasta(), ChronoUnit.DAYS);
+            modelo2.addRow(new Object[] {
+                p.getIdPaquete(),
+                p.getCiudadDestino().getNombre(),
+                p.getFechaDesde(),
+                cantidadDeDias,
+                String.format("$%.2f", p.getMontoTotal())
+            });
+        }
+     }
     
     private void limpiarTabla(){
 
@@ -515,12 +601,21 @@ public class FormTurista extends javax.swing.JInternalFrame {
         }
     }
     
+    private void limpiarTablaPaquetes(){
+
+        int indice= modelo2.getRowCount()-1;
+        for (int i = indice; i>=0; i--) {
+        	modelo2.removeRow(i);
+        }
+    }
+
     
     private void Nuevo(){
         tbId.setText("");
         jtDNI.setText("");
         jtFullName.setText("");
         jtEdad.setText("");
+        limpiarTablaPaquetes();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -531,7 +626,8 @@ public class FormTurista extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar1;
     private javax.swing.JButton jbNuevo;
@@ -539,12 +635,14 @@ public class FormTurista extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlEmpresa1;
     private javax.swing.JLabel jlEmpresa2;
     private javax.swing.JLabel jlEmpresa3;
-    private javax.swing.JLabel jlTuristaTitle1;
     private javax.swing.JPanel jpGeneral;
     private javax.swing.JTextField jtDNI;
     private javax.swing.JTextField jtEdad;
     private javax.swing.JTextField jtFullName;
-    private javax.swing.JLabel lbTransportes;
+    private javax.swing.JLabel lbTransportes1;
+    private javax.swing.JLabel lbTransportes2;
+    private javax.swing.JLabel lbTransportesRecorridos;
+    private javax.swing.JTable tPaquetes;
     private javax.swing.JTable tTurista;
     private javax.swing.JTextField tbId;
     // End of variables declaration//GEN-END:variables
