@@ -43,15 +43,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmTransportes = new javax.swing.JMenuItem();
         jmAlojamientos = new javax.swing.JMenuItem();
         jmRegimenes = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmPresupuestos = new javax.swing.JMenuItem();
+        jmModificar = new javax.swing.JMenuItem();
+        jmEliminar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmPaquetesVendidos = new javax.swing.JMenuItem();
         jmTuristasPaquetes = new javax.swing.JMenuItem();
         jmDestinosElegidos = new javax.swing.JMenuItem();
         jmUltimos2Meses = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jmPresupuestos = new javax.swing.JMenuItem();
-        jmModificar = new javax.swing.JMenuItem();
-        jmEliminar = new javax.swing.JMenuItem();
 
         jMenuItem3.setText("jMenuItem3");
 
@@ -85,7 +85,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addComponent(escritorio)
         );
 
-        jmPrincipal.setText("Menu Principal");
+        jmPrincipal.setText("Componentes");
 
         jmTuristas.setText("Turistas");
         jmTuristas.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +129,39 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jmPrincipal);
 
+        jMenu1.setText("Paquetes Turisticos");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jmPresupuestos.setText("Confeccionar Presupuesto");
+        jmPresupuestos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmPresupuestosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmPresupuestos);
+
+        jmModificar.setText("Modificar Presupuesto");
+        jmModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmModificarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmModificar);
+
+        jmEliminar.setText("Eliminar Paquetes Presupuestados");
+        jmEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmEliminarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmEliminar);
+
+        jMenuBar1.add(jMenu1);
+
         jMenu2.setText("Estadisticas");
 
         jmPaquetesVendidos.setText("Paquetes Vendidos por Periodo");
@@ -159,39 +192,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu2.add(jmUltimos2Meses);
 
         jMenuBar1.add(jMenu2);
-
-        jMenu1.setText("Paquetes Turisticos");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
-            }
-        });
-
-        jmPresupuestos.setText("Confeccionar Presupuesto");
-        jmPresupuestos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmPresupuestosActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmPresupuestos);
-
-        jmModificar.setText("Modificar Presupuesto");
-        jmModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmModificarActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmModificar);
-
-        jmEliminar.setText("Eliminar Paquete");
-        jmEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmEliminarActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmEliminar);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 

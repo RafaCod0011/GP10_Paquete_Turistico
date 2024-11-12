@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 
@@ -402,7 +403,7 @@ public FormTransportes() {
             tbEmpresa.setText(nombre);
             //PRECIO POR PERSONA
             double precio = (double) tTransportes.getValueAt(filaSeleccionada, 5);
-            String prec = String.valueOf(precio);
+            String prec = String.valueOf(tTransportes.getValueAt(filaSeleccionada, 5));
             tbPrecio.setText(prec);
 
     }
@@ -587,8 +588,8 @@ public FormTransportes() {
 
         //Ancho de las columnas
         columnModel.getColumn(0).setPreferredWidth(1);   // "ID"
-        columnModel.getColumn(1).setPreferredWidth(80);  // "Origen"
-        columnModel.getColumn(2).setPreferredWidth(80);  // "Destino"
+        columnModel.getColumn(1).setPreferredWidth(70);  // "Origen"
+        columnModel.getColumn(2).setPreferredWidth(70);  // "Destino"
         columnModel.getColumn(3).setPreferredWidth(30);   // "Tipo"
         columnModel.getColumn(4).setPreferredWidth(50);  // "Empresa"
         columnModel.getColumn(5).setPreferredWidth(10);  // "Precio"
@@ -596,8 +597,21 @@ public FormTransportes() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        // Aplicar el renderizador a la segunda columna ID (índice 0)
-        tTransportes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+//        tTransportes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+//        tTransportes.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+//        tTransportes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+//        tTransportes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+//        tTransportes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+     
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        tTransportes.getColumnModel().getColumn(5).setCellRenderer(rightRenderer); 
+
+        JTableHeader header = tTransportes.getTableHeader();
+        DefaultTableCellRenderer rendererCentrado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        rendererCentrado.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        header.setDefaultRenderer(rendererCentrado);
+
         
     }
 

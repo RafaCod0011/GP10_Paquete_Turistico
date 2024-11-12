@@ -69,6 +69,7 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
         lbPaquetes = new javax.swing.JLabel();
         btEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        lbTransportesRecorridos = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -93,13 +94,13 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
         lbEliminar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbEliminar.setForeground(new java.awt.Color(51, 51, 255));
         lbEliminar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbEliminar.setText("Eliminar un Paquete");
+        lbEliminar.setText("Eliminar");
         jPanel1.add(lbEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
 
         lbPaquetes.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbPaquetes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbPaquetes.setText("Listado de paquetes");
-        jPanel1.add(lbPaquetes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, -1, -1));
+        lbPaquetes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPaquetes.setText("Listado de paquetes registrados");
+        jPanel1.add(lbPaquetes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1160, -1));
 
         btEliminar.setBackground(new java.awt.Color(245, 245, 245));
         btEliminar.setText("Eliminar Paquete");
@@ -110,8 +111,14 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
         });
         jPanel1.add(btEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 460, 400, 50));
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Seleccione un paquete de la lista para eliminarlo. Recuerde que solo puede eliminarlo 30 dias antes de la fecha de salida.");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 1170, -1));
+
+        lbTransportesRecorridos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbTransportesRecorridos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbTransportesRecorridos.setText("Paquetes turísticos");
+        jPanel1.add(lbTransportesRecorridos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,17 +144,17 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
             int paqueteEliminar = (int) jtPaquetes.getValueAt(filaSeleccionada, 0);
             LocalDate fechaDesde = (LocalDate) jtPaquetes.getValueAt(filaSeleccionada, 1); 
 
-            LocalDate today = LocalDate.now();
-            long daysBetween = ChronoUnit.DAYS.between(today, fechaDesde);
-
-            if (daysBetween >= 30) {
+            LocalDate hoy = LocalDate.now();
+            long dias = ChronoUnit.DAYS.between(hoy, fechaDesde);
+               
+            if (dias <= 30) {
                 int respuesta = JOptionPane.showConfirmDialog(null,
                     "¿Está seguro/a de Eliminar el paquete seleccionado?",
                     "Eliminar Paquete",
                     JOptionPane.YES_NO_OPTION);
 
                 if (respuesta == JOptionPane.YES_OPTION) {
-                    tuData.eliminarTuristasEnPaquete(paqueteEliminar);
+                    //tuData.eliminarTuristasEnPaquete(paqueteEliminar);
                     String mensaje = pqData.eliminarPaquete(paqueteEliminar);
                     JOptionPane.showMessageDialog(this, mensaje);
                     cargarTabla();
@@ -155,8 +162,10 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "El paquete solo se puede eliminar 30 días antes de la fecha de salida.");
             }
-        }
-    }
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un paquete para eliminarlo", "Atención", JOptionPane.ERROR_MESSAGE);
+        }    
+      }
 
     }//GEN-LAST:event_btEliminarActionPerformed
 
@@ -247,5 +256,6 @@ private void armarCabecera(){
     private javax.swing.JTable jtPaquetes;
     private javax.swing.JLabel lbEliminar;
     private javax.swing.JLabel lbPaquetes;
+    private javax.swing.JLabel lbTransportesRecorridos;
     // End of variables declaration//GEN-END:variables
 }

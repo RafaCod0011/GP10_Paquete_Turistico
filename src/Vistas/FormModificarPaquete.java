@@ -1089,6 +1089,7 @@ double penalizacion = 0;
             }
 
         }    
+        
         double porcentaje = totalFinal/10;
         int totalPersonas = contarMayores + contarMenores;
         double totalIncrementoPenalidad = porcentaje * totalPersonas;

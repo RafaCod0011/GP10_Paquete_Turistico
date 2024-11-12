@@ -249,91 +249,88 @@ public class PaqueteData {
         return -1; // Retorna -1 si no se encuentra un paquete
     }
     
-    public void modificarPaquete2(Paquete paquete) {
-        
-    String sql = "UPDATE paquetes SET idCiudadOrigen = ?, idCiudadDestino = ?, fechaDesde = ?, fechaHasta = ?, " +
-                 "idTransporte = ?, idAlojamiento = ?, idRegimen = ?, traslado = ?, montoTotal = ?, paqueteActivo = ? " +
-                 "WHERE idPaquete = ?";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-
-
-            ps.setInt(1, paquete.getCiudadOrigen().getIdCiudad());
-            ps.setInt(2, paquete.getCiudadDestino().getIdCiudad());
-            ps.setDate(3, Date.valueOf(paquete.getFechaDesde()));
-            ps.setDate(4, Date.valueOf(paquete.getFechaHasta()));
-            ps.setInt(5, paquete.getTransporte().getIdTransporte());
-            ps.setInt(6, paquete.getAlojamiento().getIdAlojamiento());
-            ps.setInt(7, paquete.getRegimen().getIdRegimen());
-            ps.setDouble(8, paquete.getTraslado());
-            ps.setDouble(9, paquete.getMontoTotal());
-            ps.setBoolean(10, paquete.isPaqueteActivo());
-            ps.setInt(11, paquete.getIdPaquete());  
-
-
-            int rowsAffected = ps.executeUpdate();
-
-            if (rowsAffected > 0) {
-                // Verificar si hubo cambios en transporte o alojamiento
-                boolean cambioTransporte = false;
-                boolean cambioAlojamiento = false;
-
-                // Consultar el estado anterior del paquete desde la base de datos
-                String consultaAnterior = "SELECT idTransporte, idAlojamiento FROM paquetes WHERE idPaquete = ?";
-                try (PreparedStatement psConsultaAnterior = con.prepareStatement(consultaAnterior)) {
-                    psConsultaAnterior.setInt(1, paquete.getIdPaquete());
-                    ResultSet rs = psConsultaAnterior.executeQuery();
-                    if (rs.next()) {
-                        int idTransporteAnterior = rs.getInt("idTransporte");
-                        int idAlojamientoAnterior = rs.getInt("idAlojamiento");
-
-                        if (idTransporteAnterior != paquete.getTransporte().getIdTransporte()) {
-                            cambioTransporte = true;
-                        }
-                        if (idAlojamientoAnterior != paquete.getAlojamiento().getIdAlojamiento()) {
-                            cambioAlojamiento = true;
-                        }
-                    }
-                }
-
-                // Si hubo cambios en transporte o alojamiento, aplicar la penalización
-                if (cambioTransporte || cambioAlojamiento) {
-                    // Obtener la cantidad de personas asociadas al paquete
-                    int cantidadPersonas = calcularCantidadTuristasxPaquete(paquete.getIdPaquete());
-
-                    // Calcular la penalización del 10% por cada persona y agregarla al monto total
-                    double penalizacion = paquete.getMontoTotal() * 0.10 * cantidadPersonas;
-                    paquete.setMontoTotal(paquete.getMontoTotal() + penalizacion);
-
-                    // Actualizar el monto total con la penalización
-                    String sqlPenalizacion = "UPDATE paquetes SET montoTotal = ? WHERE idPaquete = ?";
-                    try (PreparedStatement psPenalizacion = con.prepareStatement(sqlPenalizacion)) {
-                        psPenalizacion.setDouble(1, paquete.getMontoTotal());
-                        psPenalizacion.setInt(2, paquete.getIdPaquete());
-                        psPenalizacion.executeUpdate();
-                    }
-                }
-                JOptionPane.showMessageDialog(null, "¡Paquete modificado correctamente con la penalización aplicada!");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el paquete con ID: " + paquete.getIdPaquete());
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al modificar el paquete: " + e.getMessage());
-        }
-    }
+//    public void modificarPaquete2(Paquete paquete) {
+//        
+//    String sql = "UPDATE paquetes SET idCiudadOrigen = ?, idCiudadDestino = ?, fechaDesde = ?, fechaHasta = ?, " +
+//                 "idTransporte = ?, idAlojamiento = ?, idRegimen = ?, traslado = ?, montoTotal = ?, paqueteActivo = ? " +
+//                 "WHERE idPaquete = ?";
+//
+//        try (PreparedStatement ps = con.prepareStatement(sql)) {
+//
+//
+//            ps.setInt(1, paquete.getCiudadOrigen().getIdCiudad());
+//            ps.setInt(2, paquete.getCiudadDestino().getIdCiudad());
+//            ps.setDate(3, Date.valueOf(paquete.getFechaDesde()));
+//            ps.setDate(4, Date.valueOf(paquete.getFechaHasta()));
+//            ps.setInt(5, paquete.getTransporte().getIdTransporte());
+//            ps.setInt(6, paquete.getAlojamiento().getIdAlojamiento());
+//            ps.setInt(7, paquete.getRegimen().getIdRegimen());
+//            ps.setDouble(8, paquete.getTraslado());
+//            ps.setDouble(9, paquete.getMontoTotal());
+//            ps.setBoolean(10, paquete.isPaqueteActivo());
+//            ps.setInt(11, paquete.getIdPaquete());  
+//
+//
+//            int rowsAffected = ps.executeUpdate();
+//
+//            if (rowsAffected > 0) {
+//                // Verificar si hubo cambios en transporte o alojamiento
+//                boolean cambioTransporte = false;
+//                boolean cambioAlojamiento = false;
+//
+//                // Consultar el estado anterior del paquete desde la base de datos
+//                String consultaAnterior = "SELECT idTransporte, idAlojamiento FROM paquetes WHERE idPaquete = ?";
+//                try (PreparedStatement psConsultaAnterior = con.prepareStatement(consultaAnterior)) {
+//                    psConsultaAnterior.setInt(1, paquete.getIdPaquete());
+//                    ResultSet rs = psConsultaAnterior.executeQuery();
+//                    if (rs.next()) {
+//                        int idTransporteAnterior = rs.getInt("idTransporte");
+//                        int idAlojamientoAnterior = rs.getInt("idAlojamiento");
+//
+//                        if (idTransporteAnterior != paquete.getTransporte().getIdTransporte()) {
+//                            cambioTransporte = true;
+//                        }
+//                        if (idAlojamientoAnterior != paquete.getAlojamiento().getIdAlojamiento()) {
+//                            cambioAlojamiento = true;
+//                        }
+//                    }
+//                }
+//
+//                // Si hubo cambios en transporte o alojamiento, aplicar la penalización
+//                if (cambioTransporte || cambioAlojamiento) {
+//                    // Obtener la cantidad de personas asociadas al paquete
+//                    int cantidadPersonas = calcularCantidadTuristasxPaquete(paquete.getIdPaquete());
+//
+//                    // Calcular la penalización del 10% por cada persona y agregarla al monto total
+//                    double penalizacion = paquete.getMontoTotal() * 0.10 * cantidadPersonas;
+//                    paquete.setMontoTotal(paquete.getMontoTotal() + penalizacion);
+//
+//                    // Actualizar el monto total con la penalización
+//                    String sqlPenalizacion = "UPDATE paquetes SET montoTotal = ? WHERE idPaquete = ?";
+//                    try (PreparedStatement psPenalizacion = con.prepareStatement(sqlPenalizacion)) {
+//                        psPenalizacion.setDouble(1, paquete.getMontoTotal());
+//                        psPenalizacion.setInt(2, paquete.getIdPaquete());
+//                        psPenalizacion.executeUpdate();
+//                    }
+//                }
+//                JOptionPane.showMessageDialog(null, "¡Paquete modificado correctamente con la penalización aplicada!");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No se encontró el paquete con ID: " + paquete.getIdPaquete());
+//            }
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(null, "Error al modificar el paquete: " + e.getMessage());
+//        }
+//    }
     
     public List<Paquete> listarPaquetesUltimos2Meses() {
         List<Paquete> listaPaquetes = new ArrayList<>();
 
         String sql = "SELECT p.idPaquete, p.fechaDesde, p.fechaHasta, p.idCiudadDestino,  " +
                 "DATEDIFF(p.fechaHasta, p.fechaDesde) AS Dias, p.idTransporte, p.idAlojamiento, " +
-                "p.idRegimen, p.montoTotal, COUNT(pt.idPaquetesTuristas) " +                 
-                "AS viajeros FROM paquetes p LEFT JOIN paquetesTuristas pt ON pt.idPaquete = p.idPaquete " +
-                "WHERE p.fechaDesde BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH) AND CURRENT_DATE " +
-                "GROUP BY p.idPaquete, p.idCiudadDestino, p.fechaDesde, p.fechaHasta,p.idTransporte, p.idAlojamiento, "
-                + "p.idRegimen";
+                "p.idRegimen, p.montoTotal FROM paquetes p "+         
+                "WHERE p.fechaDesde BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL 2 MONTH) AND CURRENT_DATE "; 
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -341,8 +338,6 @@ public class PaqueteData {
 
             while (rs.next()) {
                 Paquete paquete = new Paquete();
-
-
                 paquete.setIdPaquete(rs.getInt("idPaquete"));
                 paquete.setFechaDesde(rs.getDate("p.fechaDesde").toLocalDate());
                 paquete.setFechaHasta(rs.getDate("p.fechaHasta").toLocalDate());
@@ -354,18 +349,14 @@ public class PaqueteData {
                 paquete.setAlojamiento(alojamiento);                
                 Regimen regimen = regimenData.buscarRegimenes(rs.getInt("p.idRegimen"));
                 paquete.setRegimen(regimen);
-
-
                 paquete.setMontoTotal(rs.getDouble("montoTotal"));
-
-
-
-                    listaPaquetes.add(paquete);
+                listaPaquetes.add(paquete);
+                ArrayList<Turista>grupo = ptData.buscarTuristasEnPaquete(rs.getInt("p.idPaquete"));
+                paquete.setGrupoBase(grupo);
                 }
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
-            }
-
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes: " + ex.getMessage());
+        }
             return listaPaquetes;
         }
 

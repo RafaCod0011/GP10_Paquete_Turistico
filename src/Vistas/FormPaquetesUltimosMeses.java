@@ -156,6 +156,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                     modelo.addRow(new Object[] {
                         m.getIdPaquete(),
                         m.getCiudadDestino().getNombre(),
+                        m.getGrupoBase().size(),
                         m.getFechaDesde(),
                         m.getFechaHasta(),
                         cantidadDeDias,
@@ -163,7 +164,6 @@ private DefaultTableModel modelo= new DefaultTableModel(){
                         m.getAlojamiento().getNombre(),
                         m.getRegimen().getDenominacion(),
                         String.format("$%.2f", m.getMontoTotal())
-    
                     });
                     total = total + m.getMontoTotal();
                     cantidad++;
@@ -185,6 +185,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
 
             modelo.addColumn("ID");
             modelo.addColumn("Destino");
+            modelo.addColumn("Viajeros");
             modelo.addColumn("Desde");
             modelo.addColumn("Hasta");
             modelo.addColumn("Días");
@@ -199,15 +200,16 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             TableColumnModel columnModel = tPaquetes.getColumnModel();
 
             //Ancho de las columnas
-            columnModel.getColumn(0).setPreferredWidth(1);   // "ID"
-            columnModel.getColumn(1).setPreferredWidth(60);  // "Destino"
-            columnModel.getColumn(2).setPreferredWidth(30);  // "Desde"
-            columnModel.getColumn(3).setPreferredWidth(30);  // "Hasta"
-            columnModel.getColumn(4).setPreferredWidth(10);  // "Días"
-            columnModel.getColumn(5).setPreferredWidth(20);  // "Transporte"
-            columnModel.getColumn(6).setPreferredWidth(40);  // "Alojamiento"
-            columnModel.getColumn(7).setPreferredWidth(20);  // "Regimen"
-            columnModel.getColumn(8).setPreferredWidth(10);  // "Monto"
+            columnModel.getColumn(0).setPreferredWidth(5);   // "ID"
+            columnModel.getColumn(1).setPreferredWidth(10);  // "Destino"
+            columnModel.getColumn(2).setPreferredWidth(20);  // "Viajeros"
+            columnModel.getColumn(3).setPreferredWidth(20);  // "Desde"
+            columnModel.getColumn(4).setPreferredWidth(20);  // "Hasta"
+            columnModel.getColumn(5).setPreferredWidth(50);  // "Días"
+            columnModel.getColumn(6).setPreferredWidth(40);  // "Transporte"
+            columnModel.getColumn(7).setPreferredWidth(50);  // "Alojamiento"
+            columnModel.getColumn(8).setPreferredWidth(30);  // "Regimen"
+            columnModel.getColumn(9).setPreferredWidth(10);  // "Monto"
 
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -217,11 +219,11 @@ private DefaultTableModel modelo= new DefaultTableModel(){
             tPaquetes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);                
             tPaquetes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);  
             tPaquetes.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);  
-            tPaquetes.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);  
+            tPaquetes.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);  
 
             DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
             rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
-            tPaquetes.getColumnModel().getColumn(8).setCellRenderer(rightRenderer); 
+            tPaquetes.getColumnModel().getColumn(9).setCellRenderer(rightRenderer); 
             
             JTableHeader header = tPaquetes.getTableHeader();
             DefaultTableCellRenderer rendererCentrado = (DefaultTableCellRenderer) header.getDefaultRenderer();
