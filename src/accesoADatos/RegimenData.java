@@ -1,6 +1,7 @@
 package accesoADatos;
 
 import entidades.Regimen;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,25 +91,30 @@ public class RegimenData {
         return regimen;
     }
     
-    public void eliminarRegimenes (int idRegimen) {
-         String sql = "DELETE FROM regimenes WHERE idRegimen=?";
+    public String eliminarRegimen(int idRegimen) {
+        
+        String resultado = "";
 
         try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idRegimen);
 
-        int exito = ps.executeUpdate();
+            String sql = "{ CALL EliminarRegimen(?) }";
+            CallableStatement stmt = con.prepareCall(sql);
+            stmt.setInt(1, idRegimen);
 
-        if (exito == 1) {
-            JOptionPane.showMessageDialog(null, "¡Regimen eliminado correctamente!");
-        }else {
-            JOptionPane.showMessageDialog(null, "No se encontró la el Regimen con el ID especificado.");
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                resultado = rs.getString("Resultado");
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al intentar eliminar el Regimen " + e.getMessage());
         }
 
-        ps.close();
+        return resultado;
 
-      }catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar el Regimen: " + ex.getMessage());
-       }
     }
 }

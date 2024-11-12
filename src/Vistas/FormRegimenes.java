@@ -251,8 +251,8 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
 
                 if (respuesta == JOptionPane.YES_OPTION) {
                     int regimenEliminar = (int) jtRegimenes.getValueAt(filaSeleccionada, 0);
-                    rData.eliminarRegimenes(regimenEliminar);
-                    JOptionPane.showMessageDialog(null, "Regimen eliminado correctamente.");
+                    String mensaje = rData.eliminarRegimen(regimenEliminar);
+                    JOptionPane.showMessageDialog(this, mensaje);
                     Nuevo();
                 }
             }
