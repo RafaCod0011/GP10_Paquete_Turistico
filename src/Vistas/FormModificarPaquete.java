@@ -440,6 +440,7 @@ double penalizacion = 0;
         });
 
         btGuardar.setBackground(new java.awt.Color(245, 245, 245));
+        btGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Guardar.png"))); // NOI18N
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

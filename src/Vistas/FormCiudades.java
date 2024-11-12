@@ -120,7 +120,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
         tbId.setEnabled(false);
 
         JBNuevo.setBackground(new java.awt.Color(245, 245, 245));
-        JBNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/NuevaCiudad.png"))); // NOI18N
+        JBNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoNuevo.png"))); // NOI18N
         JBNuevo.setText("Nuevo");
         JBNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,7 +129,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
         });
 
         JBGuardar.setBackground(new java.awt.Color(245, 245, 245));
-        JBGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/GuardarCiuduad.png"))); // NOI18N
+        JBGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Guardar.png"))); // NOI18N
         JBGuardar.setText("Guardar");
         JBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +138,7 @@ public class FormCiudades extends javax.swing.JInternalFrame {
         });
 
         JBEliminar.setBackground(new java.awt.Color(245, 245, 245));
-        JBEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/EliminarCiudad.png"))); // NOI18N
+        JBEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoEliminar.png"))); // NOI18N
         JBEliminar.setText("Eliminar");
         JBEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
