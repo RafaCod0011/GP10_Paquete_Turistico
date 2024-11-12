@@ -323,6 +323,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
                 }
             }
             Nuevo();
+            cargarTabla();
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 

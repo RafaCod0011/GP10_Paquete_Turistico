@@ -256,6 +256,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                 }
             }
             Nuevo();
+            cargaTabla();
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
@@ -280,7 +281,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                     movimiento.agregarRegimenes(regimenNuevo);
                 }
                 Nuevo();
-                
+                cargaTabla();
                 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",

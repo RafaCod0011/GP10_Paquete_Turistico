@@ -5,10 +5,11 @@
         <group>
             <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/FormAlojamientos.java</file>
             <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/FormTuristaPorPaquete.java</file>
-            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/accesoADatos/CiudadData.java</file>
             <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/MenuPrincipal.java</file>
-            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/FormDestinosMasElegidos.java</file>
-            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/accesoADatos/PaqueteData.java</file>
+            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/accesoADatos/TuristaData.java</file>
+            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/FormTurista.java</file>
+            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/FormRegimenes.java</file>
+            <file>file:/C:/Users/meenc/OneDrive/Documentos/GitHub/GP10_Paquete_Turistico/src/Vistas/FormCiudades.java</file>
         </group>
     </open-files>
 </project-private>
