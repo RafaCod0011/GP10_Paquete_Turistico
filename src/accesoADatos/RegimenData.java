@@ -46,6 +46,41 @@ public class RegimenData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Regimenes");
         }
    }
+    
+    public void editarRegimen(Regimen regimen) {
+    try {
+        // Comprobar si ya existe otro régimen con la misma denominación
+        List<Regimen> regimenesExistentes = listarRegimenes();
+        for (Regimen r : regimenesExistentes) {
+            if (r.getDenominacion().equalsIgnoreCase(regimen.getDenominacion()) && r.getIdRegimen() != regimen.getIdRegimen()) {
+                JOptionPane.showMessageDialog(null, "La denominación ya está en uso por otro régimen. No se puede modificar.");
+                return; // Salir del método sin modificar el régimen
+            }
+        }
+
+        // Si no se encontró ningún conflicto, proceder a actualizar
+        String sql = "UPDATE regimenes SET denominacion = ?, cargoExtra = ? WHERE idRegimen = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, regimen.getDenominacion());
+        ps.setDouble(2, regimen.getCargoExtra());
+        ps.setInt(3, regimen.getIdRegimen());
+
+        int filasAfectadas = ps.executeUpdate();
+
+        if (filasAfectadas == 1) {
+            JOptionPane.showMessageDialog(null, "Régimen modificado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el régimen para actualizar");
+        }
+
+        ps.close();
+    } catch (SQLIntegrityConstraintViolationException ex) {
+        JOptionPane.showMessageDialog(null, "La denominación ya existe.");
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Régimen");
+    }
+}
 
     public List<Regimen> listarRegimenes () {
         List<Regimen> regimenes = new ArrayList<>();

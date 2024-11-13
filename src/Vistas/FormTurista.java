@@ -428,8 +428,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardar1ActionPerformed
-      
-        TuristaData movimiento = new TuristaData();
+
 
     int respuesta = JOptionPane.showConfirmDialog(null,
         "Va a grabar los datos ingresados de un Turista ¿Está seguro/a?",
@@ -471,7 +470,6 @@ public class FormTurista extends javax.swing.JInternalFrame {
                         tData.modificarTurista(encontrado);
                         
                     }
-
                     cargarTabla();
                     Nuevo();
                     encontrado = null;

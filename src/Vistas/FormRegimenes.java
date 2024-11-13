@@ -60,7 +60,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtRegimenes = new javax.swing.JTable();
         jbEliminar = new javax.swing.JButton();
-        jbAgregar = new javax.swing.JButton();
+        jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jlDenominacion = new javax.swing.JLabel();
@@ -68,6 +68,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         tfDenominacion = new javax.swing.JTextField();
         tfCargoExtra = new javax.swing.JTextField();
         jbNuevo = new javax.swing.JButton();
+        tbId = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -102,18 +103,16 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
             }
         });
 
-        jbAgregar.setBackground(new java.awt.Color(50, 205, 50));
-        jbAgregar.setForeground(new java.awt.Color(0, 0, 0));
-        jbAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoNuevo.png"))); // NOI18N
-        jbAgregar.setText("Guardar");
-        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
+        jbGuardar.setBackground(new java.awt.Color(50, 205, 50));
+        jbGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoNuevo.png"))); // NOI18N
+        jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAgregarActionPerformed(evt);
+                jbGuardarActionPerformed(evt);
             }
         });
 
         jbSalir.setBackground(new java.awt.Color(245, 245, 245));
-        jbSalir.setForeground(new java.awt.Color(0, 0, 0));
         jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +135,17 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
             }
         });
 
+        tbId.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tbId.setForeground(new java.awt.Color(51, 51, 255));
+        tbId.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tbId.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificacion", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 1, 8))); // NOI18N
+        tbId.setEnabled(false);
+        tbId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tbIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -145,26 +155,29 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlDenominacion)
-                            .addComponent(jlCargoExtra))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfDenominacion)
-                            .addComponent(tfCargoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(79, 79, 79)
                         .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbEliminar)
                         .addGap(12, 12, 12)
-                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(tbId, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jlDenominacion)
+                                    .addComponent(jlCargoExtra))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfCargoExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(63, 63, 63))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(49, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -184,11 +197,12 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlDenominacion)
-                    .addComponent(tfDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDenominacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbId, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlCargoExtra)
@@ -198,12 +212,12 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jbSalir, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbEliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(26, 26, 26)
@@ -240,18 +254,21 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
     int filaSeleccionada = jtRegimenes.getSelectedRow();
 
     if (filaSeleccionada != -1) {
-        
-        //ID
+            // ID
             int id = (int) jtRegimenes.getValueAt(filaSeleccionada, 0);
             String code = String.valueOf(id);
-        // NOMBRE DE EL REGIMEN
-        String denominacion = (String) jtRegimenes.getValueAt(filaSeleccionada, 1); 
-        tfDenominacion.setText(denominacion);
-        // DESTINO ACTIVO
-        double cargoExtra = (double) jtRegimenes.getValueAt(filaSeleccionada, 2);
-        tfCargoExtra.setText(String.valueOf(cargoExtra));
+            tbId.setText(code); // Mostrar el ID en el campo tbId
+
+            // NOMBRE DEL REGIMEN
+            String denominacion = (String) jtRegimenes.getValueAt(filaSeleccionada, 1); 
+            tfDenominacion.setText(denominacion);
+
+            // CARGO EXTRA
+            double cargoExtra = (double) jtRegimenes.getValueAt(filaSeleccionada, 2);
+            tfCargoExtra.setText(String.valueOf(cargoExtra));
     }
-}
+    }
+
     
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
 
@@ -269,41 +286,55 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                     String mensaje = rData.eliminarRegimen(regimenEliminar);
                     JOptionPane.showMessageDialog(this, mensaje);
                     Nuevo();
+                    cargaTabla();
                 }
             }
             Nuevo();
+            cargaTabla();
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
-    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        RegimenData movimiento = new RegimenData();
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
 
-        int respuesta = JOptionPane.showConfirmDialog(null
-            , "Va a grabar un nuevo Regimen ¿Esta seguro/a?"
-            ,"Nuevo Regimen"
-            ,JOptionPane.YES_NO_OPTION);
+        int respuesta = JOptionPane.showConfirmDialog(null,
+            "Va a guardar los datos ingresados del Régimen. ¿Está seguro/a?",
+            "Guardar Régimen",
+            JOptionPane.YES_NO_OPTION);
 
         if (respuesta == JOptionPane.YES_OPTION) {
-
             try {
-
-                if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Complete los datos del Regimen a ingresar","Atención", JOptionPane.ERROR_MESSAGE);
-                }else{
+                if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Complete los datos del Régimen a ingresar", "Atención", JOptionPane.ERROR_MESSAGE);
+                 } else {
                     String denominacion = tfDenominacion.getText();
                     double cargoExtra = Double.parseDouble(tfCargoExtra.getText());
-                    Regimen regimenNuevo = new Regimen(denominacion ,cargoExtra);
-                    movimiento.agregarRegimenes(regimenNuevo);
+
+                    if (tbId.getText().isEmpty()) {
+                        // Nuevo régimen
+                        Regimen regimenNuevo = new Regimen(denominacion, cargoExtra);
+                        rData.agregarRegimenes(regimenNuevo);
+                        tbId.setText(String.valueOf(regimenNuevo.getIdRegimen()));
+                    } else {
+                        // Editar régimen existente
+                        int idRegimen = Integer.parseInt(tbId.getText());
+                        Regimen regimenActual = rData.buscarRegimenes(idRegimen);
+
+                        if (regimenActual != null) {
+                            regimenActual.setDenominacion(denominacion);
+                            regimenActual.setCargoExtra(cargoExtra);
+                            rData.editarRegimen(regimenActual);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se encontró el régimen para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                    cargaTabla();
+                    Nuevo();
                 }
-                Nuevo();
-                
-                
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
-                    "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_jbAgregarActionPerformed
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
@@ -312,6 +343,10 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         Nuevo();
     }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void tbIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbIdActionPerformed
 
     private void armarCabecera(){
         modelo.addColumn("ID");
@@ -355,7 +390,9 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         jtRegimenes.clearSelection(); 
         tfDenominacion.setText("");
         tfCargoExtra.setText("");
+        tbId.setText("");
     }
+    
     
     
 
@@ -364,8 +401,8 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlCargoExtra;
@@ -374,6 +411,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlTitle;
     private javax.swing.JPanel jpGeneral;
     private javax.swing.JTable jtRegimenes;
+    private javax.swing.JTextField tbId;
     private javax.swing.JTextField tfCargoExtra;
     private javax.swing.JTextField tfDenominacion;
     // End of variables declaration//GEN-END:variables
