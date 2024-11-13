@@ -102,7 +102,9 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
         lbPaquetes.setText("Listado de paquetes registrados");
         jPanel1.add(lbPaquetes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1160, -1));
 
-        btEliminar.setBackground(new java.awt.Color(245, 245, 245));
+        btEliminar.setBackground(new java.awt.Color(139, 0, 0));
+        btEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoEliminar.png"))); // NOI18N
         btEliminar.setText("Eliminar Paquete");
         btEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

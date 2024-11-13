@@ -61,7 +61,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tTuristaPaquete = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
-        jbSalir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -88,15 +87,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tTuristaPaquete);
 
-        jbSalir.setBackground(new java.awt.Color(245, 245, 245));
-        jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
-        jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,11 +101,8 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
                 .addComponent(lbEstadisticaTP)
                 .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,9 +116,7 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -147,10 +132,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_jbSalirActionPerformed
  
     
     private void limpiarTabla(){
@@ -193,7 +174,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton jbSalir;
     private javax.swing.JLabel lbEstadisticaTP;
     private javax.swing.JLabel lbFormTP;
     private javax.swing.JTable tTuristaPaquete;
