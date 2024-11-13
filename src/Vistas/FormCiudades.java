@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 public class FormCiudades extends javax.swing.JInternalFrame {
@@ -384,22 +385,16 @@ public class FormCiudades extends javax.swing.JInternalFrame {
 
                     // Actualizar tbId con el ID generado
                     tbId.setText(String.valueOf(ciudad.getIdCiudad()));
-                    JOptionPane.showMessageDialog(this, "Ciudad agregada correctamente");
                 } else {  // Actualizar ciudad existente
                     int idCiudad = Integer.parseInt(tbId.getText());
-                    Ciudad ciudadActual = Cdata.buscarCiudad(idCiudad);
                     
+                    //Ciudad ciudadActual = Cdata.buscarCiudad(idCiudad);
                     String nombre= JtNombre.getText();
                     boolean Activo = JRBactivo.isSelected();
+                    
+                    Ciudad ciudadActual = new Ciudad(idCiudad,nombre, Activo);
+                    Cdata.modificarCiudad(ciudadActual);
 
-                    if(ciudadActual.getNombre().equals(nombre) &&
-                       ciudadActual.getDestinoActivo() == Activo){
-                        JOptionPane.showMessageDialog(this, "Debe modificar algún parámetro para editar", "Atención", JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        ciudad = new Ciudad(idCiudad, nombre, Activo);
-                        Cdata.modificarCiudad(ciudad);
-                        JOptionPane.showMessageDialog(this, "Ciudad modificada correctamente");
-                    }
                 }
 
                 cargarTabla();
@@ -444,6 +439,13 @@ public class FormCiudades extends javax.swing.JInternalFrame {
 
         // Aplicar el renderizador a la segunda columna ID (índice 0)
         TCiudades.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        TCiudades.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);        
+        
+        
+        JTableHeader header = TCiudades.getTableHeader();
+        DefaultTableCellRenderer rendererCentrado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        rendererCentrado.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+        header.setDefaultRenderer(rendererCentrado);
         
     }
 

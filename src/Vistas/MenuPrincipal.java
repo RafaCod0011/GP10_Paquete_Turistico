@@ -48,7 +48,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmModificar = new javax.swing.JMenuItem();
         jmEliminar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jmPaquetesVendidos = new javax.swing.JMenuItem();
         jmTuristasPaquetes = new javax.swing.JMenuItem();
         jmDestinosElegidos = new javax.swing.JMenuItem();
         jmUltimos2Meses = new javax.swing.JMenuItem();
@@ -163,9 +162,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Estadisticas");
-
-        jmPaquetesVendidos.setText("Paquetes Vendidos por Periodo");
-        jMenu2.add(jmPaquetesVendidos);
 
         jmTuristasPaquetes.setText("Turistas por Paquetes");
         jmTuristasPaquetes.addActionListener(new java.awt.event.ActionListener() {
@@ -439,7 +435,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmDestinosElegidos;
     private javax.swing.JMenuItem jmEliminar;
     private javax.swing.JMenuItem jmModificar;
-    private javax.swing.JMenuItem jmPaquetesVendidos;
     private javax.swing.JMenuItem jmPresupuestos;
     private javax.swing.JMenu jmPrincipal;
     private javax.swing.JMenuItem jmRegimenes;

@@ -68,6 +68,7 @@ private DefaultTableModel modelo= new DefaultTableModel(){
         tbTotal = new javax.swing.JTextField();
 
         setClosable(true);
+        setIconifiable(true);
 
         tPaquetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

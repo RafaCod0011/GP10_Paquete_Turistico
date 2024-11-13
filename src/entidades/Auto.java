@@ -18,7 +18,9 @@ public class Auto extends Transporte {
         super(); 
         this.tipoTransporte = "Auto"; 
     }
+    
+    @Override
     public double calcularPrecio() {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return this.precioPersona;
     }
 }

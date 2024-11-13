@@ -21,7 +21,6 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
 
     public FormRegimenes() {
         initComponents();
-        this.setTitle("Formulario Regimenes");
 
         rData = new RegimenData(); // inicializar antes de cargar la tabla
         listadoR = (ArrayList<Regimen>) rData.listarRegimenes();

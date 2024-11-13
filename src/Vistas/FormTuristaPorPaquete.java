@@ -23,7 +23,6 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
 
     public FormTuristaPorPaquete() {
         initComponents();
-        this.setTitle("Formulario Turista Por Paquete");
         tData = new TuristaData(); // inicializar antes de cargar la tabla
         pData = new PaqueteData(); // inicializar antes de cargar la tabla
         listadoPaqueteTurista = (ArrayList<Turista>) tData.listarTuristaPaquete();
@@ -63,6 +62,9 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         tTuristaPaquete = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         jbSalir = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
 
         lbFormTP.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbFormTP.setForeground(new java.awt.Color(51, 51, 255));
@@ -168,9 +170,9 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         }
     
     private void armarCabecera(){
-    modelo.addColumn("Cantidad de Paquetes Comprados");
-    modelo.addColumn("DNI Turista");
-    modelo.addColumn("Nombre");
+    modelo.addColumn("Cant. Paquetes Presupuestados");
+    modelo.addColumn("Documento");
+    modelo.addColumn("Apellido y Nombres");
 
     tTuristaPaquete.setModel(modelo);
 

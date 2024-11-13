@@ -147,7 +147,7 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
             LocalDate hoy = LocalDate.now();
             long dias = ChronoUnit.DAYS.between(hoy, fechaDesde);
                
-            if (dias <= 30) {
+            if (dias >= 30) {
                 int respuesta = JOptionPane.showConfirmDialog(null,
                     "¿Está seguro/a de Eliminar el paquete seleccionado?",
                     "Eliminar Paquete",

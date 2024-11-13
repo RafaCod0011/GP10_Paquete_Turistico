@@ -25,7 +25,6 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
     
     public FormDestinosMasElegidos(){
         initComponents();
-        this.setTitle("Formulario destinos más elegidos");
         cData = new CiudadData();
         pData = new PaqueteData();
         listadoPaquetes = (ArrayList<Paquete>) pData.listarPaquetes();
@@ -60,7 +59,6 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
 
         setBackground(new java.awt.Color(217, 217, 223));
         setClosable(true);
-        setForeground(java.awt.Color.black);
         setIconifiable(true);
 
         JDestinosMasElegidos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -105,14 +103,14 @@ public class FormDestinosMasElegidos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                    .addComponent(JDestinosMasElegidos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JDestinosMasElegidos, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();

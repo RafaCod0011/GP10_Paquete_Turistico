@@ -106,6 +106,7 @@ public FormTransportes() {
         jLabel5.setText("Desde la ciudad:");
 
         setClosable(true);
+        setIconifiable(true);
 
         jSeparator2.setMaximumSize(new java.awt.Dimension(31767, 31767));
         jSeparator2.setName(""); // NOI18N
@@ -262,7 +263,7 @@ public FormTransportes() {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {tbEmpresa, tbPrecio});
 
-        btEliminar.setBackground(new java.awt.Color(245, 245, 245));
+        btEliminar.setBackground(new java.awt.Color(204, 0, 0));
         btEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoEliminar.png"))); // NOI18N
         btEliminar.setText("Eliminar");
         btEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -271,7 +272,7 @@ public FormTransportes() {
             }
         });
 
-        btGuardar.setBackground(new java.awt.Color(245, 245, 245));
+        btGuardar.setBackground(new java.awt.Color(0, 204, 0));
         btGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Guardar.png"))); // NOI18N
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -289,7 +290,7 @@ public FormTransportes() {
             }
         });
 
-        btNuevo.setBackground(new java.awt.Color(245, 245, 245));
+        btNuevo.setBackground(new java.awt.Color(0, 102, 255));
         btNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoNuevo.png"))); // NOI18N
         btNuevo.setText("Nuevo");
         btNuevo.addActionListener(new java.awt.event.ActionListener() {

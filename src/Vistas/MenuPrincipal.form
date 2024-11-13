@@ -110,11 +110,6 @@
             <Property name="text" type="java.lang.String" value="Estadisticas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jmPaquetesVendidos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Paquetes Vendidos por Periodo"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmTuristasPaquetes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Turistas por Paquetes"/>
