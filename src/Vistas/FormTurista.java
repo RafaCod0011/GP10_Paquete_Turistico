@@ -11,7 +11,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableCellRenderer;  
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
@@ -49,7 +49,6 @@ public class FormTurista extends javax.swing.JInternalFrame {
     public FormTurista() {
         
         initComponents();
-        this.setTitle("Formulario Turista");
         tData = new TuristaData();
         pData = new PaqueteData();
         armarCabecera();
@@ -306,7 +305,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
         lbTransportes2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lbTransportes2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTransportes2.setText("Paquetes asociados al turistas seleccionado");
+        lbTransportes2.setText("Paquetes asociados al turista seleccionado");
 
         javax.swing.GroupLayout jpGeneralLayout = new javax.swing.GroupLayout(jpGeneral);
         jpGeneral.setLayout(jpGeneralLayout);
@@ -425,48 +424,59 @@ public class FormTurista extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardar1ActionPerformed
+      
         TuristaData movimiento = new TuristaData();
-        
-        int respuesta = JOptionPane.showConfirmDialog(null
-            ,"Va a grabar los datos ingresados de un Turista ¿Esta seguro/a?"
-            ,"Nuevo Turista"
-            ,JOptionPane.YES_NO_OPTION);
 
-        if (respuesta == JOptionPane.YES_OPTION) {
-    
-            try {
+    int respuesta = JOptionPane.showConfirmDialog(null,
+        "Va a grabar los datos ingresados de un Turista ¿Está seguro/a?",
+        "Nuevo Turista",
+        JOptionPane.YES_NO_OPTION);
 
-                    if (jtFullName.getText().isEmpty() || jtEdad.getText().isEmpty()){
-                        JOptionPane.showMessageDialog(null, "Complete los datos del Turista a ingresar","Atención", JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        
-                        int documento = Integer.parseInt(jtDNI.getText());
-                        int edad = Integer.parseInt(jtEdad.getText());
-                        
-                        // Buscar el turista por dni
-                        encontrado = movimiento.buscarTurista(documento);
-                        if (encontrado == null) {
-                            encontrado = new Turista (documento, jtFullName.getText(), edad);
-                            movimiento.guardarTurista(encontrado);
-                            tbId.setText(String.valueOf(encontrado.getIdTurista()));
-                        } else {
-                            // Turista a modificar
-                            encontrado.setFullName(jtFullName.getText());
-                            encontrado.setDocumento(documento);
-                            encontrado.setEdad(edad);
-                            movimiento.modificarTurista(encontrado);
-                        }
-                        
-                        encontrado = null;
-                    }
+    if (respuesta == JOptionPane.YES_OPTION) {
+        try {
+            if (jtFullName.getText().isEmpty() || jtDNI.getText().isEmpty() || jtEdad.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Complete los datos del Turista a ingresar", "Atención", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if(tbId.getText().isEmpty()) {
+                    String fullName = jtFullName.getText();
+                    int documento = Integer.parseInt(jtDNI.getText());
+                    int edad = Integer.parseInt(jtEdad.getText());
+
+                    encontrado = new Turista(0, documento, fullName, edad);
+                    tData.guardarTurista(encontrado);
+
+                    tbId.setText(String.valueOf(encontrado.getIdTurista()));
+
                     cargarTabla();
                     Nuevo();
+                    encontrado = null;
+                } else {
+                    int idTurista = Integer.parseInt(tbId.getText());
+                    Turista turistaActual = tData.buscarTuristaPorId(idTurista);
 
-                } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "Corrobore la información ingresada",
-                        "Formato Incorrecto", JOptionPane.ERROR_MESSAGE);
+                    int documento = Integer.parseInt(jtDNI.getText());
+                    String fullName = jtFullName.getText();
+                    int edad = Integer.parseInt(jtEdad.getText());
+
+                    if (turistaActual.getDocumento() == documento &&
+                        turistaActual.getFullName().equals(fullName) &&
+                        turistaActual.getEdad() == edad) { 
+                        JOptionPane.showMessageDialog(this, "Debe modificar algún parámetro para editar", "Atención", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        encontrado = new Turista(idTurista, documento, fullName, edad);
+                        tData.modificarTurista(encontrado);
+                        
+                    }
+
+                    cargarTabla();
+                    Nuevo();
+                    encontrado = null;
                 }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
     }//GEN-LAST:event_jbGuardar1ActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed

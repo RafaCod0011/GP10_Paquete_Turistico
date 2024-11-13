@@ -53,27 +53,39 @@ public class TuristaData {
         }
     
     public void modificarTurista(Turista turista) {
-        String sql = "UPDATE turistas SET documento=?, fullName=?, edad=? WHERE idTurista=?";
+        
+        try {
+            // Comprobar si ya existe otro turista con el nuevo documento
+            Turista turistaExistente = buscarTurista(turista.getDocumento());
 
-            try {
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.setInt(1, turista.getDocumento());
-                ps.setString(2, turista.getFullName());
-                ps.setInt(3, turista.getEdad());
-                ps.setInt(4, turista.getIdTurista());
-
-                int exito = ps.executeUpdate();
-
-                if (exito == 1) {
-                    JOptionPane.showMessageDialog(null, "Turista modificado correctamente");
-                }
-
-            } catch (SQLIntegrityConstraintViolationException ex) {
-                JOptionPane.showMessageDialog(null, "El DNI ya existe.");
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista");
+            // Si se encontró un turista y su ID es diferente, el DNI ya está en uso
+            if (turistaExistente != null && turistaExistente.getIdTurista() != turista.getIdTurista()) {
+                JOptionPane.showMessageDialog(null, "El DNI ya está en uso por otro turista. No se puede modificar.");
+                return; // Salir del método sin modificar el turista
             }
+
+            // Si no se encontró ningún conflicto, proceder a actualizar
+            String sql = "UPDATE turistas SET documento=?, fullName=?, edad=? WHERE idTurista=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, turista.getDocumento());
+            ps.setString(2, turista.getFullName());
+            ps.setInt(3, turista.getEdad());
+            ps.setInt(4, turista.getIdTurista());
+
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Turista modificado correctamente");
+            }
+
+            ps.close();
+
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "El DNI ya existe.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista");
+        }
     }
     
     public Turista buscarTurista(int documento){

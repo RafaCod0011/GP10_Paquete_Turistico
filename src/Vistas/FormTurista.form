@@ -451,7 +451,7 @@
               <Font name="Tahoma" size="10" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Paquetes asociados al turistas seleccionado"/>
+            <Property name="text" type="java.lang.String" value="Paquetes asociados al turista seleccionado"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
