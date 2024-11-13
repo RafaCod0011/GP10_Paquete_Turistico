@@ -226,8 +226,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmCiudadesActionPerformed
 
     private void jmTransportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmTransportesActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormTransportes transportes= new FormTransportes();
         transportes.setVisible(true);
         escritorio.add(transportes);
@@ -282,8 +288,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jmPresupuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmPresupuestosActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormVentaPaquetes paquetes = new FormVentaPaquetes();
         paquetes.setVisible(true);
         escritorio.add(paquetes);
@@ -301,8 +314,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }
         
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
         FormRegimenes regimenes = new FormRegimenes();
         regimenes.setVisible(true);
         escritorio.add(regimenes);
@@ -320,8 +333,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
     }
         
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
         FormTuristaPorPaquete formTuristaPaquete = new FormTuristaPorPaquete();
         formTuristaPaquete.setVisible(true);
         escritorio.add(formTuristaPaquete);
@@ -332,8 +345,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmTuristasPaquetesActionPerformed
 
     private void jmDestinosElegidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmDestinosElegidosActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormDestinosMasElegidos formDestinosMasElegidos = new FormDestinosMasElegidos();
         formDestinosMasElegidos.setVisible(true);
         escritorio.add(formDestinosMasElegidos);
@@ -344,8 +364,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmDestinosElegidosActionPerformed
 
     private void jmModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmModificarActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormModificarPaquete formModificar = new FormModificarPaquete();
         formModificar.setVisible(true);
         escritorio.add(formModificar);
@@ -358,8 +385,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
 
     private void jmUltimos2MesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUltimos2MesesActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormPaquetesUltimosMeses formUltimos = new FormPaquetesUltimosMeses();
         formUltimos.setVisible(true);
         escritorio.add(formUltimos);
@@ -373,8 +406,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
 
     private void jmEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEliminarActionPerformed
-        escritorio.removeAll();
-        escritorio.repaint();
+//        escritorio.removeAll();
+//        escritorio.repaint();
+        
+        for (JInternalFrame frame : escritorio.getAllFrames()) {
+        
+        if (!frame.isIcon()) {
+            frame.dispose();
+        }
+    }
         FormEliminarPaquete formEliminar = new FormEliminarPaquete();
         formEliminar.setVisible(true);
         escritorio.add(formEliminar);
