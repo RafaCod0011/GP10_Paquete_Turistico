@@ -213,7 +213,8 @@ public class FormTurista extends javax.swing.JInternalFrame {
         lbTransportesRecorridos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbTransportesRecorridos.setText("Turistas");
 
-        jbNuevo.setBackground(new java.awt.Color(245, 245, 245));
+        jbNuevo.setBackground(new java.awt.Color(100, 149, 237));
+        jbNuevo.setForeground(new java.awt.Color(255, 255, 255));
         jbNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/NuevoTurista.png"))); // NOI18N
         jbNuevo.setText("Nuevo");
         jbNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +223,8 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
-        jbGuardar1.setBackground(new java.awt.Color(245, 245, 245));
+        jbGuardar1.setBackground(new java.awt.Color(50, 205, 50));
+        jbGuardar1.setForeground(new java.awt.Color(0, 0, 0));
         jbGuardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/ModificarTurista.png"))); // NOI18N
         jbGuardar1.setText("Guardar");
         jbGuardar1.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +233,8 @@ public class FormTurista extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setBackground(new java.awt.Color(245, 245, 245));
+        jbEliminar.setBackground(new java.awt.Color(139, 0, 0));
+        jbEliminar.setForeground(new java.awt.Color(255, 255, 255));
         jbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/EliminarTurista.png"))); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +244,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
         });
 
         jbSalir.setBackground(new java.awt.Color(245, 245, 245));
+        jbSalir.setForeground(new java.awt.Color(0, 0, 0));
         jbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {

@@ -263,7 +263,8 @@ public FormTransportes() {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {tbEmpresa, tbPrecio});
 
-        btEliminar.setBackground(new java.awt.Color(204, 0, 0));
+        btEliminar.setBackground(new java.awt.Color(139, 0, 0));
+        btEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoEliminar.png"))); // NOI18N
         btEliminar.setText("Eliminar");
         btEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +273,8 @@ public FormTransportes() {
             }
         });
 
-        btGuardar.setBackground(new java.awt.Color(0, 204, 0));
+        btGuardar.setBackground(new java.awt.Color(50, 205, 50));
+        btGuardar.setForeground(new java.awt.Color(0, 0, 0));
         btGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Guardar.png"))); // NOI18N
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -282,6 +284,7 @@ public FormTransportes() {
         });
 
         btSalir.setBackground(new java.awt.Color(245, 245, 245));
+        btSalir.setForeground(new java.awt.Color(0, 0, 0));
         btSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Salir.png"))); // NOI18N
         btSalir.setText("Salir");
         btSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -290,7 +293,8 @@ public FormTransportes() {
             }
         });
 
-        btNuevo.setBackground(new java.awt.Color(0, 102, 255));
+        btNuevo.setBackground(new java.awt.Color(100, 149, 237));
+        btNuevo.setForeground(new java.awt.Color(255, 255, 255));
         btNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/RedondoNuevo.png"))); // NOI18N
         btNuevo.setText("Nuevo");
         btNuevo.addActionListener(new java.awt.event.ActionListener() {

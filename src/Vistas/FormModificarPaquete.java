@@ -165,7 +165,8 @@ double penalizacion = 0;
         ));
         jScrollPane3.setViewportView(tTuristas);
 
-        btAgregarTuristas1.setBackground(new java.awt.Color(245, 245, 245));
+        btAgregarTuristas1.setBackground(new java.awt.Color(50, 205, 50));
+        btAgregarTuristas1.setForeground(new java.awt.Color(0, 0, 0));
         btAgregarTuristas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/AgregarViajero.png"))); // NOI18N
         btAgregarTuristas1.setText("Agregar viajeros");
         btAgregarTuristas1.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +179,8 @@ double penalizacion = 0;
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Listado de Viajeros");
 
-        tbEliminar.setBackground(new java.awt.Color(245, 245, 245));
+        tbEliminar.setBackground(new java.awt.Color(139, 0, 0));
+        tbEliminar.setForeground(new java.awt.Color(255, 255, 255));
         tbEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/QuitarViajero.png"))); // NOI18N
         tbEliminar.setText("Quitar de la lista");
         tbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -272,7 +274,8 @@ double penalizacion = 0;
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Hasta:");
 
-        btVerOpciones.setBackground(new java.awt.Color(245, 245, 245));
+        btVerOpciones.setBackground(new java.awt.Color(0, 128, 128));
+        btVerOpciones.setForeground(new java.awt.Color(0, 0, 0));
         btVerOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/FechaDisponible.png"))); // NOI18N
         btVerOpciones.setText("Ver Opciones Disponibles");
         btVerOpciones.addActionListener(new java.awt.event.ActionListener() {
@@ -430,7 +433,8 @@ double penalizacion = 0;
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        btCalcular1.setBackground(new java.awt.Color(245, 245, 245));
+        btCalcular1.setBackground(new java.awt.Color(0, 100, 0));
+        btCalcular1.setForeground(new java.awt.Color(255, 255, 255));
         btCalcular1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/CalcularPresupuesto.png"))); // NOI18N
         btCalcular1.setText("Calcular precio final del paquete");
         btCalcular1.addActionListener(new java.awt.event.ActionListener() {
@@ -439,7 +443,8 @@ double penalizacion = 0;
             }
         });
 
-        btGuardar.setBackground(new java.awt.Color(245, 245, 245));
+        btGuardar.setBackground(new java.awt.Color(50, 205, 50));
+        btGuardar.setForeground(new java.awt.Color(0, 0, 0));
         btGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Guardar.png"))); // NOI18N
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -454,6 +459,8 @@ double penalizacion = 0;
         txID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txID.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Ingrese el ID del Paquete", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 10), new java.awt.Color(255, 255, 255))); // NOI18N
 
+        btBuscar.setBackground(new java.awt.Color(100, 149, 237));
+        btBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btBuscar.setText("Buscar");
         btBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
