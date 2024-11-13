@@ -13,18 +13,29 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class FormRegimenes extends javax.swing.JInternalFrame {
+    
     public RegimenData rData;
     public ArrayList<Regimen> listadoR;
+    Regimen regimen = new Regimen();
     
     
-    public DefaultTableModel modelo;
+    
+    
+    private DefaultTableModel modelo= new DefaultTableModel(){
+
+    
+        @Override
+        public boolean isCellEditable(int f, int c){
+
+            return false;
+        }
+    };
 
     public FormRegimenes() {
+        
         initComponents();
 
-        rData = new RegimenData(); // inicializar antes de cargar la tabla
-        listadoR = (ArrayList<Regimen>) rData.listarRegimenes();
-        modelo = new DefaultTableModel();
+        rData= new RegimenData();
 
         armarCabecera();
         cargaTabla(); // cargar después de inicializar rData y listadoR
@@ -43,9 +54,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         }
     });
         
-        rData = new RegimenData();
-        listadoR = (ArrayList<Regimen>)rData.listarRegimenes();
-        modelo = new DefaultTableModel();
+      
         
     }
     @SuppressWarnings("unchecked")
@@ -291,8 +300,7 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
                     int regimenEliminar = (int) jtRegimenes.getValueAt(filaSeleccionada, 0);
                     String mensaje = rData.eliminarRegimen(regimenEliminar);
                     JOptionPane.showMessageDialog(this, mensaje);
-                    Nuevo();
-                    cargaTabla();
+                    
                 }
             }
             Nuevo();
@@ -302,45 +310,52 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
 
-        int respuesta = JOptionPane.showConfirmDialog(null,
-            "Va a guardar los datos ingresados del Régimen. ¿Está seguro/a?",
-            "Guardar Régimen",
-            JOptionPane.YES_NO_OPTION);
+       int respuesta = JOptionPane.showConfirmDialog(null,
+        "Va a guardar los datos ingresados del Régimen. ¿Está seguro/a?",
+        "Guardar Régimen",
+        JOptionPane.YES_NO_OPTION);
 
-        if (respuesta == JOptionPane.YES_OPTION) {
-            try {
-                if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Complete los datos del Régimen a ingresar", "Atención", JOptionPane.ERROR_MESSAGE);
-                 } else {
-                    String denominacion = tfDenominacion.getText();
-                    double cargoExtra = Double.parseDouble(tfCargoExtra.getText());
+    if (respuesta == JOptionPane.YES_OPTION) {
+        try {
+            if (tfDenominacion.getText().isEmpty() || tfCargoExtra.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Complete los datos del Régimen a ingresar", "Atención", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String denominacion = tfDenominacion.getText();
+                double cargoExtra = Double.parseDouble(tfCargoExtra.getText());
 
-                    if (tbId.getText().isEmpty()) {
-                        // Nuevo régimen
-                        Regimen regimenNuevo = new Regimen(denominacion, cargoExtra);
-                        rData.agregarRegimenes(regimenNuevo);
-                        tbId.setText(String.valueOf(regimenNuevo.getIdRegimen()));
-                    } else {
-                        // Editar régimen existente
-                        int idRegimen = Integer.parseInt(tbId.getText());
-                        Regimen regimenActual = rData.buscarRegimenes(idRegimen);
-
-                        if (regimenActual != null) {
-                            regimenActual.setDenominacion(denominacion);
-                            regimenActual.setCargoExtra(cargoExtra);
-                            rData.editarRegimen(regimenActual);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No se encontró el régimen para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
+                if (tbId.getText().isEmpty()) {
+                    // Nuevo régimen
+                    regimen = new Regimen(denominacion, cargoExtra);
+                    rData.agregarRegimenes(regimen);
+                    tbId.setText(String.valueOf(regimen.getIdRegimen()));
                     Nuevo();
                     cargaTabla();
+                    regimen = null;
 
+                } else {
+                    // Editar régimen existente
+                    int idRegimen = Integer.parseInt(tbId.getText());
+                    Regimen regimenActual = rData.buscarRegimenes(idRegimen);
+
+                    if (regimenActual != null) {
+                        if (regimenActual.getCargoExtra() == cargoExtra && regimenActual.getDenominacion().equals(denominacion)) {
+                            JOptionPane.showMessageDialog(null, "Debe modificar algún parámetro para continuar", "Atención", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            regimen = new Regimen(idRegimen, denominacion, cargoExtra);
+                            rData.editarRegimen(regimen);
+                            cargaTabla();
+                            Nuevo();
+                            regimen = null;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró el régimen para modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -383,6 +398,8 @@ public class FormRegimenes extends javax.swing.JInternalFrame {
         for (Regimen m: listadoR) {
                 modelo.addRow(new Object[] {m.getIdRegimen(),m.getDenominacion(),m.getCargoExtra()});
         } 
+        jtRegimenes.revalidate();
+        jtRegimenes.repaint();
     }
     
     private void limpiarTabla(){
