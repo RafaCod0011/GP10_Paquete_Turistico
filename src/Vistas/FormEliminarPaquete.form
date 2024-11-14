@@ -121,7 +121,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Seleccione un paquete de la lista para eliminarlo. Recuerde que solo puede eliminarlo 30 dias antes de la fecha de salida."/>
+            <Property name="text" type="java.lang.String" value="Seleccione un paquete de la lista para eliminarlo. Recuerde que solo puede eliminarlo, como m&#xed;nimo 30 dias antes de la fecha de salida."/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

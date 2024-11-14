@@ -52,9 +52,6 @@ public FormTransportes() {
         cbCiudadHasta.setSelectedItem(null);
 
         
-//        JOptionPane.showMessageDialog(null, "Tipo " + tipo);
-
-
         ListSelectionModel modeloS = tTransportes.getSelectionModel();
         modeloS.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -602,11 +599,6 @@ public FormTransportes() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-//        tTransportes.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-//        tTransportes.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-//        tTransportes.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-//        tTransportes.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-//        tTransportes.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
      
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);

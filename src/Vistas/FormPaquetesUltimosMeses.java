@@ -1,12 +1,7 @@
 package Vistas;
 
-import accesoADatos.AlojamientoData;
-import accesoADatos.CiudadData;
-import accesoADatos.HabitacionData;
 import accesoADatos.PaqueteData;
 import accesoADatos.PaqueteTuristaData;
-import accesoADatos.RegimenData;
-import accesoADatos.TransporteData;
 import accesoADatos.TuristaData;
 import entidades.Transporte;
 import java.util.ArrayList;

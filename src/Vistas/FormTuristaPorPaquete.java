@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
@@ -31,7 +32,7 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
         armarCabecera();
         cargaTabla();
 
-               // Configuración del selector de filas
+        // Configuración del selector de filas
         ListSelectionModel modeloS = tTuristaPaquete.getSelectionModel();
         modeloS.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -101,22 +102,22 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
                 .addComponent(lbEstadisticaTP)
                 .addGap(32, 32, 32))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 749, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbFormTP)
                     .addComponent(lbEstadisticaTP))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,6 +169,12 @@ public class FormTuristaPorPaquete extends javax.swing.JInternalFrame {
     centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
     tTuristaPaquete.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     tTuristaPaquete.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+    
+    JTableHeader header = tTuristaPaquete.getTableHeader();
+    DefaultTableCellRenderer rendererCentrado = (DefaultTableCellRenderer) header.getDefaultRenderer();
+    rendererCentrado.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+    header.setDefaultRenderer(rendererCentrado);
+    
 }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

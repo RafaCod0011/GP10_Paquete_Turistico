@@ -1,19 +1,12 @@
 
 package Vistas;
 
-import entidades.Alojamiento;
 import entidades.Habitacion;
-import entidades.Ciudad;
 import entidades.Paquete;
-import accesoADatos.AlojamientoData;
-import accesoADatos.CiudadData;
-import accesoADatos.HabitacionData;
-import entidades.Transporte;
 import accesoADatos.PaqueteData;
 import accesoADatos.PaqueteTuristaData;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -44,17 +37,10 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
 };
     
     
-    
-    
     public FormEliminarPaquete() {
         initComponents();
         armarCabecera();
         cargarTabla();
-        
-        
-        
-        
-        
         
     }
 
@@ -114,7 +100,7 @@ public class FormEliminarPaquete extends javax.swing.JInternalFrame {
         jPanel1.add(btEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 460, 400, 50));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Seleccione un paquete de la lista para eliminarlo. Recuerde que solo puede eliminarlo 30 dias antes de la fecha de salida.");
+        jLabel1.setText("Seleccione un paquete de la lista para eliminarlo. Recuerde que solo puede eliminarlo, como mínimo 30 dias antes de la fecha de salida.");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 1170, -1));
 
         lbTransportesRecorridos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N

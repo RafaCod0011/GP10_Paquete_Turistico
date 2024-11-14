@@ -166,7 +166,6 @@ double penalizacion = 0;
         jScrollPane3.setViewportView(tTuristas);
 
         btAgregarTuristas1.setBackground(new java.awt.Color(50, 205, 50));
-        btAgregarTuristas1.setForeground(new java.awt.Color(0, 0, 0));
         btAgregarTuristas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/AgregarViajero.png"))); // NOI18N
         btAgregarTuristas1.setText("Agregar viajeros");
         btAgregarTuristas1.addActionListener(new java.awt.event.ActionListener() {
@@ -252,6 +251,12 @@ double penalizacion = 0;
                 .addGap(0, 0, 0))
         );
 
+        cbOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbOrigenActionPerformed(evt);
+            }
+        });
+
         jLabel4.setForeground(new java.awt.Color(51, 51, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Origen:");
@@ -275,7 +280,6 @@ double penalizacion = 0;
         jLabel10.setText("Hasta:");
 
         btVerOpciones.setBackground(new java.awt.Color(0, 128, 128));
-        btVerOpciones.setForeground(new java.awt.Color(0, 0, 0));
         btVerOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/FechaDisponible.png"))); // NOI18N
         btVerOpciones.setText("Ver Opciones Disponibles");
         btVerOpciones.addActionListener(new java.awt.event.ActionListener() {
@@ -444,7 +448,6 @@ double penalizacion = 0;
         });
 
         btGuardar.setBackground(new java.awt.Color(50, 205, 50));
-        btGuardar.setForeground(new java.awt.Color(0, 0, 0));
         btGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Media/Guardar.png"))); // NOI18N
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -1160,6 +1163,10 @@ double penalizacion = 0;
             limpiarTabla();
         }
     }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void cbOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbOrigenActionPerformed
     
     private void buscarPaquete() {
         try {

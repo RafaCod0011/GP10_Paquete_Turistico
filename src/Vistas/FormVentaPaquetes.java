@@ -1699,7 +1699,7 @@ private final DefaultTableModel modelo= new DefaultTableModel(){
             Ciudad cDestino = (Ciudad) cbDestino.getSelectedItem();
 
 
-            listadoA = (ArrayList) aloData.listarPorCiudad(cDestino.getIdCiudad());
+            listadoA = (ArrayList) aloData.listarPorCiudadActiva(cDestino.getIdCiudad());
 
             for (Alojamiento alojamiento : listadoA) {
                 cbAlojamientos.addItem(alojamiento);
@@ -1721,7 +1721,7 @@ private final DefaultTableModel modelo= new DefaultTableModel(){
     
     private void cargarCombos(){
     
-            listadoC = (ArrayList) cData.listarCiudades();
+            listadoC = (ArrayList) cData.listarCiudadesActivas();
             for (Ciudad ciudad : listadoC) {
                 cbOrigen.addItem(ciudad);
                 cbDestino.addItem(ciudad);

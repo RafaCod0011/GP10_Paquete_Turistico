@@ -36,7 +36,7 @@ public class FormTurista extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    private DefaultTableModel modelo2= new DefaultTableModel(){
+    private final DefaultTableModel modelo2= new DefaultTableModel(){
 
     
         @Override
@@ -419,6 +419,9 @@ public class FormTurista extends javax.swing.JInternalFrame {
 
                 if (respuesta == JOptionPane.YES_OPTION) {
                     int turistaEliminar = (int) tTurista.getValueAt(filaSeleccionada, 0);
+                     //int transporteEliminar= Integer.parseInt(tbId.getText());
+                    String mensaje = tData.eliminarTurista(turistaEliminar);
+                    JOptionPane.showMessageDialog(this, mensaje);
                     tData.eliminarTurista(turistaEliminar);
                     Nuevo();
                 }

@@ -146,37 +146,12 @@ public class TuristaData {
         return turista;
     }
     
-//    public Turista buscarTuristaPorEdad(int documento, int edad) {
-//    Turista turista = null;
-//    String sql = "SELECT documento, fullName, edad FROM turistas WHERE documento=? AND edad=?";
-//    PreparedStatement ps = null;
-//
-//    try {
-//        ps = con.prepareStatement(sql);
-//        ps.setInt(1, documento);
-//        ps.setInt(2, edad);
-//        ResultSet rs = ps.executeQuery();
-//
-//        if (rs.next()) {
-//            turista = new Turista();
-//            turista.setDocumento(rs.getInt("documento"));
-//            turista.setFullName(rs.getString("fullName"));
-//            turista.setEdad(rs.getInt("edad"));
-//        }
-//    } catch (SQLException ex) {
-//        JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Turista " + ex.getMessage());
-//    }
-//
-//    return turista;
-//}
-    
-    
     public List<Turista> listarTurista (){
         
         List<Turista> listaTuristas = new ArrayList<>();
         
         try{
-        String sql = "SELECT * FROM turistas ORDER BY idTurista ASC, documento ASC, fullName ASC, edad ASC ";
+        String sql = "SELECT * FROM turistas ORDER BY fullName ASC, edad ASC ";
         
         PreparedStatement ps = con.prepareStatement(sql);
                ResultSet rs = ps.executeQuery();
@@ -209,7 +184,7 @@ public class TuristaData {
                      "LEFT JOIN paquetesturistas pt ON t.idTurista = pt.idTurista " +
                      "GROUP BY t.idTurista " +
                      "HAVING cantidadPaquetes > 0 " + // filtra solo turistas que tienen al menos 1 paquete
-                     "ORDER BY t.idTurista ASC";
+                     "ORDER BY cantidadPaquetes Desc";
         
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
@@ -231,51 +206,29 @@ public class TuristaData {
     return listaTuristas;
 }
     
-        public void eliminarTurista(int idTurista){
-        
-       String sql = "DELETE FROM turistas WHERE idTurista=?";
+    public String eliminarTurista(int idTurista) {
+        String resultado = "";
 
         try {
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, idTurista);
+            String sql = "{ CALL EliminarTurista(?) }"; 
+            CallableStatement stmt = con.prepareCall(sql);
+            stmt.setInt(1, idTurista);
 
-        int exito = ps.executeUpdate();
+            ResultSet rs = stmt.executeQuery();
 
-        if (exito == 1) {
-            JOptionPane.showMessageDialog(null, "¡Turista eliminado correctamente!");
-        }else {
-            JOptionPane.showMessageDialog(null, "No se encontró el Turista con el ID especificado.");
+            if (rs.next()) {
+                resultado = rs.getString("Resultado");
+            }
+
+            rs.close();
+            stmt.close();
+
+        } catch (SQLException e) {
+            System.out.println("Error al intentar eliminar el turista: " + e.getMessage());
         }
 
-        ps.close();
+        return resultado;
+    }
 
-      }catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar el Regimen: " + ex.getMessage());
-       }
-    }
-    
-    /*public List<Turista> listarTuristaDesc (){                                            HAY QUE REVISAR ESTE METODO
-    
-    List<Turista> listaTuristas = new ArrayList<>();
-    
-    try{
-    String sql = "SELECT * FROM turistas ORDER BY idTurista DESC, fullName DESC, edad DESC ";
-    
-    PreparedStatement ps = con.prepareStatement(sql);
-    ResultSet rs = ps.executeQuery();
-    
-    while (rs.next()) {
-    Turista turista = new Turista();
-    turista.setIdTurista(rs.getInt("idTurista"));
-    turista.setFullName(rs.getString("fullName"));
-    turista.setEdad(rs.getInt("edad"));
-    
-    listaTuristas.add(turista); // Agregar el turista a la lista
-    }
-    }catch (SQLException ex) {
-    JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Paquetes " + ex.getMessage());
-    }
-    
-    return listaTuristas;
-*/}
+}
 
